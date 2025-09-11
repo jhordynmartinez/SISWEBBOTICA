@@ -1,0 +1,106 @@
+﻿# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio 2019 cache/options directory
+.vs/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+Generated_files/
+
+# Chutzpah Test files
+_Chutzpah*
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio Trace Files
+*.e2e
+
+# Packaging files
+*.nuget.props
+*.nuget.targets
+
+# Covers C# project files
+*.csproj.user
+
+# Mac files
+*.DS_Store
+
+# Code coverage reports
+*.coverage
+*.coveragexml
+
+# C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.sdf
+*.tlog
+*.log
+*.ilk
+*.exp
+*.pdb
+*.pgc
+*.pgd
+*.meta
+*.tfs
+*.vspscc
+
+# ReSharper is a control freak!
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# JustCode
+.JustCode
+
+# TeamCity is a control freak too
+_TeamCity*
+
+# DotCover is not better
+*.dotCover
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# Lock file for Nuget
+project.lock.json
+packages.lock.json
+
+# Tell git to ignore this file to avoid conflicts on merge
+.gitattributes
