@@ -1,18 +1,39 @@
+锘縰sing Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SISWEBBOTICA.Data;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-// 1. Obtener la cadena de conexi髇 desde appsettings.json
+// 1. Obtener la cadena de conexi贸n desde appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("CadenaSQL");
 
 // 2. Registrar el AppDBContext con el proveedor de SQL Server
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(connectionString));
+// Autenticaci贸n por Cookies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Cuenta/Login";
+        options.AccessDeniedPath = "/Cuenta/AccesoDenegado"; // aseg煤rate de tener esa vista
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = true;
+    });
 
-// --- FIN DEL C覦IGO A AGREGAR ---
+
+//
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de inactividad de la sesi贸n
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true; // Hace que la sesi贸n sea esencial para la funcionalidad
+});
+//
+
+// --- FIN DEL C脫DIGO A AGREGAR ---
 
 var app = builder.Build();
 
@@ -23,12 +44,17 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
+app.UseSession();
+
+
 app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseAuthentication();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Cuenta}/{action=Login}/{id?}");
 
 app.Run();

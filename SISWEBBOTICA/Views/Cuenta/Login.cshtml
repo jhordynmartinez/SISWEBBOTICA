@@ -1,0 +1,44 @@
+﻿@model SISWEBBOTICA.ViewModels.LoginVM
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<link rel="stylesheet" href="~/css/Estilo_Inicio_pagina..css" />
+
+<div class="login-wrapper">
+    <!-- Columna izquierda: logo -->
+    <div class="login-left">
+        <img src="~/img/logo.png" alt="Logo de la botica" />
+    </div>
+
+    <!-- Columna derecha: formulario -->
+    <div class="login-right">
+        <div class="form-container">
+            <h2>Iniciar Sesión</h2>
+
+            <form asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label asp-for="EmailOrUsername" class="form-label">Correo</label>
+                    <input asp-for="EmailOrUsername" class="form-control" />
+                    <span asp-validation-for="EmailOrUsername" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Contraseña</label>
+                    <input asp-for="Password" class="form-control" type="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+                <a asp-action="Registro" class="btn btn-link">¿No tienes cuenta? Regístrate</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
