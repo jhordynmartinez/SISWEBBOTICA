@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SISWEBBOTICA.Models
 {
-    public class Usuario
+    // Hereda de IdentityUser con una clave de tipo int
+    public class Usuario : IdentityUser<int>
     {
         public Usuario()
         {
@@ -15,24 +17,13 @@ namespace SISWEBBOTICA.Models
             this.IngresosSalidas = new HashSet<IngresoSalida>();
         }
 
-        [Key]
-        public int IdUsuario { get; set; }
-
-        [Required]
-        public int IdTipoUsuario { get; set; }
-
-        [StringLength(12)]
-        public string? Dni { get; set; }
-
+        // Propiedades personalizadas que no están en IdentityUser
         [Required]
         [StringLength(50)]
         public string Nombre { get; set; }
 
         [StringLength(50)]
         public string? Apellido { get; set; }
-
-        [StringLength(20)]
-        public string? Celular { get; set; }
 
         [StringLength(255)]
         public string? Direccion { get; set; }
@@ -41,24 +32,9 @@ namespace SISWEBBOTICA.Models
         [StringLength(20)]
         public string Estado { get; set; }
 
-        [Required]
-        [StringLength(30)]
-        public string Login { get; set; }
-
-        [Required]
-        [StringLength(255)]
-        public string Contrasena { get; set; }
-
-        [StringLength(255)]
-        public string? PreguntaSeguridad { get; set; }
-
-        [StringLength(255)]
-        public string? RespuestaSeguridad { get; set; }
-
         public DateTime FechaRegistro { get; set; }
 
-        [ForeignKey("IdTipoUsuario")]
-        public virtual TipoUsuario TipoUsuario { get; set; }
+        // Propiedades de Navegación
         public virtual ICollection<Venta> Ventas { get; set; }
         public virtual ICollection<Compra> Compras { get; set; }
         public virtual ICollection<Gasto> Gastos { get; set; }

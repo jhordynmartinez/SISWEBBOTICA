@@ -27,6 +27,19 @@
                         </li>
                     </ul>
                 </div>
+                @using Microsoft.AspNetCore.Identity
+                @inject SignInManager<Usuario> SignInManager
+
+                ...
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item">
+                        <form class="form-inline" asp-controller="Cuenta" asp-action="Logout" method="post">
+                            <button type="submit" class="nav-link btn btn-link text-dark">Cerrar Sesión</button>
+                        </form>
+                    </li>
+                }
             </div>
         </nav>
     </header>

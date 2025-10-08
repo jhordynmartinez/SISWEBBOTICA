@@ -1,22 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace SISWEBBOTICA.Models
 {
-    public class TipoUsuario
+    // Hereda de IdentityRole con una clave de tipo int
+    public class TipoUsuario : IdentityRole<int>
     {
-        public TipoUsuario()
-        {
-            this.Usuarios = new HashSet<Usuario>();
-        }
+        public TipoUsuario() { }
 
-        [Key]
-        public int IdTipoUsuario { get; set; }
+        public TipoUsuario(string roleName) : base(roleName) { }
 
-        [Required]
-        [StringLength(50)]
-        public string Descripcion { get; set; }
-
-        public virtual ICollection<Usuario> Usuarios { get; set; }
+        // Puedes agregar propiedades personalizadas si las necesitas
+        [StringLength(100)]
+        public string? Descripcion { get; set; }
     }
 }

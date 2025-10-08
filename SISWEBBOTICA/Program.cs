@@ -1,39 +1,48 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SISWEBBOTICA.Data;
-using System;
+using SISWEBBOTICA.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-// 1. Obtener la cadena de conexión desde appsettings.json
-var connectionString = builder.Configuration.GetConnectionString("CadenaSQL");
 
-// 2. Registrar el AppDBContext con el proveedor de SQL Server
+var connectionString = builder.Configuration.GetConnectionString("CadenaSQL");
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(connectionString));
-// Autenticación por Cookies
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Cuenta/Login";
-        options.AccessDeniedPath = "/Cuenta/AccesoDenegado"; // asegúrate de tener esa vista
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-        options.SlidingExpiration = true;
-    });
 
+// --- INICIO DE LA CONFIGURACIÓN DE IDENTITY (REEMPLAZA TU CONFIGURACIÓN DE COOKIES) ---
 
-//
+builder.Services.AddIdentity<Usuario, TipoUsuario>(options => {
+    // Configuración de contraseña (opcional pero recomendado)
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 4;
+    options.Password.RequiredUniqueChars = 1;
+})
+.AddEntityFrameworkStores<AppDBContext>()
+.AddDefaultTokenProviders();
+
+// Configuración de la cookie de autenticación
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Cuenta/Login";
+    options.AccessDeniedPath = "/Cuenta/AccesoDenegado";
+    options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+});
+
+// --- FIN DE LA CONFIGURACIÓN DE IDENTITY ---
+
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de inactividad de la sesión
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true; // Hace que la sesión sea esencial para la funcionalidad
+    options.Cookie.IsEssential = true;
 });
-//
-
-// --- FIN DEL CÓDIGO A AGREGAR ---
 
 var app = builder.Build();
 
@@ -46,12 +55,11 @@ app.UseStaticFiles();
 
 app.UseSession();
 
-
 app.UseRouting();
 
-app.UseAuthorization();
-
+// Es importante que la autenticación y autorización estén en este orden
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

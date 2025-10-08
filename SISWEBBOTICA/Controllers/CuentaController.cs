@@ -1,159 +1,156 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SISWEBBOTICA.Data;
 using SISWEBBOTICA.Models;
-using SISWEBBOTICA.ViewModels;
-using System.Security.Claims;
-using BCrypt.Net;
-
-
+using SISWEBBOTICA.ViewModels; // Asegúrate que LoginVM y RegistroVM estén aquí
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SISWEBBOTICA.Controllers
 {
     [AllowAnonymous]
     public class CuentaController : Controller
     {
-        private readonly AppDBContext _context;
+        private readonly UserManager<Usuario> _userManager;
+        private readonly SignInManager<Usuario> _signInManager;
+        private readonly RoleManager<TipoUsuario> _roleManager;
 
-        public CuentaController(AppDBContext context)
+        public CuentaController(UserManager<Usuario> userManager, SignInManager<Usuario> signInManager, RoleManager<TipoUsuario> roleManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
-       // GET: /Cuenta/Login
-        public IActionResult Login()
+        // GET: /Cuenta/Login
+        public IActionResult Login(string returnUrl = null)
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         // POST: /Cuenta/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginVM model)
+        public async Task<IActionResult> Login(LoginVM model, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var usuario = await _context.Usuarios
-                    .Include(u => u.TipoUsuario)
-                    .FirstOrDefaultAsync(u => u.Login == model.EmailOrUsername);
+                // El método PasswordSignInAsync se encarga de todo: busca el usuario, hashea la contraseña y la compara.
+                var result = await _signInManager.PasswordSignInAsync(model.EmailOrUsername, model.Password, isPersistent: true, lockoutOnFailure: false);
 
-                if (usuario == null || !BCrypt.Net.BCrypt.Verify(model.Password, usuario.Contrasena))
+                if (result.Succeeded)
                 {
-                    ModelState.AddModelError(string.Empty, "Credenciales inválidas.");
+                    // Si hay una URL de retorno, redirige allí, si no, a Home/Index.
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Intento de inicio de sesión no válido.");
                     return View(model);
                 }
-
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
-                    new Claim(ClaimTypes.Name, usuario.Nombre),
-                    new Claim("Login", usuario.Login),
-                    new Claim(ClaimTypes.Role, usuario.TipoUsuario.Descripcion)
-                };
-
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-
-                var authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = true,
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
-                };
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
-                return RedirectToAction("Index", "Home");
             }
-
             return View(model);
         }
-        // GET: /Cuenta/Registro
-        public IActionResult Registro()
-        {
-            // Verificar si ya existe un Administrador
-            var adminExistente = _context.Usuarios
-                .Include(u => u.TipoUsuario)
-                .Any(u => u.TipoUsuario.Descripcion == "Administrador");
 
+        // GET: /Cuenta/Registro
+        public async Task<IActionResult> Registro()
+        {
+            // Crear roles si no existen
+            if (!await _roleManager.RoleExistsAsync("Administrador"))
+            {
+                await _roleManager.CreateAsync(new TipoUsuario("Administrador"));
+            }
+            if (!await _roleManager.RoleExistsAsync("Vendedor"))
+            {
+                await _roleManager.CreateAsync(new TipoUsuario("Vendedor"));
+            }
+
+            var adminExistente = (await _userManager.GetUsersInRoleAsync("Administrador")).Any();
             ViewBag.PermitirAdmin = !adminExistente;
-            ViewBag.TiposUsuario = _context.TiposUsuario.ToList();
+
+            var roles = await _roleManager.Roles.ToListAsync();
+            ViewBag.TiposUsuario = new SelectList(roles, "Name", "Name");
             return View();
         }
 
         // POST: /Cuenta/Registro
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Registro(RegistroVM model)
+        public async Task<IActionResult> Registro(RegistroVM model)
         {
-            var adminExistente = _context.Usuarios
-                .Include(u => u.TipoUsuario)
-                .Any(u => u.TipoUsuario.Descripcion == "Administrador");
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ViewBag.PermitirAdmin = !adminExistente;
-                ViewBag.TiposUsuario = _context.TiposUsuario.ToList();
-                return View(model);
-            }
-
-            // Evitar más de un administrador
-            if (model.IdTipoUsuario != 0)
-            {
-                var tipoUsuario = _context.TiposUsuario
-                    .FirstOrDefault(t => t.IdTipoUsuario == model.IdTipoUsuario);
-
-                if (tipoUsuario == null)
+                var adminExistente = (await _userManager.GetUsersInRoleAsync("Administrador")).Any();
+                if (model.RolSeleccionado == "Administrador" && adminExistente)
                 {
-                    ModelState.AddModelError("IdTipoUsuario", "Tipo de usuario inválido.");
-                    ViewBag.PermitirAdmin = !adminExistente;
-                    ViewBag.TiposUsuario = _context.TiposUsuario.ToList();
-                    return View(model);
+                    ModelState.AddModelError(string.Empty, "Ya existe un administrador en el sistema.");
                 }
-
-                if (tipoUsuario.Descripcion == "Administrador" && adminExistente)
+                else
                 {
-                    ModelState.AddModelError("IdTipoUsuario", "Ya existe un administrador registrado.");
-                    ViewBag.PermitirAdmin = false;
-                    ViewBag.TiposUsuario = _context.TiposUsuario.ToList();
-                    return View(model);
+                    var usuario = new Usuario
+                    {
+                        UserName = model.Login,
+                        Email = model.Login,
+                        Nombre = model.Nombre,
+                        Estado = "Activo",
+                        FechaRegistro = DateTime.Now
+                    };
+
+                    // CreateAsync se encarga de hashear la contraseña
+                    var result = await _userManager.CreateAsync(usuario, model.Contrasena);
+
+                    if (result.Succeeded)
+                    {
+                        // Asignar el rol al nuevo usuario
+                        await _userManager.AddToRoleAsync(usuario, model.RolSeleccionado);
+                        return RedirectToAction("Login", "Cuenta");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
 
-            // Validar que el correo no exista
-            if (_context.Usuarios.Any(u => u.Login == model.Login))
-            {
-                ModelState.AddModelError("Correo", "Este correo ya está registrado.");
-                ViewBag.PermitirAdmin = !adminExistente;
-                ViewBag.TiposUsuario = _context.TiposUsuario.ToList();
-                return View(model);
-            }
-
-            // Crear usuario
-            var nuevo = new Usuario
-            {
-                Nombre = model.Nombre,
-                Login = model.Login, // correo como login
-                Contrasena = BCrypt.Net.BCrypt.HashPassword(model.Contrasena),
-                Estado = "Activo",
-                IdTipoUsuario = model.IdTipoUsuario,
-                FechaRegistro = DateTime.Now
-            };
-
-            _context.Usuarios.Add(nuevo);
-            _context.SaveChanges();
-
-            return RedirectToAction("Login");
+            // Si algo falla, recargamos la data para la vista
+            var adminCheck = (await _userManager.GetUsersInRoleAsync("Administrador")).Any();
+            ViewBag.PermitirAdmin = !adminCheck;
+            var roles = await _roleManager.Roles.ToListAsync();
+            ViewBag.TiposUsuario = new SelectList(roles, "Name", "Name", model.RolSeleccionado);
+            return View(model);
         }
 
-        [AllowAnonymous]
-        [Route("Cuenta/AccessDenied")]
-        public IActionResult AccessDenied()
+        // POST: /Cuenta/Logout
+        [HttpPost]
+        [Authorize] // Solo usuarios logueados pueden cerrar sesión
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Cuenta");
+        }
+
+        // GET: /Cuenta/AccesoDenegado
+        public IActionResult AccesoDenegado()
         {
             return View();
         }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+        }
     }
 }
-
