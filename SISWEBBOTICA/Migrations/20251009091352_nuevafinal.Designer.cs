@@ -12,8 +12,8 @@ using SISWEBBOTICA.Data;
 namespace SISWEBBOTICA.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20251009050503_AgregarConfiguracionStockNegativo")]
-    partial class AgregarConfiguracionStockNegativo
+    [Migration("20251009091352_nuevafinal")]
+    partial class nuevafinal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -687,6 +687,10 @@ namespace SISWEBBOTICA.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("Lote")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -701,11 +705,27 @@ namespace SISWEBBOTICA.Migrations
                     b.Property<decimal>("PrecioMenor")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<string>("Presentacion")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("PrincipioActivo")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("RegistroSanitario")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<decimal>("Stock")
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<decimal>("StockMinimo")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Ubicacion")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.HasKey("IdProducto");
 

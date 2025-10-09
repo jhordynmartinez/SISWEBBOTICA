@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SISWEBBOTICA.Migrations
 {
     /// <inheritdoc />
-    public partial class ImplementacionIdentity : Migration
+    public partial class nuevafinal : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,8 @@ namespace SISWEBBOTICA.Migrations
                     Ruc = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Celular = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Direccion = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                    Direccion = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    PermitirStockNegativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -258,6 +259,11 @@ namespace SISWEBBOTICA.Migrations
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CodigoBarras = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Laboratorio = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    RegistroSanitario = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    PrincipioActivo = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Presentacion = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Lote = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
+                    Ubicacion = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     PrecioCompra = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PrecioMenor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PrecioMayor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
