@@ -25,6 +25,7 @@ namespace SISWEBBOTICA.Controllers
             _userManager = userManager;
         }
 
+        // GET: /Venta/Crear
         public async Task<IActionResult> Crear()
         {
             var viewModel = new VentaVM();
@@ -32,6 +33,7 @@ namespace SISWEBBOTICA.Controllers
             return View(viewModel);
         }
 
+        // POST: /Venta/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Crear(VentaVM model)
@@ -65,6 +67,7 @@ namespace SISWEBBOTICA.Controllers
                         {
                             var nombreProducto = producto?.Nombre ?? "desconocido";
                             ModelState.AddModelError("", $"Stock insuficiente para '{nombreProducto}'. Disponible: {producto?.Stock ?? 0}");
+
                             await RecargarDatosParaVista(model);
                             return View(model);
                         }
@@ -73,21 +76,19 @@ namespace SISWEBBOTICA.Controllers
                     var usuarioActual = await _userManager.GetUserAsync(User);
                     var clienteDefault = await _context.Clientes.FirstOrDefaultAsync(c => c.Nombre == "PÚBLICO GENERAL");
 
-                    // --- INICIO DE CORRECCIÓN DE SEGURIDAD ---
                     if (clienteDefault == null && model.IdCliente == null)
                     {
-                        ModelState.AddModelError("", "No se encontró el cliente 'PÚBLICO GENERAL'. Por favor, créelo o contacte al administrador.");
+                        ModelState.AddModelError("", "No se encontró el cliente 'PÚBLICO GENERAL'.");
                         await RecargarDatosParaVista(model);
                         return View(model);
                     }
                     var monedaDefault = await _context.Monedas.FirstOrDefaultAsync();
                     if (monedaDefault == null)
                     {
-                        ModelState.AddModelError("", "No hay ninguna moneda configurada en el sistema.");
+                        ModelState.AddModelError("", "No hay ninguna moneda configurada.");
                         await RecargarDatosParaVista(model);
                         return View(model);
                     }
-                    // --- FIN DE CORRECCIÓN DE SEGURIDAD ---
 
                     var venta = new Venta
                     {
@@ -135,18 +136,51 @@ namespace SISWEBBOTICA.Controllers
                     await transaction.CommitAsync();
 
                     TempData["SuccessMessage"] = $"Venta N° {venta.IdVenta} registrada correctamente.";
-                    return RedirectToAction("Crear");
+                    return RedirectToAction("Boleta", new { id = venta.IdVenta });
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    System.Diagnostics.Debug.WriteLine(ex.ToString()); // Para depurar
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
                     ModelState.AddModelError("", "Ocurrió un error inesperado al registrar la venta. Revise la consola de depuración para más detalles.");
+
                     await RecargarDatosParaVista(model);
                     return View(model);
                 }
             }
         }
+
+        // GET: /Venta/Boleta/5
+        public async Task<IActionResult> Boleta(int id)
+        {
+            var venta = await _context.Ventas
+                .Include(v => v.Cliente)
+                .Include(v => v.Usuario)
+                .FirstOrDefaultAsync(v => v.IdVenta == id);
+
+            if (venta == null)
+            {
+                return NotFound();
+            }
+
+            var detalles = await _context.DetallesVenta
+                .Include(d => d.Producto)
+                .Where(d => d.IdVenta == id)
+                .ToListAsync();
+
+            var tienda = await _context.Boticas.FirstOrDefaultAsync();
+
+            var viewModel = new BoletaVM
+            {
+                Venta = venta,
+                Detalles = detalles,
+                Tienda = tienda
+            };
+
+            return View(viewModel);
+        }
+
+        // --- INICIO DEL CÓDIGO RESTAURADO ---
 
         [HttpGet]
         public async Task<IActionResult> BuscarProductos(string term)
@@ -183,6 +217,20 @@ namespace SISWEBBOTICA.Controllers
         {
             var ultimaVentaId = await _context.Ventas.MaxAsync(v => (int?)v.IdVenta) ?? 0;
             return $"B001-{(ultimaVentaId + 1).ToString("D8")}";
+        }
+
+
+        // --- FIN DEL CÓDIGO RESTAURADO ---
+
+        // GET: /Venta
+        public async Task<IActionResult> Index()
+        {
+            var ventas = await _context.Ventas
+                .Include(v => v.Cliente)
+                .Include(v => v.Usuario)
+                .OrderByDescending(v => v.FechaVenta)
+                .ToListAsync();
+            return View(ventas);
         }
     }
 }

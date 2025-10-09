@@ -27,10 +27,11 @@ namespace SISWEBBOTICA.Controllers
         }
 
         // GET: /Categoria/Create
-        // Muestra el formulario para crear una nueva categoría. Accesible para Admin y Vendedor.
+        // Muestra el formulario para crear una nueva categoría.
         public IActionResult Create()
         {
-            return View();
+            // Pasa un objeto Categoria nuevo y vacío a la vista para evitar NullReferenceException.
+            return View(new Categoria());
         }
 
         // POST: /Categoria/Create
@@ -45,6 +46,7 @@ namespace SISWEBBOTICA.Controllers
                 TempData["SuccessMessage"] = "Categoría creada exitosamente.";
                 return RedirectToAction(nameof(Index));
             }
+            // Si la validación falla, devuelve la vista con el modelo que ya contiene los datos y los errores.
             return View(categoria);
         }
 

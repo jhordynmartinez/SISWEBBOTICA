@@ -1,7 +1,11 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Usuario> SignInManager
+@inject UserManager<Usuario> UserManager
+
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-g" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SISWEBBOTICA</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -19,34 +23,62 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Venta" asp-action="Crear">Nueva Venta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categoria" asp-action="Index">Categorías</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="Index">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UnidadMedida" asp-action="Index">Unidades de Medida</a>
-                        </li>
-                    </ul>
+
+                    <!-- --- INICIO DE LA CORRECCIÓN --- -->
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Venta" asp-action="Crear">Nueva Venta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Producto" asp-action="Index">Productos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categoria" asp-action="Index">Categorías</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="UnidadMedida" asp-action="Index">Unidades de Medida</a>
+                            </li>
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Configuracion" asp-action="Index">Configuración</a>
+                                </li>
+                            }
+                        </ul>
+
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <span class="navbar-text me-3">Hola, @User.Identity?.Name!</span>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline" asp-controller="Cuenta" asp-action="Logout" method="post">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">Cerrar Sesión</button>
+                                </form>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <!-- No mostrar nada en el menú principal si no está logueado -->
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cuenta" asp-action="Registro">Regístrate</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cuenta" asp-action="Login">Iniciar Sesión</a>
+                            </li>
+                        </ul>
+                    }
+                    <!-- --- FIN DE LA CORRECCIÓN --- -->
+
                 </div>
-                @using Microsoft.AspNetCore.Identity
-                @inject SignInManager<Usuario> SignInManager
-
-                ...
-
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <li class="nav-item">
-                        <form class="form-inline" asp-controller="Cuenta" asp-action="Logout" method="post">
-                            <button type="submit" class="nav-link btn btn-link text-dark">Cerrar Sesión</button>
-                        </form>
-                    </li>
-                }
             </div>
         </nav>
     </header>
@@ -61,10 +93,10 @@
             &copy; 2025 - SISWEBBOTICA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-

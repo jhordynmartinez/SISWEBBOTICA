@@ -1,8 +1,192 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model SISWEBBOTICA.ViewModels.DashboardVM
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .card-metric {
+        border-left: 5px solid;
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+        color: inherit;
+    }
+
+        .card-metric:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: inherit;
+        }
+
+    .border-primary {
+        border-left-color: #0d6efd !important;
+    }
+
+    .border-success {
+        border-left-color: #198754 !important;
+    }
+
+    .border-info {
+        border-left-color: #0dcaf0 !important;
+    }
+
+    .border-secondary {
+        border-left-color: #6c757d !important;
+    }
+
+    .list-group-item .badge {
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="container-fluid mt-4">
+    <h1 class="h3 mb-4 text-gray-800">@ViewData["Title"]</h1>
+
+    <!-- Fila de Métricas Principales (Visible para todos) -->
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a asp-controller="Venta" asp-action="Index" class="card card-metric border-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs fw-bold text-primary text-uppercase mb-1">Ventas de Hoy</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.VentasHoy.ToString("C")</div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a asp-controller="Venta" asp-action="Index" class="card card-metric border-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs fw-bold text-success text-uppercase mb-1">N° de Ventas Hoy</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.NumeroVentasHoy</div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-receipt fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a asp-controller="Producto" asp-action="Index" class="card card-metric border-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs fw-bold text-info text-uppercase mb-1">Total de Productos</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.TotalProductos</div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-pills fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a asp-controller="Cliente" asp-action="Index" class="card card-metric border-secondary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs fw-bold text-secondary text-uppercase mb-1">Total de Clientes</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">@Model.TotalClientes</div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- --- INICIO DEL BLOQUE RESTAURADO Y MEJORADO --- -->
+    <!-- Fila de Alertas y Tops (Visible SOLO para Administrador) -->
+    @if (User.IsInRole("Administrador"))
+    {
+        <div class="row mt-4">
+            <!-- Productos con Bajo Stock -->
+            <div class="col-lg-4 mb-4">
+                <a asp-controller="Producto" asp-action="Index" class="card shadow text-decoration-none">
+                    <div class="card-header bg-warning text-white">
+                        <h6 class="m-0 fw-bold"><i class="fas fa-exclamation-triangle me-2"></i>Productos con Bajo Stock</h6>
+                    </div>
+                    <div class="card-body text-dark">
+                        @if (Model.ProductosBajoStock.Any())
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var item in Model.ProductosBajoStock)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        @item.Nombre
+                                        <span class="badge bg-danger rounded-pill">@item.Stock</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-center text-muted my-4">¡Todo en orden! No hay productos con stock bajo.</p>
+                        }
+                    </div>
+                </a>
+            </div>
+
+            <!-- Productos Próximos a Vencer -->
+            <div class="col-lg-4 mb-4">
+                <a asp-controller="Producto" asp-action="Index" class="card shadow text-decoration-none">
+                    <div class="card-header bg-danger text-white">
+                        <h6 class="m-0 fw-bold"><i class="fas fa-calendar-times me-2"></i>Productos Próximos a Vencer</h6>
+                    </div>
+                    <div class="card-body text-dark">
+                        @if (Model.ProductosProximosAVencer.Any())
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var item in Model.ProductosProximosAVencer)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>@item.Nombre</span>
+                                        <span class="badge bg-warning text-dark rounded-pill">@item.FechaVencimiento?.ToString("dd/MM/yy")</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-center text-muted my-4">No hay productos por vencer en los próximos 30 días.</p>
+                        }
+                    </div>
+                </a>
+            </div>
+
+            <!-- Top Productos Vendidos -->
+            <div class="col-lg-4 mb-4">
+                <a asp-controller="Venta" asp-action="Index" class="card shadow text-decoration-none">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="m-0 fw-bold"><i class="fas fa-star me-2"></i>Top 5 Productos Vendidos</h6>
+                    </div>
+                    <div class="card-body text-dark">
+                        @if (Model.TopProductosVendidos.Any())
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var item in Model.TopProductosVendidos)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        @item.Key
+                                        <span class="badge bg-info text-dark rounded-pill">@item.Value Uni.</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-center text-muted my-4">Aún no hay datos de ventas suficientes.</p>
+                        }
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+    <!-- --- FIN DEL BLOQUE RESTAURADO Y MEJORADO --- -->
 </div>

@@ -1,56 +1,31 @@
-﻿@model SISWEBBOTICA.ViewModels.ProductoVM
+﻿@model SISWEBBOTICA.Models.Categoria
 
 @{
-    ViewData["Title"] = "Crear Producto";
+    ViewData["Title"] = "Crear Categoría";
 }
 
 <div class="container mt-4">
     <h1>@ViewData["Title"]</h1>
+    <p>Agregue una nueva categoría para organizar sus productos.</p>
     <hr />
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <form asp-action="Create">
-                <div asp-validation-summary="All" class="text-danger"></div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Producto.Nombre" class="form-label"></label>
-                        <input asp-for="Producto.Nombre" class="form-control" />
-                        <span asp-validation-for="Producto.Nombre" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Producto.CodigoBarras" class="form-label"></label>
-                        <input asp-for="Producto.CodigoBarras" class="form-control" />
-                        <span asp-validation-for="Producto.CodigoBarras" class="text-danger"></span>
-                    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label"></label>
+                            <input asp-for="Nombre" class="form-control" placeholder="Ej: Jarabes, Tabletas, etc." />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
                 </div>
-
-                <!-- ... (resto de los campos del formulario usando el prefijo "Producto.") -->
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Producto.IdCategoria" class="form-label"></label>
-                        <select asp-for="Producto.IdCategoria" class="form-select" asp-items="Model.CategoriasList">
-                            <option value="">-- Seleccione Categoría --</option>
-                        </select>
-                        <span asp-validation-for="Producto.IdCategoria" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Producto.IdUnidadMedida" class="form-label"></label>
-                        <select asp-for="Producto.IdUnidadMedida" class="form-select" asp-items="Model.UnidadesMedidaList">
-                            <option value="">-- Seleccione Unidad --</option>
-                        </select>
-                        <span asp-validation-for="Producto.IdUnidadMedida" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <!-- ... (todos los demás campos) ... -->
-
-                <div class="form-group mt-3">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar Producto</button>
-                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

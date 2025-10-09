@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SISWEBBOTICA.Models.Venta>
+
+@{
+    ViewData["Title"] = "Historial de Ventas";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Venta</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Vendedor</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.IdVenta)</td>
+                <td>@item.FechaVenta.ToString("g")</td>
+                <td>@Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Usuario.Nombre)</td>
+                <td>@item.TotalPagar.ToString("C")</td>
+                <td>
+                    <a asp-action="Boleta" asp-route-id="@item.IdVenta" class="btn btn-info btn-sm">Ver Boleta</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

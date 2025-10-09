@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation; // <-- ¡Añade este using!
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
 
 namespace SISWEBBOTICA.Models
 {
@@ -61,40 +63,44 @@ namespace SISWEBBOTICA.Models
 
         [Required(ErrorMessage = "El precio de compra es obligatorio.")]
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(0, double.MaxValue, ErrorMessage = "El precio de compra no puede ser negativo.")]
         [Display(Name = "Precio de Compra")]
         public decimal PrecioCompra { get; set; }
 
         [Required(ErrorMessage = "El precio al por menor es obligatorio.")]
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(0, double.MaxValue, ErrorMessage = "El precio al por menor no puede ser negativo.")]
         [Display(Name = "Precio al por Menor")]
         public decimal PrecioMenor { get; set; }
 
         [Required(ErrorMessage = "El precio al por mayor es obligatorio.")]
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(0, double.MaxValue, ErrorMessage = "El precio al por mayor no puede ser negativo.")]
         [Display(Name = "Precio al por Mayor")]
         public decimal PrecioMayor { get; set; }
 
         [Required(ErrorMessage = "El stock inicial es obligatorio.")]
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(0, double.MaxValue, ErrorMessage = "El stock no puede ser un número negativo.")]
+        [Display(Name = "Stock")]
         public decimal Stock { get; set; }
 
         [Required(ErrorMessage = "El stock mínimo es obligatorio.")]
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(0, double.MaxValue, ErrorMessage = "El stock mínimo no puede ser un número negativo.")]
         [Display(Name = "Stock Mínimo")]
         public decimal StockMinimo { get; set; }
 
         [Display(Name = "Fecha de Vencimiento")]
         public DateTime? FechaVencimiento { get; set; }
 
-        // --- INICIO DE LA CORRECCIÓN CLAVE ---
         [ForeignKey("IdCategoria")]
-        [ValidateNever] // <-- AÑADIR ESTE ATRIBUTO
+        [ValidateNever]
         public virtual Categoria Categoria { get; set; }
 
         [ForeignKey("IdUnidadMedida")]
-        [ValidateNever] // <-- AÑADIR ESTE ATRIBUTO
+        [ValidateNever]
         public virtual UnidadMedida UnidadMedida { get; set; }
-        // --- FIN DE LA CORRECCIÓN CLAVE ---
 
         public virtual ICollection<DetalleVenta> DetallesVenta { get; set; }
         public virtual ICollection<DetalleCompra> DetallesCompra { get; set; }

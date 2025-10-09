@@ -1,0 +1,110 @@
+﻿@model SISWEBBOTICA.ViewModels.BoletaVM
+
+@{
+    ViewData["Title"] = "Boleta de Venta";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Opcional, puedes usar un layout más simple para impresión
+
+    // Cálculos
+    var total = Model.Venta.TotalPagar;
+    var subtotal = total / 1.18m;
+    var igv = total - subtotal;
+}
+
+<style>
+    .boleta-container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    .boleta-header, .boleta-footer {
+        text-align: center;
+    }
+    .boleta-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .boleta-table th, .boleta-table td {
+        border-bottom: 1px dashed #ccc;
+        padding: 8px;
+    }
+    .text-right { text-align: right; }
+
+    @@media print {
+        body * {
+            visibility: hidden;
+        }
+        .boleta-container, .boleta-container * {
+            visibility: visible;
+        }
+        .boleta-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+        .no-print {
+            display: none;
+        }
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="boleta-container bg-white">
+        <div class="boleta-header">
+            <h4>@Model.Tienda?.Nombre</h4>
+            <p>RUC: @Model.Tienda?.Ruc</p>
+            <p>@Model.Tienda?.Direccion</p>
+            <hr />
+            <h5>BOLETA DE VENTA ELECTRÓNICA</h5>
+            <h6>@Model.Venta.NumeroComprobante</h6>
+        </div>
+
+        <div class="boleta-info mt-4">
+            <p><strong>Fecha:</strong> @Model.Venta.FechaVenta.ToString("dd/MM/yyyy HH:mm")</p>
+            <p><strong>Cliente:</strong> @Model.Venta.Cliente.Nombre @Model.Venta.Cliente.Apellido</p>
+            <p><strong>DNI/RUC:</strong> @Model.Venta.Cliente.RucDni</p>
+            <p><strong>Vendedor:</strong> @Model.Venta.Usuario.Nombre</p>
+        </div>
+
+        <table class="boleta-table mt-4">
+            <thead>
+                <tr>
+                    <th>Cant.</th>
+                    <th>Descripción</th>
+                    <th class="text-right">P. Unit</th>
+                    <th class="text-right">Importe</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Detalles)
+                {
+                    <tr>
+                        <td>@item.Cantidad</td>
+                        <td>@item.Producto.Nombre</td>
+                        <td class="text-right">@item.Precio.ToString("N2")</td>
+                        <td class="text-right">@item.Importe.ToString("N2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="boleta-totales mt-4" style="float: right;">
+            <p><strong>Subtotal:</strong> S/ @subtotal.ToString("N2")</p>
+            <p><strong>IGV (18%):</strong> S/ @igv.ToString("N2")</p>
+            <h4><strong>TOTAL: S/ @total.ToString("N2")</strong></h4>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="boleta-footer mt-5">
+            <p>¡Gracias por su compra!</p>
+        </div>
+    </div>
+
+    <div class="text-center mt-4 no-print">
+        <a asp-action="Crear" class="btn btn-primary"><i class="fas fa-plus"></i> Nueva Venta</a>
+        <button onclick="window.print();" class="btn btn-success"><i class="fas fa-print"></i> Imprimir Boleta</button>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model SISWEBBOTICA.Models.Botica
+
+@{
+    ViewData["Title"] = "Configuración del Sistema";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h4>Datos de la Tienda y Reglas de Negocio</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Index">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="IdTienda" />
+
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Ruc" class="form-label"></label>
+                            <input asp-for="Ruc" class="form-control" />
+                            <span asp-validation-for="Ruc" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Direccion" class="form-label"></label>
+                            <input asp-for="Direccion" class="form-control" />
+                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                        </div>
+
+                        <hr />
+                        <h5>Reglas de Venta</h5>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" asp-for="PermitirStockNegativo">
+                            <label class="form-check-label" asp-for="PermitirStockNegativo">
+                                @Html.DisplayNameFor(model => model.PermitirStockNegativo)
+                                <small class="d-block text-muted">Si está activado, se podrán registrar ventas incluso si no hay stock (H3). Si está desactivado, se bloqueará la venta (H2).</small>
+                            </label>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar Configuración</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
