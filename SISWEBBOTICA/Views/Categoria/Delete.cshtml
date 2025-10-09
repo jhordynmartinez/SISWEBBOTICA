@@ -1,0 +1,29 @@
+﻿@model SISWEBBOTICA.Models.Categoria
+
+@{
+    ViewData["Title"] = "Eliminar Categoría";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <h3 class="text-danger">¿Está seguro de que desea eliminar esta categoría?</h3>
+    <hr />
+    <div class="card shadow-sm bg-light">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdCategoria" />
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</button> |
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>

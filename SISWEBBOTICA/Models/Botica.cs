@@ -29,6 +29,13 @@ namespace SISWEBBOTICA.Models
 
         [StringLength(255)]
         public string Direccion { get; set; }
+        // --- INICIO DE LA MODIFICACIÓN ---
+
+        [Required]
+        [Display(Name = "Permitir Ventas con Stock Negativo")]
+        public bool PermitirStockNegativo { get; set; } = false; // Por defecto, no se permite (H2)
+
+        // --- FIN DE LA MODIFICACIÓN ---
 
         public virtual ICollection<Cotizacion> Cotizaciones { get; set; }
     }

@@ -1,0 +1,118 @@
+﻿@model SISWEBBOTICA.ViewModels.ProductoVM
+
+@{
+    ViewData["Title"] = "Crear Producto";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Producto.Nombre" class="form-label"></label>
+                        <input asp-for="Producto.Nombre" class="form-control" />
+                        <span asp-validation-for="Producto.Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Producto.CodigoBarras" class="form-label"></label>
+                        <input asp-for="Producto.CodigoBarras" class="form-control" />
+                        <span asp-validation-for="Producto.CodigoBarras" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Producto.Descripcion" class="form-label"></label>
+                    <textarea asp-for="Producto.Descripcion" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="Producto.Descripcion" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Producto.IdCategoria" class="form-label"></label>
+                        <select asp-for="Producto.IdCategoria" class="form-select" asp-items="Model.CategoriasList">
+                            <option value="">-- Seleccione Categoría --</option>
+                        </select>
+                        <span asp-validation-for="Producto.IdCategoria" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Producto.IdUnidadMedida" class="form-label"></label>
+                        <select asp-for="Producto.IdUnidadMedida" class="form-select" asp-items="Model.UnidadesMedidaList">
+                            <option value="">-- Seleccione Unidad --</option>
+                        </select>
+                        <span asp-validation-for="Producto.IdUnidadMedida" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.Laboratorio" class="form-label"></label>
+                        <input asp-for="Producto.Laboratorio" class="form-control" />
+                        <span asp-validation-for="Producto.Laboratorio" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.Presentacion" class="form-label"></label>
+                        <input asp-for="Producto.Presentacion" class="form-control" />
+                        <span asp-validation-for="Producto.Presentacion" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.Ubicacion" class="form-label"></label>
+                        <input asp-for="Producto.Ubicacion" class="form-control" />
+                        <span asp-validation-for="Producto.Ubicacion" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.PrecioCompra" class="form-label"></label>
+                        <input asp-for="Producto.PrecioCompra" class="form-control" />
+                        <span asp-validation-for="Producto.PrecioCompra" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.PrecioMenor" class="form-label"></label>
+                        <input asp-for="Producto.PrecioMenor" class="form-control" />
+                        <span asp-validation-for="Producto.PrecioMenor" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.PrecioMayor" class="form-label"></label>
+                        <input asp-for="Producto.PrecioMayor" class="form-control" />
+                        <span asp-validation-for="Producto.PrecioMayor" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.Stock" class="form-label"></label>
+                        <input asp-for="Producto.Stock" class="form-control" />
+                        <span asp-validation-for="Producto.Stock" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.StockMinimo" class="form-label"></label>
+                        <input asp-for="Producto.StockMinimo" class="form-control" />
+                        <span asp-validation-for="Producto.StockMinimo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.FechaVencimiento" class="form-label"></label>
+                        <input asp-for="Producto.FechaVencimiento" class="form-control" type="date" />
+                        <span asp-validation-for="Producto.FechaVencimiento" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar Producto</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

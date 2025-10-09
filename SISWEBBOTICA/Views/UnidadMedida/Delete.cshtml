@@ -1,0 +1,27 @@
+﻿@model SISWEBBOTICA.Models.UnidadMedida
+
+@{
+    ViewData["Title"] = "Eliminar Unidad de Medida";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <h3 class="text-danger">¿Está seguro de que desea eliminar esta unidad de medida?</h3>
+    <hr />
+    <div class="card shadow-sm bg-light">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Nombre)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Simbolo)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Simbolo)</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdUnidadMedida" />
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</button> |
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SISWEBBOTICA.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Gestión de Categorías";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Crear Nueva Categoría</a>
+    </p>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @if (User.IsInRole("Administrador"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.IdCategoria" class="btn btn-warning btn-sm">Editar</a>
+                                    <a asp-action="Delete" asp-route-id="@item.IdCategoria" class="btn btn-danger btn-sm">Eliminar</a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No disponible</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@model SISWEBBOTICA.Models.Producto
+
+@{
+    ViewData["Title"] = "Eliminar Producto";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <h3 class="text-danger">¿Está seguro de que desea eliminar este producto?</h3>
+    <p>Esta acción no se puede deshacer.</p>
+    <hr />
+    <div class="card shadow-sm bg-light">
+        <div class="card-body">
+            <h4>Producto: @Html.DisplayFor(model => model.Nombre)</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CodigoBarras)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.CodigoBarras)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Categoria)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Categoria.Nombre)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Stock)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Stock)</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdProducto" />
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Sí, Eliminar</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>

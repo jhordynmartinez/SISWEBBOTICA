@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SISWEBBOTICA.Models.Producto>
+
+@{
+    ViewData["Title"] = "Gestión de Productos";
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Registrar Nuevo Producto</a>
+    </p>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                            <th>@Html.DisplayNameFor(model => model.Categoria)</th>
+                            <th>@Html.DisplayNameFor(model => model.Stock)</th>
+                            <th>@Html.DisplayNameFor(model => model.PrecioMenor)</th>
+                            <th>@Html.DisplayNameFor(model => model.FechaVencimiento)</th>
+                            <th style="width: 150px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+                                <td>S/ @Html.DisplayFor(modelItem => item.PrecioMenor)</td>
+                                <td>@item.FechaVencimiento?.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (User.IsInRole("Administrador"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.IdProducto" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdProducto" class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted fst-italic">No permitido</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

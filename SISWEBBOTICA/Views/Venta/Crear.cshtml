@@ -1,0 +1,229 @@
+﻿@model SISWEBBOTICA.ViewModels.VentaVM
+@{
+    ViewData["Title"] = "Registrar Nueva Venta";
+}
+
+<style>
+    .ui-autocomplete-loading {
+        background: white url('/img/ui-anim_basic_16x16.gif') right center no-repeat;
+    }
+
+    .table-sm th, .table-sm td {
+        vertical-align: middle;
+    }
+
+    .total-section span {
+        font-family: 'Courier New', Courier, monospace;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3><i class="fas fa-cart-plus me-2"></i> @ViewData["Title"]</h3>
+        </div>
+        <div class="card-body">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <div asp-validation-summary="All" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
+
+            <form asp-action="Crear" method="post" id="form-venta">
+                @Html.AntiForgeryToken()
+
+                <div class="row mb-3 border-bottom pb-3">
+                    <div class="col-md-6">
+                        <label asp-for="IdCliente" class="form-label fw-bold">Cliente (Opcional)</label>
+                        <select asp-for="IdCliente" asp-items="Model.Clientes" class="form-select">
+                            <option value="">-- PÚBLICO GENERAL --</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="producto-search" class="form-label fw-bold">Buscar Medicamento</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" id="producto-search" class="form-control" placeholder="Escriba el nombre o código de barras..." />
+                        </div>
+                    </div>
+                </div>
+
+                <h5>Detalle de la Venta</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered" id="tabla-detalles">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Medicamento</th>
+                                <th style="width: 120px;">Cantidad</th>
+                                <th style="width: 150px;">Precio Unit.</th>
+                                <th style="width: 150px;">Subtotal</th>
+                                <th style="width: 50px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Las filas del carrito se agregarán aquí con JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-7">
+                        <div class="mb-3">
+                            <label asp-for="IdMetodoPago" class="form-label fw-bold">Método de Pago</label>
+                            <select asp-for="IdMetodoPago" asp-items="Model.MetodosPago" class="form-select">
+                                <option value="">-- Seleccione --</option>
+                            </select>
+                            <span asp-validation-for="IdMetodoPago" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ReferenciaPago" class="form-label fw-bold">Referencia (Yape, Plin, etc.)</label>
+                            <input asp-for="ReferenciaPago" class="form-control" placeholder="Nro. de Operación (si aplica)" />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="border rounded p-3">
+                            <div class="total-section d-flex justify-content-between mb-2">
+                                <span>SUBTOTAL:</span>
+                                <span id="subtotal-span">S/ 0.00</span>
+                            </div>
+                            <div class="total-section d-flex justify-content-between mb-2">
+                                <span>IGV (18%):</span>
+                                <span id="igv-span">S/ 0.00</span>
+                            </div>
+                            <hr />
+                            <div class="total-section d-flex justify-content-between h4">
+                                <span>TOTAL:</span>
+                                <span id="total-span">S/ 0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input asp-for="Subtotal" type="hidden" />
+                <input asp-for="IGV" type="hidden" />
+                <input asp-for="Total" type="hidden" />
+
+                <div class="mt-4 text-end">
+                    <a asp-action="Crear" class="btn btn-secondary"><i class="fas fa-eraser"></i> Limpiar</a>
+                    <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-check-circle"></i> Registrar Venta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let detalles = [];
+            const IGV_RATE = 0.18;
+
+            $("#producto-search").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("BuscarProductos", "Venta")",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) { response(data); }
+                    });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    agregarAlCarrito(ui.item);
+                    $(this).val('');
+                    return false;
+                }
+            });
+
+            function agregarAlCarrito(producto) {
+                const existente = detalles.find(d => d.idProducto === producto.id);
+                if (existente) {
+                    existente.cantidad += 1;
+                } else {
+                    detalles.push({
+                        idProducto: producto.id,
+                        nombre: producto.value,
+                        cantidad: 1,
+                        precio: parseFloat(producto.precio),
+                        stock: parseFloat(producto.stock)
+                    });
+                }
+                renderizarTablaYTotales();
+            }
+
+            function renderizarTablaYTotales() {
+                const tbody = $("#tabla-detalles tbody");
+                tbody.empty();
+
+                if (detalles.length === 0) {
+                     tbody.append('<tr><td colspan="5" class="text-center text-muted">No hay medicamentos en la venta.</td></tr>');
+                }
+
+                detalles.forEach((item, index) => {
+                    const subtotalItem = item.cantidad * item.precio;
+                    const fila = `
+                        <tr data-index="${index}">
+                            <td>
+                                <input type="hidden" name="Detalles[${index}].IdProducto" value="${item.idProducto}" />
+                                <input type="hidden" name="Detalles[${index}].Precio" value="${item.precio.toFixed(2)}" />
+                                <input type="hidden" name="Detalles[${index}].Subtotal" value="${subtotalItem.toFixed(2)}" />
+                                ${item.nombre}
+                            </td>
+                            <td><input type="number" name="Detalles[${index}].Cantidad" value="${item.cantidad}" class="form-control form-control-sm cantidad-input" min="0.01" step="any" /></td>
+                            <td>S/ ${item.precio.toFixed(2)}</td>
+                            <td>S/ ${subtotalItem.toFixed(2)}</td>
+                            <td><button type="button" class="btn btn-danger btn-sm eliminar-fila">&times;</button></td>
+                        </tr>`;
+                    tbody.append(fila);
+                });
+
+                actualizarTotales();
+            }
+
+            function actualizarTotales() {
+                let totalGeneral = 0;
+                detalles.forEach(item => {
+                    totalGeneral += item.cantidad * item.precio;
+                });
+
+                const subtotalVenta = totalGeneral / (1 + IGV_RATE);
+                const igvCalculado = totalGeneral - subtotalVenta;
+
+                $("#subtotal-span").text(`S/ ${subtotalVenta.toFixed(2)}`);
+                $("#igv-span").text(`S/ ${igvCalculado.toFixed(2)}`);
+                $("#total-span").text(`S/ ${totalGeneral.toFixed(2)}`);
+
+                $('input[name="Subtotal"]').val(subtotalVenta.toFixed(2).replace(',', '.'));
+                $('input[name="IGV"]').val(igvCalculado.toFixed(2).replace(',', '.'));
+                $('input[name="Total"]').val(totalGeneral.toFixed(2).replace(',', '.'));
+            }
+
+            $("#tabla-detalles").on("change", ".cantidad-input", function () {
+                const index = $(this).closest("tr").data("index");
+                const nuevaCantidad = parseFloat($(this).val());
+
+                if (!isNaN(nuevaCantidad) && nuevaCantidad > 0) {
+                    detalles[index].cantidad = nuevaCantidad;
+                } else {
+                    detalles[index].cantidad = 1; // Resetea a 1 si el valor es inválido
+                }
+                renderizarTablaYTotales();
+            });
+
+            $("#tabla-detalles").on("click", ".eliminar-fila", function () {
+                const index = $(this).closest("tr").data("index");
+                detalles.splice(index, 1);
+                renderizarTablaYTotales();
+            });
+
+            renderizarTablaYTotales(); // Carga inicial
+        });
+    </script>
+}

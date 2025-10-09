@@ -2,20 +2,21 @@
 using Microsoft.EntityFrameworkCore;
 using SISWEBBOTICA.Data;
 using SISWEBBOTICA.Models;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//--------------------------------------------------------------------
+// 1. CONFIGURACIÓN DE SERVICIOS
+//--------------------------------------------------------------------
+
 builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration.GetConnectionString("CadenaSQL");
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(connectionString));
 
-// --- INICIO DE LA CONFIGURACIÓN DE IDENTITY (REEMPLAZA TU CONFIGURACIÓN DE COOKIES) ---
-
 builder.Services.AddIdentity<Usuario, TipoUsuario>(options => {
-    // Configuración de contraseña (opcional pero recomendado)
     options.Password.RequireDigit = false;
     options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
@@ -26,7 +27,6 @@ builder.Services.AddIdentity<Usuario, TipoUsuario>(options => {
 .AddEntityFrameworkStores<AppDBContext>()
 .AddDefaultTokenProviders();
 
-// Configuración de la cookie de autenticación
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Cuenta/Login";
@@ -35,8 +35,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
 });
 
-// --- FIN DE LA CONFIGURACIÓN DE IDENTITY ---
-
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -44,20 +42,25 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+//--------------------------------------------------------------------
+// 2. CONSTRUCCIÓN DE LA APLICACIÓN
+//--------------------------------------------------------------------
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//--------------------------------------------------------------------
+// 3. CONFIGURACIÓN DEL PIPELINE DE SOLICITUDES HTTP
+//--------------------------------------------------------------------
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-app.UseSession();
-
 app.UseRouting();
-
-// Es importante que la autenticación y autorización estén en este orden
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -65,4 +68,53 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Cuenta}/{action=Login}/{id?}");
 
+//--------------------------------------------------------------------
+// 4. INICIALIZACIÓN DE DATOS (DATA SEEDING) - CORREGIDO
+//--------------------------------------------------------------------
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDBContext>();
+        await context.Database.MigrateAsync();
+
+        // Crear Cliente "PÚBLICO GENERAL" si no existe
+        if (!context.Clientes.Any(c => c.Nombre == "PÚBLICO GENERAL"))
+        {
+            context.Clientes.Add(new Cliente { Nombre = "PÚBLICO GENERAL", RucDni = "00000000" });
+            await context.SaveChangesAsync();
+        }
+
+        // Crear Métodos de Pago si no existen
+        if (!context.MetodosPago.Any())
+        {
+            context.MetodosPago.AddRange(
+                new MetodoPago { Nombre = "Efectivo", RequiereReferencia = false },
+                new MetodoPago { Nombre = "Yape", RequiereReferencia = true },
+                new MetodoPago { Nombre = "Plin", RequiereReferencia = true },
+                new MetodoPago { Nombre = "Tarjeta", RequiereReferencia = true }
+            );
+            await context.SaveChangesAsync();
+        }
+
+        // --- INICIO DE LA CORRECCIÓN ---
+        // Crear Moneda por defecto si no existe
+        if (!context.Monedas.Any())
+        {
+            context.Monedas.Add(new Moneda { Nombre = "NUEVOS SOLES", Simbolo = "S/." });
+            await context.SaveChangesAsync();
+        }
+        // --- FIN DE LA CORRECCIÓN ---
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Ocurrió un error al inicializar la base de datos.");
+    }
+}
+
+//--------------------------------------------------------------------
+// 5. EJECUTAR LA APLICACIÓN
+//--------------------------------------------------------------------
 app.Run();
