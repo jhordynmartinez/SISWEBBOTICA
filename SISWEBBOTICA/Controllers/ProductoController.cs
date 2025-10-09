@@ -20,11 +20,13 @@ namespace SISWEBBOTICA.Controllers
             _context = context;
         }
 
-        // --- MÉTODOS GET (SIN CAMBIOS, ESTÁN CORRECTOS) ---
-
+        // GET: /Producto (CORREGIDO: Muestra solo productos activos)
         public async Task<IActionResult> Index()
         {
-            var productos = _context.Productos.Include(p => p.Categoria).Include(p => p.UnidadMedida);
+            var productos = _context.Productos
+                                    .Where(p => p.Estado == "Activo")
+                                    .Include(p => p.Categoria)
+                                    .Include(p => p.UnidadMedida);
             return View(await productos.ToListAsync());
         }
 
@@ -36,6 +38,25 @@ namespace SISWEBBOTICA.Controllers
                 CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre"),
                 UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre")
             };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ProductoVM viewModel)
+        {
+            // El modelo Producto dentro del ViewModel se llena automáticamente
+            if (ModelState.IsValid)
+            {
+                viewModel.Producto.Estado = "Activo"; // Aseguramos que el estado sea Activo al crear
+                _context.Add(viewModel.Producto);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Producto creado exitosamente.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            viewModel.CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre", viewModel.Producto.IdCategoria);
+            viewModel.UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre", viewModel.Producto.IdUnidadMedida);
             return View(viewModel);
         }
 
@@ -55,68 +76,36 @@ namespace SISWEBBOTICA.Controllers
             return View(viewModel);
         }
 
-        // --- INICIO DE LA CORRECCIÓN EN MÉTODOS POST ---
-
-        // POST: /Producto/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind(Prefix = "Producto")] Producto producto)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(producto);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Producto creado exitosamente.";
-                return RedirectToAction(nameof(Index));
-            }
-
-            // Si la validación falla, debemos recrear el ViewModel completo
-            var viewModel = new ProductoVM
-            {
-                Producto = producto, // Pasamos el producto con los datos que el usuario ya ingresó
-                CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre", producto.IdCategoria),
-                UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre", producto.IdUnidadMedida)
-            };
-            return View(viewModel);
-        }
-
-        // POST: /Producto/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public async Task<IActionResult> Edit(int id, [Bind(Prefix = "Producto")] Producto producto)
+        public async Task<IActionResult> Edit(int id, ProductoVM viewModel)
         {
-            if (id != producto.IdProducto) return NotFound();
+            if (id != viewModel.Producto.IdProducto) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(producto);
+                    // Aseguramos que el estado no se cambie accidentalmente en este formulario
+                    viewModel.Producto.Estado = "Activo";
+                    _context.Update(viewModel.Producto);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Producto actualizado exitosamente.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductoExists(producto.IdProducto)) return NotFound();
+                    if (!ProductoExists(viewModel.Producto.IdProducto)) return NotFound();
                     else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
 
-            // Si la validación falla, recreamos el ViewModel
-            var viewModel = new ProductoVM
-            {
-                Producto = producto,
-                CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre", producto.IdCategoria),
-                UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre", producto.IdUnidadMedida)
-            };
+            viewModel.CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre", viewModel.Producto.IdCategoria);
+            viewModel.UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre", viewModel.Producto.IdUnidadMedida);
             return View(viewModel);
         }
 
-        // --- FIN DE LA CORRECCIÓN ---
-
-        // --- MÉTODOS DELETE (SIN CAMBIOS, ESTÁN CORRECTOS) ---
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -126,6 +115,7 @@ namespace SISWEBBOTICA.Controllers
             return View(producto);
         }
 
+        // POST: /Producto/Delete/5 (CORREGIDO: Implementa Eliminación Lógica)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
@@ -134,9 +124,10 @@ namespace SISWEBBOTICA.Controllers
             var producto = await _context.Productos.FindAsync(id);
             if (producto != null)
             {
-                _context.Productos.Remove(producto);
+                producto.Estado = "Inactivo"; // Cambiamos el estado en lugar de borrar
+                _context.Update(producto);
                 await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Producto eliminado exitosamente.";
+                TempData["SuccessMessage"] = "Producto eliminado (marcado como inactivo) exitosamente.";
             }
             return RedirectToAction(nameof(Index));
         }

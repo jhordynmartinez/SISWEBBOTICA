@@ -94,6 +94,10 @@ namespace SISWEBBOTICA.Models
         [Display(Name = "Fecha de Vencimiento")]
         public DateTime? FechaVencimiento { get; set; }
 
+        [Required]
+        [StringLength(20)]
+        public string Estado { get; set; } = "Activo";
+
         [ForeignKey("IdCategoria")]
         [ValidateNever]
         public virtual Categoria Categoria { get; set; }

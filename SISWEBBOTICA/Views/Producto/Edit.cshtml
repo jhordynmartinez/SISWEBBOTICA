@@ -1,4 +1,4 @@
-﻿@model SISWEBBOTICA.Models.Producto
+﻿@model SISWEBBOTICA.ViewModels.ProductoVM
 
 @{
     ViewData["Title"] = "Editar Producto";
@@ -11,91 +11,95 @@
         <div class="card-body">
             <form asp-action="Edit">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <input type="hidden" asp-for="IdProducto" />
+                <input type="hidden" asp-for="Producto.IdProducto" />
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Nombre" class="form-label"></label>
-                        <input asp-for="Nombre" class="form-control" />
-                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                        <label asp-for="Producto.Nombre" class="form-label"></label>
+                        <input asp-for="Producto.Nombre" class="form-control" />
+                        <span asp-validation-for="Producto.Nombre" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="CodigoBarras" class="form-label"></label>
-                        <input asp-for="CodigoBarras" class="form-control" />
-                        <span asp-validation-for="CodigoBarras" class="text-danger"></span>
+                        <label asp-for="Producto.CodigoBarras" class="form-label"></label>
+                        <input asp-for="Producto.CodigoBarras" class="form-control" />
+                        <span asp-validation-for="Producto.CodigoBarras" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Descripcion" class="form-label"></label>
-                    <textarea asp-for="Descripcion" class="form-control" rows="2"></textarea>
-                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    <label asp-for="Producto.Descripcion" class="form-label"></label>
+                    <textarea asp-for="Producto.Descripcion" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="Producto.Descripcion" class="text-danger"></span>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="IdCategoria" class="form-label"></label>
-                        <select asp-for="IdCategoria" class="form-select" asp-items="ViewBag.Categorias"><option value="">-- Seleccione Categoría --</option></select>
-                        <span asp-validation-for="IdCategoria" class="text-danger"></span>
+                        <label asp-for="Producto.IdCategoria" class="form-label"></label>
+                        <select asp-for="Producto.IdCategoria" class="form-select" asp-items="Model.CategoriasList">
+                            <option value="">-- Seleccione Categoría --</option>
+                        </select>
+                        <span asp-validation-for="Producto.IdCategoria" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="IdUnidadMedida" class="form-label"></label>
-                        <select asp-for="IdUnidadMedida" class="form-select" asp-items="ViewBag.UnidadesMedida"><option value="">-- Seleccione Unidad --</option></select>
-                        <span asp-validation-for="IdUnidadMedida" class="text-danger"></span>
+                        <label asp-for="Producto.IdUnidadMedida" class="form-label"></label>
+                        <select asp-for="Producto.IdUnidadMedida" class="form-select" asp-items="Model.UnidadesMedidaList">
+                            <option value="">-- Seleccione Unidad --</option>
+                        </select>
+                        <span asp-validation-for="Producto.IdUnidadMedida" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="Laboratorio" class="form-label"></label>
-                        <input asp-for="Laboratorio" class="form-control" />
-                        <span asp-validation-for="Laboratorio" class="text-danger"></span>
+                        <label asp-for="Producto.Laboratorio" class="form-label"></label>
+                        <input asp-for="Producto.Laboratorio" class="form-control" />
+                        <span asp-validation-for="Producto.Laboratorio" class="text-danger"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="Presentacion" class="form-label"></label>
-                        <input asp-for="Presentacion" class="form-control" />
-                        <span asp-validation-for="Presentacion" class="text-danger"></span>
+                        <label asp-for="Producto.Presentacion" class="form-label"></label>
+                        <input asp-for="Producto.Presentacion" class="form-control" />
+                        <span asp-validation-for="Producto.Presentacion" class="text-danger"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="Ubicacion" class="form-label"></label>
-                        <input asp-for="Ubicacion" class="form-control" />
-                        <span asp-validation-for="Ubicacion" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="PrecioCompra" class="form-label"></label>
-                        <input asp-for="PrecioCompra" class="form-control" />
-                        <span asp-validation-for="PrecioCompra" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="PrecioMenor" class="form-label"></label>
-                        <input asp-for="PrecioMenor" class="form-control" />
-                        <span asp-validation-for="PrecioMenor" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="PrecioMayor" class="form-label"></label>
-                        <input asp-for="PrecioMayor" class="form-control" />
-                        <span asp-validation-for="PrecioMayor" class="text-danger"></span>
+                        <label asp-for="Producto.Ubicacion" class="form-label"></label>
+                        <input asp-for="Producto.Ubicacion" class="form-control" />
+                        <span asp-validation-for="Producto.Ubicacion" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label asp-for="Stock" class="form-label"></label>
-                        <input asp-for="Stock" class="form-control" />
-                        <span asp-validation-for="Stock" class="text-danger"></span>
+                        <label asp-for="Producto.PrecioCompra" class="form-label"></label>
+                        <input asp-for="Producto.PrecioCompra" class="form-control" />
+                        <span asp-validation-for="Producto.PrecioCompra" class="text-danger"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="StockMinimo" class="form-label"></label>
-                        <input asp-for="StockMinimo" class="form-control" />
-                        <span asp-validation-for="StockMinimo" class="text-danger"></span>
+                        <label asp-for="Producto.PrecioMenor" class="form-label"></label>
+                        <input asp-for="Producto.PrecioMenor" class="form-control" />
+                        <span asp-validation-for="Producto.PrecioMenor" class="text-danger"></span>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label asp-for="FechaVencimiento" class="form-label"></label>
-                        <input asp-for="FechaVencimiento" class="form-control" type="date" value="@Model.FechaVencimiento?.ToString("yyyy-MM-dd")" />
-                        <span asp-validation-for="FechaVencimiento" class="text-danger"></span>
+                        <label asp-for="Producto.PrecioMayor" class="form-label"></label>
+                        <input asp-for="Producto.PrecioMayor" class="form-control" />
+                        <span asp-validation-for="Producto.PrecioMayor" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.Stock" class="form-label"></label>
+                        <input asp-for="Producto.Stock" class="form-control" />
+                        <span asp-validation-for="Producto.Stock" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.StockMinimo" class="form-label"></label>
+                        <input asp-for="Producto.StockMinimo" class="form-control" />
+                        <span asp-validation-for="Producto.StockMinimo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Producto.FechaVencimiento" class="form-label"></label>
+                        <input asp-for="Producto.FechaVencimiento" class="form-control" type="date" value="@Model.Producto.FechaVencimiento?.ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="Producto.FechaVencimiento" class="text-danger"></span>
                     </div>
                 </div>
 
