@@ -22,14 +22,15 @@ namespace SISWEBBOTICA.Controllers
         }
 
         // Esta será la acción principal de tu Dashboard
+        // EN Controllers/HomeController.cs
+
         public async Task<IActionResult> Index()
         {
             var viewModel = new DashboardVM();
 
-            // --- CÁLCULO DE MÉTRICAS PRINCIPALES ---
+            // --- CÁLCULO DE MÉTRICAS PRINCIPALES (Sin cambios) ---
             var hoy = DateTime.Today;
             var manana = hoy.AddDays(1);
-
             var ventasHoyQuery = _context.Ventas.Where(v => v.FechaVenta >= hoy && v.FechaVenta < manana);
 
             viewModel.VentasHoy = await ventasHoyQuery.SumAsync(v => v.TotalPagar);
@@ -37,44 +38,35 @@ namespace SISWEBBOTICA.Controllers
             viewModel.TotalProductos = await _context.Productos.CountAsync();
             viewModel.TotalClientes = await _context.Clientes.CountAsync();
 
-            // --- CÁLCULO DE DATOS SOLO PARA ADMINISTRADOR ---
-            if (User.IsInRole("Administrador"))
-            {
-                // 1. Productos con Stock Bajo (Top 5 más críticos)
-                viewModel.ProductosBajoStock = await _context.Productos
-                    .Where(p => p.Stock <= p.StockMinimo && p.Stock > 0)
-                    .OrderBy(p => p.Stock)
-                    .Take(5)
-                    .ToListAsync();
+            // --- CÁLCULO DE DATOS PARA EL DASHBOARD (Ahora visible para todos) ---
 
-                // 2. Productos Próximos a Vencer (en los próximos 30 días, Top 5 más cercanos)
-                var fechaLimiteVencimiento = DateTime.Today.AddDays(30);
-                viewModel.ProductosProximosAVencer = await _context.Productos
-                    .Where(p => p.FechaVencimiento != null && p.FechaVencimiento <= fechaLimiteVencimiento && p.FechaVencimiento >= DateTime.Today)
-                    .OrderBy(p => p.FechaVencimiento)
-                    .Take(5)
-                    .ToListAsync();
+            // 1. Productos con Stock Bajo (Top 5 más críticos)
+            viewModel.ProductosBajoStock = await _context.Productos
+                .Where(p => p.Estado == "Activo" && p.Stock <= p.StockMinimo && p.Stock > 0)
+                .OrderBy(p => p.Stock)
+                .Take(5)
+                .ToListAsync();
 
-                // 3. Top 5 Productos más vendidos (histórico)
-                var topProductos = await _context.DetallesVenta
-                    .GroupBy(d => d.IdProducto)
-                    .Select(g => new {
-                        IdProducto = g.Key,
-                        TotalVendido = g.Sum(d => d.Cantidad)
-                    })
-                    .OrderByDescending(r => r.TotalVendido)
-                    .Take(5)
-                    .ToListAsync();
+            // 2. Productos Próximos a Vencer (en los próximos 30 días, Top 5 más cercanos)
+            var fechaLimiteVencimiento = DateTime.Today.AddDays(30);
+            viewModel.ProductosProximosAVencer = await _context.Productos
+                .Where(p => p.Estado == "Activo" && p.FechaVencimiento != null && p.FechaVencimiento <= fechaLimiteVencimiento && p.FechaVencimiento >= DateTime.Today)
+                .OrderBy(p => p.FechaVencimiento)
+                .Take(5)
+                .ToListAsync();
 
-                foreach (var item in topProductos)
-                {
-                    var producto = await _context.Productos.FindAsync(item.IdProducto);
-                    if (producto != null)
-                    {
-                        viewModel.TopProductosVendidos.Add(producto.Nombre, item.TotalVendido);
-                    }
-                }
-            }
+            // --- INICIO DE LA CORRECCIÓN DEL ERROR ---
+            // 3. Top 5 Productos más vendidos (histórico) - CONSULTA CORREGIDA Y OPTIMIZADA
+            viewModel.TopProductosVendidos = await _context.DetallesVenta
+                .GroupBy(d => d.Producto.Nombre) // Agrupar directamente por el nombre del producto
+                .Select(g => new {
+                    NombreProducto = g.Key,
+                    TotalVendido = g.Sum(d => d.Cantidad)
+                })
+                .OrderByDescending(r => r.TotalVendido)
+                .Take(5)
+                .ToDictionaryAsync(r => r.NombreProducto, r => r.TotalVendido);
+            // --- FIN DE LA CORRECCIÓN DEL ERROR ---
 
             return View(viewModel);
         }
