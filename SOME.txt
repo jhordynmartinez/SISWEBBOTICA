@@ -1,3 +1,17 @@
 CADENA DE CONEXION:
 
 workstation id=sismarcafar_db.mssql.somee.com;packet size=4096;user id=JHOBRE_SQLLogin_1;pwd=r1wh5s998y;data source=sismarcafar_db.mssql.somee.com;persist security info=False;initial catalog=sismarcafar_db;TrustServerCertificate=True
+
+
+
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": { "CadenaSQL": "workstation id=sismarcafar_db.mssql.somee.com;packet size=4096;user id=JHOBRE_SQLLogin_1;pwd=r1wh5s998y;data source=sismarcafar_db.mssql.somee.com;persist security info=False;initial catalog=sismarcafar_db;TrustServerCertificate=True" }
+
+}

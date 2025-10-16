@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SISWEBBOTICA.Data;
 using SISWEBBOTICA.Models;
-using SISWEBBOTICA.Services; // <-- AÑADIR ESTE USING
+using SISWEBBOTICA.Services;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,26 +17,20 @@ var connectionString = builder.Configuration.GetConnectionString("CadenaSQL");
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(connectionString));
 
-// --- INICIO DE LA MODIFICACIÓN ---
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IUnidadMedidaRepository, UnidadMedidaRepository>();
 
-// --- FIN DE LA MODIFICACIÓN ---
-
-// --- INICIO DE LA CORRECCIÓN: Configuración de ASP.NET Core Identity ---
 builder.Services.AddIdentity<Usuario, TipoUsuario>(options => {
-    // Configuración de las reglas de contraseña para cumplir con la HU
-    options.Password.RequireDigit = true;         // Requiere al menos un número
-    options.Password.RequireLowercase = true;     // Requiere al menos una minúscula
-    options.Password.RequireNonAlphanumeric = false; // No requiere símbolos especiales
-    options.Password.RequireUppercase = false;    // No requiere mayúsculas
-    options.Password.RequiredLength = 8;          // Mínimo 8 caracteres
-    options.Password.RequiredUniqueChars = 1;     // Caracteres únicos requeridos
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 1;
 })
 .AddEntityFrameworkStores<AppDBContext>()
 .AddDefaultTokenProviders();
-// --- FIN DE LA CORRECCIÓN ---
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -69,11 +63,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-app.UseSession();
+app.UseStaticFiles(); // 1. Servir archivos estáticos (CSS, JS)
+app.UseRouting();     // 2. Determinar qué endpoint se va a usar
+
+// 3. Es crucial que la autenticación vaya antes de la autorización
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
@@ -90,14 +87,12 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<AppDBContext>();
         await context.Database.MigrateAsync();
 
-        // Crear Cliente "PÚBLICO GENERAL" si no existe
         if (!context.Clientes.Any(c => c.Nombre == "PÚBLICO GENERAL"))
         {
             context.Clientes.Add(new Cliente { Nombre = "PÚBLICO GENERAL", RucDni = "00000000" });
             await context.SaveChangesAsync();
         }
 
-        // Crear Métodos de Pago si no existen
         if (!context.MetodosPago.Any())
         {
             context.MetodosPago.AddRange(
@@ -109,7 +104,6 @@ using (var scope = app.Services.CreateScope())
             await context.SaveChangesAsync();
         }
 
-        // Crear Moneda por defecto si no existe
         if (!context.Monedas.Any())
         {
             context.Monedas.Add(new Moneda { Nombre = "NUEVOS SOLES", Simbolo = "S/." });

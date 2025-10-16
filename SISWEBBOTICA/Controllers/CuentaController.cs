@@ -28,11 +28,19 @@ namespace SISWEBBOTICA.Controllers
         // GET: /Cuenta/Login
         public IActionResult Login(string returnUrl = null)
         {
+            // --- INICIO DE LA CORRECCIÓN ---
+            // Limpiar el returnUrl si contiene la palabra "Error" para romper el bucle
+            if (!string.IsNullOrEmpty(returnUrl) && (returnUrl.Contains("Error") || returnUrl.Contains("AccesoDenegado")))
+            {
+                returnUrl = null;
+            }
+            // --- FIN DE LA CORRECCIÓN ---
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        // POST: /Cuenta/Login (CORREGIDO Y MEJORADO)
+        // POST: /Cuenta/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM model, string returnUrl = null)
@@ -40,7 +48,6 @@ namespace SISWEBBOTICA.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // Buscamos al usuario primero para verificar su estado
                 var usuario = await _userManager.FindByNameAsync(model.EmailOrUsername);
 
                 if (usuario == null)
@@ -55,7 +62,6 @@ namespace SISWEBBOTICA.Controllers
                     return View(model);
                 }
 
-                // Intentamos iniciar sesión
                 var result = await _signInManager.PasswordSignInAsync(usuario, model.Password, isPersistent: true, lockoutOnFailure: false);
 
                 if (result.Succeeded)
@@ -63,7 +69,6 @@ namespace SISWEBBOTICA.Controllers
                     return RedirectToLocal(returnUrl);
                 }
 
-                // Si el inicio de sesión falla después de las verificaciones, es por la contraseña
                 ModelState.AddModelError(string.Empty, "Contraseña incorrecta.");
                 return View(model);
             }
@@ -71,8 +76,15 @@ namespace SISWEBBOTICA.Controllers
         }
 
         // GET: /Cuenta/Registro
-        public async Task<IActionResult> Registro()
+        public async Task<IActionResult> Registro(string returnUrl = null)
         {
+            // --- INICIO DE LA CORRECCIÓN ---
+            if (!string.IsNullOrEmpty(returnUrl) && (returnUrl.Contains("Error") || returnUrl.Contains("AccesoDenegado")))
+            {
+                returnUrl = null;
+            }
+            // --- FIN DE LA CORRECCIÓN ---
+
             await CrearRolesSiNoExisten();
 
             var adminExistente = (await _userManager.GetUsersInRoleAsync("Administrador")).Any();
@@ -99,8 +111,8 @@ namespace SISWEBBOTICA.Controllers
                 {
                     var usuario = new Usuario
                     {
-                        UserName = model.Login, // Identity usa UserName para el login
-                        Email = model.Login,    // Y Email para la comunicación
+                        UserName = model.Login,
+                        Email = model.Login,
                         Nombre = model.Nombre,
                         Estado = "Activo",
                         FechaRegistro = DateTime.Now
@@ -111,12 +123,10 @@ namespace SISWEBBOTICA.Controllers
                     if (result.Succeeded)
                     {
                         await _userManager.AddToRoleAsync(usuario, model.RolSeleccionado);
-                        // Opcional: Redirigir con mensaje de éxito
                         TempData["SuccessMessage"] = "Usuario registrado correctamente. Ahora puede iniciar sesión.";
                         return RedirectToAction("Login", "Cuenta");
                     }
 
-                    // Si falla, Identity nos da los errores específicos (ej. "Username 'jperez' is already taken.")
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
@@ -124,8 +134,7 @@ namespace SISWEBBOTICA.Controllers
                 }
             }
 
-            // Si algo falla, recargamos la data para la vista
-            await CrearRolesSiNoExisten(); // Nos aseguramos que los roles existan
+            await CrearRolesSiNoExisten();
             var adminCheck = (await _userManager.GetUsersInRoleAsync("Administrador")).Any();
             ViewBag.PermitirAdmin = !adminCheck;
             var roles = await _roleManager.Roles.ToListAsync();
@@ -149,10 +158,9 @@ namespace SISWEBBOTICA.Controllers
             return View();
         }
 
-        // --- MÉTODOS AUXILIARES ---
         private IActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
