@@ -1,0 +1,57 @@
+﻿@model IEnumerable<UsuarioVM>
+@{
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p><a asp-action="Create" class="btn btn-primary"><i class="fas fa-user-plus"></i> Crear Nuevo Usuario</a></p>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre Completo</th>
+            <th>Usuario (Login)</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Usuario.Nombre @item.Usuario.Apellido</td>
+                <td>@item.Usuario.UserName</td>
+                <td>@item.Usuario.Email</td>
+                <td>@item.Rol</td>
+                <td>
+                    @if (item.Usuario.Estado == "Activo")
+                    {
+                        <span class="badge bg-success">Activo</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Inactivo</span>
+                    }
+                </td>
+                <td>
+                    <form asp-action="ToggleStatus" asp-route-id="@item.Usuario.Id" method="post" onsubmit="return confirm('¿Está seguro de que desea cambiar el estado de este usuario?');">
+                        <button type="submit" class="btn btn-sm @(item.Usuario.Estado == "Activo" ? "btn-outline-danger" : "btn-outline-success")">
+                            @(item.Usuario.Estado == "Activo" ? "Desactivar" : "Activar")
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

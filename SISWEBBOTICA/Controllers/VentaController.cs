@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ClosedXML.Excel; // <-- Importante: Asegúrate de tener este 'using'
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using SISWEBBOTICA.Models;
 using SISWEBBOTICA.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,6 +25,31 @@ namespace SISWEBBOTICA.Controllers
         {
             _context = context;
             _userManager = userManager;
+        }
+
+        // GET: /Venta
+        // CORREGIDO: Acepta parámetros de fecha para el filtrado
+        public async Task<IActionResult> Index(DateTime? fechaInicio, DateTime? fechaFin)
+        {
+            ViewData["FechaInicio"] = fechaInicio?.ToString("yyyy-MM-dd");
+            ViewData["FechaFin"] = fechaFin?.ToString("yyyy-MM-dd");
+
+            var ventasQuery = _context.Ventas
+                .Include(v => v.Cliente)
+                .Include(v => v.Usuario)
+                .AsQueryable();
+
+            if (fechaInicio.HasValue)
+            {
+                ventasQuery = ventasQuery.Where(v => v.FechaVenta.Date >= fechaInicio.Value.Date);
+            }
+            if (fechaFin.HasValue)
+            {
+                ventasQuery = ventasQuery.Where(v => v.FechaVenta.Date <= fechaFin.Value.Date);
+            }
+
+            var ventas = await ventasQuery.OrderByDescending(v => v.FechaVenta).ToListAsync();
+            return View(ventas);
         }
 
         // GET: /Venta/Crear
@@ -153,57 +180,83 @@ namespace SISWEBBOTICA.Controllers
         // GET: /Venta/Boleta/5
         public async Task<IActionResult> Boleta(int id)
         {
-            var venta = await _context.Ventas
-                .Include(v => v.Cliente)
-                .Include(v => v.Usuario)
-                .FirstOrDefaultAsync(v => v.IdVenta == id);
+            var venta = await _context.Ventas.Include(v => v.Cliente).Include(v => v.Usuario).FirstOrDefaultAsync(v => v.IdVenta == id);
+            if (venta == null) return NotFound();
 
-            if (venta == null)
-            {
-                return NotFound();
-            }
-
-            var detalles = await _context.DetallesVenta
-                .Include(d => d.Producto)
-                .Where(d => d.IdVenta == id)
-                .ToListAsync();
-
+            var detalles = await _context.DetallesVenta.Include(d => d.Producto).Where(d => d.IdVenta == id).ToListAsync();
             var tienda = await _context.Boticas.FirstOrDefaultAsync();
 
-            var viewModel = new BoletaVM
-            {
-                Venta = venta,
-                Detalles = detalles,
-                Tienda = tienda
-            };
-
+            var viewModel = new BoletaVM { Venta = venta, Detalles = detalles, Tienda = tienda };
             return View(viewModel);
         }
-
-        // --- INICIO DEL CÓDIGO RESTAURADO ---
 
         [HttpGet]
         public async Task<IActionResult> BuscarProductos(string term)
         {
-            if (string.IsNullOrEmpty(term) || term.Length < 2)
-            {
-                return Json(new List<object>());
-            }
+            if (string.IsNullOrEmpty(term) || term.Length < 2) return Json(new List<object>());
 
             var productos = await _context.Productos
                 .Where(p => EF.Functions.Like(p.Nombre, $"%{term}%") || p.CodigoBarras == term)
-                .Select(p => new
-                {
+                .Select(p => new {
                     id = p.IdProducto,
                     label = $"{p.Nombre} (Stock: {p.Stock}) - S/ {p.PrecioMenor}",
                     value = p.Nombre,
                     precio = p.PrecioMenor,
                     stock = p.Stock
                 })
-                .Take(15)
-                .ToListAsync();
+                .Take(15).ToListAsync();
 
             return Json(productos);
+        }
+
+        // --- NUEVO MÉTODO PARA EXPORTAR A EXCEL ---
+        public async Task<IActionResult> ExportarVentas(DateTime? fechaInicio, DateTime? fechaFin)
+        {
+            var ventasQuery = _context.Ventas.Include(v => v.Cliente).Include(v => v.Usuario).AsQueryable();
+
+            if (fechaInicio.HasValue) { ventasQuery = ventasQuery.Where(v => v.FechaVenta.Date >= fechaInicio.Value.Date); }
+            if (fechaFin.HasValue) { ventasQuery = ventasQuery.Where(v => v.FechaVenta.Date <= fechaFin.Value.Date); }
+
+            var ventas = await ventasQuery.OrderByDescending(v => v.FechaVenta).ToListAsync();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Ventas");
+                var currentRow = 1;
+                worksheet.Cell(currentRow, 1).Value = "N° Boleta";
+                worksheet.Cell(currentRow, 2).Value = "Cliente";
+                worksheet.Cell(currentRow, 3).Value = "Fecha";
+                worksheet.Cell(currentRow, 4).Value = "Total";
+                worksheet.Cell(currentRow, 5).Value = "Vendedor";
+
+                // Estilo para la cabecera
+                worksheet.Row(1).Style.Font.Bold = true;
+
+                foreach (var v in ventas)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = v.NumeroComprobante;
+                    worksheet.Cell(currentRow, 2).Value = v.Cliente.Nombre;
+                    worksheet.Cell(currentRow, 3).Value = v.FechaVenta;
+                    worksheet.Cell(currentRow, 4).Value = v.TotalPagar;
+                    worksheet.Cell(currentRow, 5).Value = v.Usuario.UserName;
+                }
+
+                worksheet.Cell(currentRow + 1, 3).Value = "Total General:";
+                worksheet.Cell(currentRow + 1, 4).FormulaA1 = $"=SUM(D2:D{currentRow})";
+                worksheet.Cell(currentRow + 1, 3).Style.Font.Bold = true;
+                worksheet.Cell(currentRow + 1, 4).Style.Font.Bold = true;
+
+
+                worksheet.Columns().AdjustToContents();
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"ReporteVentas_{DateTime.Now:yyyyMMdd}.xlsx");
+                }
+            }
         }
 
         private async Task RecargarDatosParaVista(VentaVM model)
@@ -217,20 +270,6 @@ namespace SISWEBBOTICA.Controllers
         {
             var ultimaVentaId = await _context.Ventas.MaxAsync(v => (int?)v.IdVenta) ?? 0;
             return $"B001-{(ultimaVentaId + 1).ToString("D8")}";
-        }
-
-
-        // --- FIN DEL CÓDIGO RESTAURADO ---
-
-        // GET: /Venta
-        public async Task<IActionResult> Index()
-        {
-            var ventas = await _context.Ventas
-                .Include(v => v.Cliente)
-                .Include(v => v.Usuario)
-                .OrderByDescending(v => v.FechaVenta)
-                .ToListAsync();
-            return View(ventas);
         }
     }
 }

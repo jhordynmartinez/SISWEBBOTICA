@@ -1,75 +1,89 @@
 ﻿@model SISWEBBOTICA.ViewModels.RegistroVM
 @{
-    ViewData["Title"] = "Registro";
+    ViewData["Title"] = "Registrarse";
+    Layout = null; // No usar el layout principal
 }
 
-<link rel="stylesheet" href="~/css/registro.css" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SISWEBBOTICA</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/EstilosJB.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-form-panel">
+                <div class="form-header">
+                    <h2>Crear una Cuenta</h2>
+                    <p>Únete a la familia SISWEBBOTICA</p>
+                </div>
+                <section>
+                    <form asp-controller="Cuenta" asp-action="Registro" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-<div class="auth-wrapper">
-    <div class="auth-card shadow-lg rounded-4">
-        <div class="auth-header text-center">
-            <img src="~/img/logo.png" alt="Logo Botica" class="logo" />
-            <h2 class="mt-3">Crear Cuenta</h2>
-            <p class="text-muted">Completa los datos para registrarte</p>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Nombre" class="form-control" placeholder="Nombre Completo" />
+                            <label asp-for="Nombre"></label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Login" class="form-control" placeholder="usuario@ejemplo.com" />
+                            <label asp-for="Login"></label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Contrasena" class="form-control" type="password" placeholder="Contraseña" />
+                            <label asp-for="Contrasena"></label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="ConfirmarContrasena" class="form-control" type="password" placeholder="Confirmar Contraseña" />
+                            <label asp-for="ConfirmarContrasena"></label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            @if ((bool)ViewBag.PermitirAdmin)
+                            {
+                                <select asp-for="RolSeleccionado" asp-items="ViewBag.TiposUsuario" class="form-select">
+                                    <option value="">-- Selecciona un Rol --</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <select asp-for="RolSeleccionado" class="form-select">
+                                    <option value="">-- Selecciona un Rol --</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                </select>
+                            }
+                            <label asp-for="RolSeleccionado"></label>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="submit" class="w-100 btn btn-login">REGISTRARSE</button>
+                        </div>
+
+                        <div class="form-links text-center">
+                            <p>
+                                ¿Ya tienes una cuenta?
+                                <a asp-controller="Cuenta" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]">Inicia sesión aquí</a>
+                            </p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="login-image-panel">
+                <!-- Imagen de fondo -->
+            </div>
         </div>
-
-        <form asp-action="Registro" method="post" class="auth-form p-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="mb-3">
-                <label asp-for="Nombre" class="form-label"></label>
-                <input asp-for="Nombre" class="form-control" placeholder="Ej: Juan Pérez" />
-                <span asp-validation-for="Nombre" class="text-danger small"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Login" class="form-label"></label>
-                <input asp-for="Login" class="form-control" placeholder="Ej: usuario@botica.com" />
-                <span asp-validation-for="Login" class="text-danger small"></span>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label asp-for="Contrasena" class="form-label"></label>
-                    <input asp-for="Contrasena" class="form-control" type="password" placeholder="••••••••" />
-                    <span asp-validation-for="Contrasena" class="text-danger small"></span>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label asp-for="ConfirmarContrasena" class="form-label"></label>
-                    <input asp-for="ConfirmarContrasena" class="form-control" type="password" placeholder="••••••••" />
-                    <span asp-validation-for="ConfirmarContrasena" class="text-danger small"></span>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="RolSeleccionado" class="form-label"></label>
-                @if ((bool)ViewBag.PermitirAdmin)
-                {
-                    <select asp-for="RolSeleccionado" asp-items="ViewBag.TiposUsuario" class="form-select">
-                        <option value="">-- Selecciona un Rol --</option>
-                    </select>
-                }
-                else
-                {
-                    <select asp-for="RolSeleccionado" class="form-select">
-                        <option value="">-- Selecciona un Rol --</option>
-                        <option value="Vendedor">Vendedor</option>
-                    </select>
-                }
-                <span asp-validation-for="RolSeleccionado" class="text-danger small"></span>
-            </div>
-
-            <div class="d-grid">
-                <button type="submit" class="btn btn-success">Registrarse</button>
-            </div>
-
-            <div class="text-center mt-3">
-                <a asp-action="Login" class="link-secondary">¿Ya tienes cuenta? Inicia sesión</a>
-            </div>
-        </form>
     </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

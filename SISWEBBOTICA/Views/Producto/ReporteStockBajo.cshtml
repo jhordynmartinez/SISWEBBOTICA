@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SISWEBBOTICA.Models.Producto>
+@{
+    ViewData["Title"] = "Reporte de Productos con Stock Bajo";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>Listado de productos cuyo stock es igual o menor a 5 unidades.</p>
+<a asp-action="ExportarStockBajo" class="btn btn-success mb-3"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Stock Actual</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Categoria.Nombre</td>
+                    <td><span class="badge bg-danger">@item.Stock</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No hay productos con stock bajo actualmente.</div>
+}

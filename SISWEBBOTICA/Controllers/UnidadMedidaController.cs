@@ -132,7 +132,6 @@ namespace SISWEBBOTICA.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
         private bool UnidadMedidaExists(int id)
         {
             return _context.UnidadesMedida.Any(e => e.IdUnidadMedida == id);

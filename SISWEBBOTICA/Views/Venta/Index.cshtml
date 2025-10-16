@@ -1,35 +1,82 @@
 ﻿@model IEnumerable<SISWEBBOTICA.Models.Venta>
-
 @{
     ViewData["Title"] = "Historial de Ventas";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID Venta</th>
-            <th>Fecha</th>
-            <th>Cliente</th>
-            <th>Vendedor</th>
-            <th>Total</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.IdVenta)</td>
-                <td>@item.FechaVenta.ToString("g")</td>
-                <td>@Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
-                <td>@Html.DisplayFor(modelItem => item.Usuario.Nombre)</td>
-                <td>@item.TotalPagar.ToString("C")</td>
-                <td>
-                    <a asp-action="Boleta" asp-route-id="@item.IdVenta" class="btn btn-info btn-sm">Ver Boleta</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <h5><i class="fas fa-filter"></i> Filtrar Ventas</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" method="get">
+                <div class="row align-items-end g-3">
+                    <div class="col-md-4">
+                        <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+                        <input type="date" name="fechaInicio" class="form-control" value="@ViewData["FechaInicio"]" />
+                    </div>
+                    <div class="col-md-4">
+                        <label for="fechaFin" class="form-label">Fecha Fin</label>
+                        <input type="date" name="fechaFin" class="form-control" value="@ViewData["FechaFin"]" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-info w-100"><i class="fas fa-search"></i> Filtrar</button>
+                    </div>
+                    <div class="col-md-2">
+                        <a asp-action="ExportarVentas" asp-route-fechaInicio="@ViewData["FechaInicio"]" asp-route-fechaFin="@ViewData["FechaFin"]" class="btn btn-success w-100"><i class="fas fa-file-excel"></i> Exportar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- --- INICIO DEL CÓDIGO RESTAURADO --- -->
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                @if (!Model.Any())
+                {
+                    <div class="alert alert-warning text-center">No se encontraron ventas para el rango de fechas seleccionado.</div>
+                }
+                else
+                {
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>N° Boleta</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Vendedor</th>
+                                <th class="text-end">Total</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.NumeroComprobante)</td>
+                                    <td>@item.FechaVenta.ToString("g")</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Cliente.Nombre) @Html.DisplayFor(modelItem => item.Cliente.Apellido)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Usuario.UserName)</td>
+                                    <td class="text-end">@item.TotalPagar.ToString("C")</td>
+                                    <td class="text-center">
+                                        <a asp-action="Boleta" asp-route-id="@item.IdVenta" class="btn btn-info btn-sm" title="Ver Boleta">
+                                            <i class="fas fa-eye"></i> Ver Boleta
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- --- FIN DEL CÓDIGO RESTAURADO --- -->
+</div>

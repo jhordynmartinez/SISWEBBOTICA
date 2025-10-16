@@ -1,20 +1,21 @@
 ﻿@model SISWEBBOTICA.ViewModels.VentaVM
+@using System.Text.Json;
 @{
     ViewData["Title"] = "Registrar Nueva Venta";
 }
 
 <style>
-    .ui-autocomplete-loading {
-        background: white url('/img/ui-anim_basic_16x16.gif') right center no-repeat;
-    }
+.ui-autocomplete-loading {
+    background: white url('/img/ui-anim_basic_16x16.gif') right center no-repeat;
+}
 
-    .table-sm th, .table-sm td {
-        vertical-align: middle;
-    }
+.table-sm th, .table-sm td {
+    vertical-align: middle;
+}
 
-    .total-section span {
-        font-family: 'Courier New', Courier, monospace;
-    }
+.total-section span {
+    font-family: 'Courier New', Courier, monospace;
+}
 </style>
 
 <div class="container mt-4">
@@ -25,10 +26,10 @@
         <div class="card-body">
             @if (TempData["SuccessMessage"] != null)
             {
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    @TempData["SuccessMessage"]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        @TempData["SuccessMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
             }
             <div asp-validation-summary="All" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
 
@@ -116,114 +117,136 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            let detalles = [];
-            const IGV_RATE = 0.18;
+        <partial name="_ValidationScriptsPartial" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                let detalles = [];
+                const IGV_RATE = 0.18;
 
-            $("#producto-search").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: "@Url.Action("BuscarProductos", "Venta")",
-                        dataType: "json",
-                        data: { term: request.term },
-                        success: function (data) { response(data); }
-                    });
-                },
-                minLength: 2,
-                select: function (event, ui) {
-                    agregarAlCarrito(ui.item);
-                    $(this).val('');
-                    return false;
+                // --- INICIO DE LA SECCIÓN AGREGADA ---
+                function inicializarCarrito() {
+                    // Serializa los detalles del modelo C# a un objeto JSON de JavaScript
+                    var detallesDesdeServidor = @Html.Raw(Json.Serialize(Model.Detalles ?? new List<DetalleVentaVM>()));
+
+                    if (detallesDesdeServidor && detallesDesdeServidor.length > 0) {
+                        detalles = detallesDesdeServidor.map(item => ({
+                            idProducto: item.idProducto,
+                            nombre: item.nombreProducto, // Este campo es clave para reconstruir la vista
+                            cantidad: item.cantidad,
+                            precio: item.precio,
+                            stock: 0
+                        }));
+                        renderizarTablaYTotales();
+                    }
                 }
-            });
+                // --- FIN DE LA SECCIÓN AGREGADA ---
 
-            function agregarAlCarrito(producto) {
-                const existente = detalles.find(d => d.idProducto === producto.id);
-                if (existente) {
-                    existente.cantidad += 1;
-                } else {
-                    detalles.push({
-                        idProducto: producto.id,
-                        nombre: producto.value,
-                        cantidad: 1,
-                        precio: parseFloat(producto.precio),
-                        stock: parseFloat(producto.stock)
-                    });
-                }
-                renderizarTablaYTotales();
-            }
-
-            function renderizarTablaYTotales() {
-                const tbody = $("#tabla-detalles tbody");
-                tbody.empty();
-
-                if (detalles.length === 0) {
-                     tbody.append('<tr><td colspan="5" class="text-center text-muted">No hay medicamentos en la venta.</td></tr>');
-                }
-
-                detalles.forEach((item, index) => {
-                    const subtotalItem = item.cantidad * item.precio;
-                    const fila = `
-                        <tr data-index="${index}">
-                            <td>
-                                <input type="hidden" name="Detalles[${index}].IdProducto" value="${item.idProducto}" />
-                                <input type="hidden" name="Detalles[${index}].Precio" value="${item.precio.toFixed(2)}" />
-                                <input type="hidden" name="Detalles[${index}].Subtotal" value="${subtotalItem.toFixed(2)}" />
-                                ${item.nombre}
-                            </td>
-                            <td><input type="number" name="Detalles[${index}].Cantidad" value="${item.cantidad}" class="form-control form-control-sm cantidad-input" min="0.01" step="any" /></td>
-                            <td>S/ ${item.precio.toFixed(2)}</td>
-                            <td>S/ ${subtotalItem.toFixed(2)}</td>
-                            <td><button type="button" class="btn btn-danger btn-sm eliminar-fila">&times;</button></td>
-                        </tr>`;
-                    tbody.append(fila);
+                $("#producto-search").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "@Url.Action("BuscarProductos", "Venta")",
+                            dataType: "json",
+                            data: { term: request.term },
+                            success: function (data) { response(data); }
+                        });
+                    },
+                    minLength: 2,
+                    select: function (event, ui) {
+                        agregarAlCarrito(ui.item);
+                        $(this).val('');
+                        return false;
+                    }
                 });
 
-                actualizarTotales();
-            }
+                function agregarAlCarrito(producto) {
+                    const existente = detalles.find(d => d.idProducto === producto.id);
+                    if (existente) {
+                        existente.cantidad += 1;
+                    } else {
+                        detalles.push({
+                            idProducto: producto.id,
+                            nombre: producto.value,
+                            cantidad: 1,
+                            precio: parseFloat(producto.precio),
+                            stock: parseFloat(producto.stock)
+                        });
+                    }
+                    renderizarTablaYTotales();
+                }
 
-            function actualizarTotales() {
-                let totalGeneral = 0;
-                detalles.forEach(item => {
-                    totalGeneral += item.cantidad * item.precio;
+                function renderizarTablaYTotales() {
+                    const tbody = $("#tabla-detalles tbody");
+                    tbody.empty();
+
+                    if (detalles.length === 0) {
+                         tbody.append('<tr><td colspan="5" class="text-center text-muted">No hay medicamentos en la venta.</td></tr>');
+                    }
+
+                    detalles.forEach((item, index) => {
+                        const subtotalItem = item.cantidad * item.precio;
+                        const nombreProducto = item.nombre || `Producto ID: ${item.idProducto}`;
+                        const fila = `
+                            <tr data-index="${index}">
+                                <td>
+                                    <input type="hidden" name="Detalles[${index}].IdProducto" value="${item.idProducto}" />
+                                    <!-- CORRECCIÓN: Se añade input oculto para el nombre -->
+                                    <input type="hidden" name="Detalles[${index}].NombreProducto" value="${nombreProducto}" />
+                                    <input type="hidden" name="Detalles[${index}].Precio" value="${item.precio.toFixed(2)}" />
+                                    <input type="hidden" name="Detalles[${index}].Subtotal" value="${subtotalItem.toFixed(2)}" />
+                                    ${nombreProducto}
+                                </td>
+                                <td><input type="number" name="Detalles[${index}].Cantidad" value="${item.cantidad}" class="form-control form-control-sm cantidad-input" min="0.01" step="any" /></td>
+                                <td>S/ ${item.precio.toFixed(2)}</td>
+                                <td>S/ ${subtotalItem.toFixed(2)}</td>
+                                <td><button type="button" class="btn btn-danger btn-sm eliminar-fila">&times;</button></td>
+                            </tr>`;
+                        tbody.append(fila);
+                    });
+
+                    actualizarTotales();
+                }
+
+                function actualizarTotales() {
+                    let totalGeneral = 0;
+                    detalles.forEach(item => {
+                        totalGeneral += item.cantidad * item.precio;
+                    });
+
+                    const subtotalVenta = totalGeneral / (1 + IGV_RATE);
+                    const igvCalculado = totalGeneral - subtotalVenta;
+
+                    $("#subtotal-span").text(`S/ ${subtotalVenta.toFixed(2)}`);
+                    $("#igv-span").text(`S/ ${igvCalculado.toFixed(2)}`);
+                    $("#total-span").text(`S/ ${totalGeneral.toFixed(2)}`);
+
+                    $('input[name="Subtotal"]').val(subtotalVenta.toFixed(2).replace(',', '.'));
+                    $('input[name="IGV"]').val(igvCalculado.toFixed(2).replace(',', '.'));
+                    $('input[name="Total"]').val(totalGeneral.toFixed(2).replace(',', '.'));
+                }
+
+                $("#tabla-detalles").on("change", ".cantidad-input", function () {
+                    const index = $(this).closest("tr").data("index");
+                    const nuevaCantidad = parseFloat($(this).val());
+
+                    if (!isNaN(nuevaCantidad) && nuevaCantidad > 0) {
+                        detalles[index].cantidad = nuevaCantidad;
+                    } else {
+                        detalles[index].cantidad = 1;
+                    }
+                    renderizarTablaYTotales();
                 });
 
-                const subtotalVenta = totalGeneral / (1 + IGV_RATE);
-                const igvCalculado = totalGeneral - subtotalVenta;
+                $("#tabla-detalles").on("click", ".eliminar-fila", function () {
+                    const index = $(this).closest("tr").data("index");
+                    detalles.splice(index, 1);
+                    renderizarTablaYTotales();
+                });
 
-                $("#subtotal-span").text(`S/ ${subtotalVenta.toFixed(2)}`);
-                $("#igv-span").text(`S/ ${igvCalculado.toFixed(2)}`);
-                $("#total-span").text(`S/ ${totalGeneral.toFixed(2)}`);
-
-                $('input[name="Subtotal"]').val(subtotalVenta.toFixed(2).replace(',', '.'));
-                $('input[name="IGV"]').val(igvCalculado.toFixed(2).replace(',', '.'));
-                $('input[name="Total"]').val(totalGeneral.toFixed(2).replace(',', '.'));
-            }
-
-            $("#tabla-detalles").on("change", ".cantidad-input", function () {
-                const index = $(this).closest("tr").data("index");
-                const nuevaCantidad = parseFloat($(this).val());
-
-                if (!isNaN(nuevaCantidad) && nuevaCantidad > 0) {
-                    detalles[index].cantidad = nuevaCantidad;
-                } else {
-                    detalles[index].cantidad = 1; // Resetea a 1 si el valor es inválido
-                }
-                renderizarTablaYTotales();
+                // CORRECCIÓN: Llamar a la función al cargar la página
+                inicializarCarrito();
             });
-
-            $("#tabla-detalles").on("click", ".eliminar-fila", function () {
-                const index = $(this).closest("tr").data("index");
-                detalles.splice(index, 1);
-                renderizarTablaYTotales();
-            });
-
-            renderizarTablaYTotales(); // Carga inicial
-        });
-    </script>
+        </script>
 }

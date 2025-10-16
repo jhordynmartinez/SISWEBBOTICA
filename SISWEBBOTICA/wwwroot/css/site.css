@@ -1,22 +1,160 @@
+/* Definición de la Paleta de Colores "Marcafar" como variables CSS */
+:root {
+    --color-azul-principal: #2F4A9D;
+    --color-rosa-corazon: #E870A0;
+    --color-rojo-cruz: #8C292E;
+    --color-blanco: #FFFFFF;
+    --color-fondo-claro: #f8f9fa;
+    --color-texto-principal: #212529;
+    --color-texto-secundario: #6c757d;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: var(--color-fondo-claro); /* Fondo general más suave */
+}
+
+/* --- Barra de Navegación (Navbar) --- */
+.navbar {
+    background-color: var(--color-blanco) !important;
+    border-bottom: 3px solid var(--color-azul-principal) !important;
+}
+
+.navbar-brand {
+    color: var(--color-azul-principal) !important;
+    font-weight: 700;
+}
+
+.nav-link {
+    color: var(--color-texto-principal) !important;
+    font-weight: 500;
+}
+
+    .nav-link:hover, .navbar-brand:hover {
+        color: var(--color-rosa-corazon) !important;
+    }
+
+.dropdown-menu {
+    border-color: var(--color-azul-principal);
+}
+
+.dropdown-item:active {
+    background-color: var(--color-azul-principal);
+}
+
+/* --- Botones --- */
+.btn-primary {
+    background-color: var(--color-azul-principal);
+    border-color: var(--color-azul-principal);
+}
+
+    .btn-primary:hover {
+        background-color: #243a7c; /* Un azul un poco más oscuro */
+        border-color: #243a7c;
+    }
+
+.btn-success {
+    background-color: var(--color-rosa-corazon);
+    border-color: var(--color-rosa-corazon);
+}
+
+    .btn-success:hover {
+        background-color: #d15a8a; /* Un rosa más oscuro */
+        border-color: #d15a8a;
+    }
+
+.btn-danger {
+    background-color: var(--color-rojo-cruz);
+    border-color: var(--color-rojo-cruz);
+}
+
+    .btn-danger:hover {
+        background-color: #6d2024; /* Un rojo más oscuro */
+        border-color: #6d2024;
+    }
+
+/* --- Títulos y Encabezados --- */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-azul-principal);
+    font-weight: 700;
+}
+
+/* --- Tarjetas (Cards) del Dashboard y otras vistas --- */
+.card-header {
+    background-color: var(--color-azul-principal);
+    color: var(--color-blanco);
+}
+
+    .card-header h3, .card-header h4, .card-header h5, .card-header h6 {
+        color: var(--color-blanco);
+    }
+
+    /* Alertas del Dashboard */
+    .card-header.bg-warning {
+        background-color: #ffc107 !important;
+        color: #000 !important;
+    }
+
+    .card-header.bg-danger {
+        background-color: var(--color-rojo-cruz) !important;
+    }
+
+    .card-header.bg-info {
+        background-color: var(--color-rosa-corazon) !important;
+    }
+
+.card-metric .text-primary {
+    color: var(--color-azul-principal) !important;
+}
+
+.card-metric .text-success {
+    color: #198754 !important;
+}
+
+.card-metric .text-info {
+    color: var(--color-rosa-corazon) !important;
+}
+
+.card-metric .text-secondary {
+    color: #6c757d !important;
+}
+
+.border-primary {
+    border-left-color: var(--color-azul-principal) !important;
+}
+
+/* --- Tablas --- */
+.table thead {
+    background-color: var(--color-azul-principal);
+    color: var(--color-blanco);
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: #ffffff;
+}
+
+/* --- Formulario de Venta (Ajustes) --- */
+#tabla-detalles thead {
+    background-color: #e9ecef;
+    color: var(--color-texto-principal);
+}
+
+.total-section {
+    color: var(--color-texto-principal);
 }

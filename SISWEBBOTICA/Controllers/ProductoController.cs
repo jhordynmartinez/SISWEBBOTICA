@@ -1,42 +1,52 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SISWEBBOTICA.Data;
 using SISWEBBOTICA.Models;
+using SISWEBBOTICA.Services;
 using SISWEBBOTICA.ViewModels;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace SISWEBBOTICA.Controllers
 {
     [Authorize]
     public class ProductoController : Controller
     {
-        private readonly AppDBContext _context;
+        // --- INICIO DE LA CORRECCIÓN ESTRUCTURAL ---
+        private readonly IProductoRepository _productoRepo;
+        private readonly ICategoriaRepository _categoriaRepo;
+        private readonly IUnidadMedidaRepository _unidadMedidaRepo;
 
-        public ProductoController(AppDBContext context)
+        public ProductoController(
+            IProductoRepository productoRepo,
+            ICategoriaRepository categoriaRepo,
+            IUnidadMedidaRepository unidadMedidaRepo)
         {
-            _context = context;
+            _productoRepo = productoRepo;
+            _categoriaRepo = categoriaRepo;
+            _unidadMedidaRepo = unidadMedidaRepo;
+        }
+        // --- FIN DE LA CORRECCIÓN ESTRUCTURAL ---
+
+        public async Task<IActionResult> Index(string busqueda, string filtroStock)
+        {
+            ViewData["BusquedaActual"] = busqueda;
+            ViewData["FiltroStockActual"] = filtroStock;
+            var productos = await _productoRepo.GetProductosAsync(busqueda, filtroStock);
+            return View(productos);
         }
 
-        // GET: /Producto (CORREGIDO: Muestra solo productos activos)
-        public async Task<IActionResult> Index()
-        {
-            var productos = _context.Productos
-                                    .Where(p => p.Estado == "Activo")
-                                    .Include(p => p.Categoria)
-                                    .Include(p => p.UnidadMedida);
-            return View(await productos.ToListAsync());
-        }
-
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var viewModel = new ProductoVM
             {
                 Producto = new Producto(),
-                CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre"),
-                UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre")
+                CategoriasList = new SelectList(await _categoriaRepo.GetAllAsync(), "IdCategoria", "Nombre"),
+                UnidadesMedidaList = new SelectList(await _unidadMedidaRepo.GetAllAsync(), "IdUnidadMedida", "Nombre")
             };
             return View(viewModel);
         }
@@ -45,18 +55,21 @@ namespace SISWEBBOTICA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductoVM viewModel)
         {
-            // El modelo Producto dentro del ViewModel se llena automáticamente
+            if (await _productoRepo.ProductoDuplicadoExistsAsync(viewModel.Producto.Nombre, viewModel.Producto.Presentacion))
+            {
+                ModelState.AddModelError("Producto.Nombre", "Ya existe un producto con el mismo nombre y presentación.");
+            }
+
             if (ModelState.IsValid)
             {
-                viewModel.Producto.Estado = "Activo"; // Aseguramos que el estado sea Activo al crear
-                _context.Add(viewModel.Producto);
-                await _context.SaveChangesAsync();
+                viewModel.Producto.Estado = "Activo";
+                await _productoRepo.CreateProductoAsync(viewModel.Producto);
                 TempData["SuccessMessage"] = "Producto creado exitosamente.";
                 return RedirectToAction(nameof(Index));
             }
 
-            viewModel.CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre", viewModel.Producto.IdCategoria);
-            viewModel.UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre", viewModel.Producto.IdUnidadMedida);
+            viewModel.CategoriasList = new SelectList(await _categoriaRepo.GetAllAsync(), "IdCategoria", "Nombre", viewModel.Producto.IdCategoria);
+            viewModel.UnidadesMedidaList = new SelectList(await _unidadMedidaRepo.GetAllAsync(), "IdUnidadMedida", "Nombre", viewModel.Producto.IdUnidadMedida);
             return View(viewModel);
         }
 
@@ -64,14 +77,14 @@ namespace SISWEBBOTICA.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
-            var producto = await _context.Productos.FindAsync(id);
+            var producto = await _productoRepo.GetProductoByIdAsync(id.Value);
             if (producto == null) return NotFound();
 
             var viewModel = new ProductoVM
             {
                 Producto = producto,
-                CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre", producto.IdCategoria),
-                UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre", producto.IdUnidadMedida)
+                CategoriasList = new SelectList(await _categoriaRepo.GetAllAsync(), "IdCategoria", "Nombre", producto.IdCategoria),
+                UnidadesMedidaList = new SelectList(await _unidadMedidaRepo.GetAllAsync(), "IdUnidadMedida", "Nombre", producto.IdUnidadMedida)
             };
             return View(viewModel);
         }
@@ -83,26 +96,29 @@ namespace SISWEBBOTICA.Controllers
         {
             if (id != viewModel.Producto.IdProducto) return NotFound();
 
+            if (await _productoRepo.ProductoDuplicadoExistsAsync(viewModel.Producto.Nombre, viewModel.Producto.Presentacion, id))
+            {
+                ModelState.AddModelError("Producto.Nombre", "Ya existe otro producto con el mismo nombre y presentación.");
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    // Aseguramos que el estado no se cambie accidentalmente en este formulario
                     viewModel.Producto.Estado = "Activo";
-                    _context.Update(viewModel.Producto);
-                    await _context.SaveChangesAsync();
+                    await _productoRepo.UpdateProductoAsync(viewModel.Producto);
                     TempData["SuccessMessage"] = "Producto actualizado exitosamente.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductoExists(viewModel.Producto.IdProducto)) return NotFound();
+                    if (!await _productoRepo.ProductoExistsAsync(viewModel.Producto.IdProducto)) return NotFound();
                     else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
 
-            viewModel.CategoriasList = new SelectList(_context.Categorias.OrderBy(c => c.Nombre), "IdCategoria", "Nombre", viewModel.Producto.IdCategoria);
-            viewModel.UnidadesMedidaList = new SelectList(_context.UnidadesMedida.OrderBy(u => u.Nombre), "IdUnidadMedida", "Nombre", viewModel.Producto.IdUnidadMedida);
+            viewModel.CategoriasList = new SelectList(await _categoriaRepo.GetAllAsync(), "IdCategoria", "Nombre", viewModel.Producto.IdCategoria);
+            viewModel.UnidadesMedidaList = new SelectList(await _unidadMedidaRepo.GetAllAsync(), "IdUnidadMedida", "Nombre", viewModel.Producto.IdUnidadMedida);
             return View(viewModel);
         }
 
@@ -110,31 +126,82 @@ namespace SISWEBBOTICA.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
-            var producto = await _context.Productos.Include(p => p.Categoria).Include(p => p.UnidadMedida).FirstOrDefaultAsync(m => m.IdProducto == id);
+            var producto = await _productoRepo.GetProductoConVentasByIdAsync(id.Value);
             if (producto == null) return NotFound();
+
+            if (producto.DetallesVenta.Any())
+            {
+                ViewBag.Error = "No se puede eliminar este producto porque tiene ventas asociadas. Solo puede marcarlo como inactivo.";
+            }
+
             return View(producto);
         }
 
-        // POST: /Producto/Delete/5 (CORREGIDO: Implementa Eliminación Lógica)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var producto = await _context.Productos.FindAsync(id);
-            if (producto != null)
+            var producto = await _productoRepo.GetProductoConVentasByIdAsync(id);
+            if (producto == null) return NotFound();
+
+            if (producto.DetallesVenta.Any())
             {
-                producto.Estado = "Inactivo"; // Cambiamos el estado en lugar de borrar
-                _context.Update(producto);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Producto eliminado (marcado como inactivo) exitosamente.";
+                producto.Estado = "Inactivo";
+                await _productoRepo.UpdateProductoAsync(producto);
+                TempData["SuccessMessage"] = "Producto marcado como inactivo porque tiene ventas asociadas.";
             }
+            else
+            {
+                await _productoRepo.DeleteProductoAsync(id);
+                TempData["SuccessMessage"] = "Producto eliminado exitosamente.";
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductoExists(int id)
+        public async Task<IActionResult> ReporteStockBajo()
         {
-            return _context.Productos.Any(e => e.IdProducto == id);
+            var productos = await _productoRepo.GetProductosAsync(null, "bajo");
+            return View(productos);
+        }
+
+        public async Task<IActionResult> ExportarStockBajo()
+        {
+            var productos = await _productoRepo.GetProductosAsync(null, "bajo");
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("StockBajo");
+                var currentRow = 1;
+                worksheet.Cell(currentRow, 1).Value = "Nombre del Medicamento";
+                worksheet.Cell(currentRow, 2).Value = "Categoría";
+                worksheet.Cell(currentRow, 3).Value = "Stock Actual";
+
+                worksheet.Row(1).Style.Font.Bold = true;
+
+                foreach (var prod in productos)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = prod.Nombre;
+                    worksheet.Cell(currentRow, 2).Value = prod.Categoria?.Nombre ?? "N/A"; // Verificación de nulidad
+                    worksheet.Cell(currentRow, 3).Value = prod.Stock;
+                }
+
+                worksheet.Columns().AdjustToContents();
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"ReporteStockBajo_{DateTime.Now:yyyyMMdd}.xlsx");
+                }
+            }
+        }
+
+        private async Task<bool> ProductoExists(int id)
+        {
+            return await _productoRepo.ProductoExistsAsync(id);
         }
     }
 }

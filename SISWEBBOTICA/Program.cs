@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SISWEBBOTICA.Data;
 using SISWEBBOTICA.Models;
+using SISWEBBOTICA.Services; // <-- AÑADIR ESTE USING
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,16 +17,26 @@ var connectionString = builder.Configuration.GetConnectionString("CadenaSQL");
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(connectionString));
 
+// --- INICIO DE LA MODIFICACIÓN ---
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<IUnidadMedidaRepository, UnidadMedidaRepository>();
+
+// --- FIN DE LA MODIFICACIÓN ---
+
+// --- INICIO DE LA CORRECCIÓN: Configuración de ASP.NET Core Identity ---
 builder.Services.AddIdentity<Usuario, TipoUsuario>(options => {
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 4;
-    options.Password.RequiredUniqueChars = 1;
+    // Configuración de las reglas de contraseña para cumplir con la HU
+    options.Password.RequireDigit = true;         // Requiere al menos un número
+    options.Password.RequireLowercase = true;     // Requiere al menos una minúscula
+    options.Password.RequireNonAlphanumeric = false; // No requiere símbolos especiales
+    options.Password.RequireUppercase = false;    // No requiere mayúsculas
+    options.Password.RequiredLength = 8;          // Mínimo 8 caracteres
+    options.Password.RequiredUniqueChars = 1;     // Caracteres únicos requeridos
 })
 .AddEntityFrameworkStores<AppDBContext>()
 .AddDefaultTokenProviders();
+// --- FIN DE LA CORRECCIÓN ---
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -69,7 +80,7 @@ app.MapControllerRoute(
     pattern: "{controller=Cuenta}/{action=Login}/{id?}");
 
 //--------------------------------------------------------------------
-// 4. INICIALIZACIÓN DE DATOS (DATA SEEDING) - CORREGIDO
+// 4. INICIALIZACIÓN DE DATOS (DATA SEEDING)
 //--------------------------------------------------------------------
 using (var scope = app.Services.CreateScope())
 {
@@ -98,14 +109,12 @@ using (var scope = app.Services.CreateScope())
             await context.SaveChangesAsync();
         }
 
-        // --- INICIO DE LA CORRECCIÓN ---
         // Crear Moneda por defecto si no existe
         if (!context.Monedas.Any())
         {
             context.Monedas.Add(new Moneda { Nombre = "NUEVOS SOLES", Simbolo = "S/." });
             await context.SaveChangesAsync();
         }
-        // --- FIN DE LA CORRECCIÓN ---
     }
     catch (Exception ex)
     {
@@ -118,5 +127,3 @@ using (var scope = app.Services.CreateScope())
 // 5. EJECUTAR LA APLICACIÓN
 //--------------------------------------------------------------------
 app.Run();
-
-///PDODKDDDNDNDNDJ

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SISWEBBOTICA.Models.Cliente>
+@{
+    ViewData["Title"] = "Lista de Clientes";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI/RUC</th>
+            <th>Teléfono</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Apellido</td>
+                <td>@item.RucDni</td>
+                <td>@item.Telefono</td>
+            </tr>
+        }
+    </tbody>
+</table>

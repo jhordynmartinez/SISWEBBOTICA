@@ -1,0 +1,51 @@
+﻿@model SISWEBBOTICA.ViewModels.UsuarioCreateVM
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Apellido" class="form-label"></label>
+                <input asp-for="Apellido" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="UserName" class="form-label"></label>
+                <input asp-for="UserName" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" type="password" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Rol" class="form-label"></label>
+                <select asp-for="Rol" class="form-select" asp-items="ViewBag.Roles">
+                    <option value="">-- Seleccione un Rol --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear Usuario" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

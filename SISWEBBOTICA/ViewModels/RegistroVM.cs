@@ -15,7 +15,8 @@ namespace SISWEBBOTICA.ViewModels
 
         [Required(ErrorMessage = "La contraseña es obligatoria.")]
         [DataType(DataType.Password)]
-        [StringLength(100, ErrorMessage = "La {0} debe tener al menos {2} caracteres.", MinimumLength = 4)]
+        [StringLength(100, ErrorMessage = "La {0} debe tener al menos {2} caracteres.", MinimumLength = 8)]
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$", ErrorMessage = "La contraseña debe tener al menos 8 caracteres e incluir letras y números.")]
         [Display(Name = "Contraseña")]
         public string Contrasena { get; set; }
 

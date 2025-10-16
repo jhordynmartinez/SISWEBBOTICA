@@ -1,43 +1,62 @@
 ﻿@model SISWEBBOTICA.ViewModels.LoginVM
 @{
     ViewData["Title"] = "Iniciar Sesión";
+    Layout = null; // No usar el layout principal
 }
 
-<link rel="stylesheet" href="~/css/Estilo_Inicio_pagina..css" />
-
-<div class="login-wrapper">
-    <!-- Columna izquierda: logo -->
-    <div class="login-leLOGO 1 BOTICA MARCAFAR" alt="Logo de la botica" />
-    </div>
-
-    <!-- Columna derecha: formulario -->
-    <div class="login-right">
-        <div class="form-container">
-            <h2>Iniciar Sesión</h2>
-
-            <form asp-action="Login" method="post">
-                @Html.AntiForgeryToken()
-
-                <div class="mb-3">
-                    <label asp-for="EmailOrUsername" class="form-label">Correo</label>
-                    <input asp-for="EmailOrUsername" class="form-control" />
-                    <span asp-validation-for="EmailOrUsername" class="text-danger"></span>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SISWEBBOTICA</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/EstilosJB.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-form-panel">
+                <div class="form-header">
+                    <h2>Iniciar Sesión</h2>
+                    <p>Bienvenido de vuelta</p>
                 </div>
+                <section>
+                    <form asp-controller="Cuenta" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-                <div class="mb-3">
-                    <label asp-for="Password" class="form-label">Contraseña</label>
-                    <input asp-for="Password" class="form-control" type="password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="EmailOrUsername" class="form-control" placeholder="usuario@ejemplo.com" />
+                            <label asp-for="EmailOrUsername"></label>
+                        </div>
 
-                <button type="submit" class="btn btn-primary">Ingresar</button>
-                <a asp-action="Registro" class="btn btn-link">¿No tienes cuenta? Regístrate</a>
-            </form>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Password" class="form-control" type="password" placeholder="Contraseña" />
+                            <label asp-for="Password"></label>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="submit" class="w-100 btn btn-login">INGRESAR</button>
+                        </div>
+
+                        <div class="form-links text-center mt-3">
+                            <p>
+                                ¿No tienes una cuenta?
+                                <a asp-controller="Cuenta" asp-action="Registro" asp-route-returnUrl="@ViewData["ReturnUrl"]">Regístrate aquí</a>
+                            </p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="login-image-panel">
+                <!-- Imagen de fondo -->
+            </div>
         </div>
     </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

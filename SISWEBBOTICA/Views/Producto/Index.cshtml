@@ -16,48 +16,83 @@
         </div>
     }
 
-    <p>
-        <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Registrar Nuevo Producto</a>
-    </p>
+    <!-- Formulario de Búsqueda y Filtro -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form asp-action="Index" method="get">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-6">
+                        <label class="form-label">Término de búsqueda</label>
+                        <input type="text" name="busqueda" class="form-control" placeholder="Buscar por nombre, código o categoría..." value="@ViewData["BusquedaActual"]" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Filtrar por Stock</label>
+
+                        <!-- --- INICIO DE LA CORRECCIÓN --- -->
+                        <select name="filtroStock" class="form-select">
+                            <option value="" selected="@(ViewData["FiltroStockActual"] == null || string.IsNullOrEmpty(ViewData["FiltroStockActual"].ToString()))">Todos</option>
+                            <option value="disponible" selected="@(ViewData["FiltroStockActual"]?.ToString() == "disponible")">Con Stock</option>
+                            <option value="bajo" selected="@(ViewData["FiltroStockActual"]?.ToString() == "bajo")">Stock Bajo (<= 5)</option>
+                            <option value="sin" selected="@(ViewData["FiltroStockActual"]?.ToString() == "sin")">Sin Stock</option>
+                        </select>
+                        <!-- --- FIN DE LA CORRECCIÓN --- -->
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button type="submit" class="btn btn-info flex-grow-1"><i class="fas fa-search"></i> Buscar</button>
+                            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-eraser"></i> Limpiar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Listado de Productos</h4>
+        <div>
+            <a asp-action="ReporteStockBajo" class="btn btn-warning"><i class="fas fa-exclamation-triangle"></i> Reporte Stock Bajo</a>
+            <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Nuevo Producto</a>
+        </div>
+    </div>
 
     <div class="card shadow-sm">
-        <div class="card-body">
+        <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover mb-0">
                     <thead class="table-dark">
                         <tr>
-                            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-                            <th>@Html.DisplayNameFor(model => model.Categoria)</th>
-                            <th>@Html.DisplayNameFor(model => model.Stock)</th>
-                            <th>@Html.DisplayNameFor(model => model.PrecioMenor)</th>
-                            <th>@Html.DisplayNameFor(model => model.FechaVencimiento)</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Stock</th>
+                            <th>Precio</th>
                             <th style="width: 150px;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
-                                <td>S/ @Html.DisplayFor(modelItem => item.PrecioMenor)</td>
-                                <td>@item.FechaVencimiento?.ToString("dd/MM/yyyy")</td>
+                            <tr class="@(item.Stock <= item.StockMinimo && item.Stock > 0 ? "table-warning" : (item.Stock <= 0 ? "table-danger" : ""))">
+                                <td>@item.Nombre</td>
+                                <td>@item.Categoria.Nombre</td>
+                                <td>@item.Stock</td>
+                                <td>@item.PrecioMenor.ToString("C")</td>
                                 <td>
                                     @if (User.IsInRole("Administrador"))
                                     {
-                                        <a asp-action="Edit" asp-route-id="@item.IdProducto" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdProducto" class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted fst-italic">No permitido</span>
+                                        <a asp-action="Edit" asp-route-id="@item.IdProducto" class="btn btn-sm btn-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdProducto" class="btn btn-sm btn-danger" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
                                     }
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
+                @if (!Model.Any())
+                {
+                    <div class="alert alert-light text-center m-3">No se encontraron productos con los criterios de búsqueda seleccionados.</div>
+                }
             </div>
         </div>
     </div>
