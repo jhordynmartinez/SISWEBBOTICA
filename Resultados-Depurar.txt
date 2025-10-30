@@ -1,0 +1,1367 @@
+﻿------------------------------------------------------------------------------
+Solo puede usar el Depurador de .NET/C/C++ (vsdbg) de Microsoft Visual Studio
+con software de Visual Studio Code, Visual Studio o Visual Studio para Mac para
+ayudarle a desarrollar y probar sus aplicaciones.
+------------------------------------------------------------------------------
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Private.CoreLib.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/SISWEBBOTICA.dll". Símbolos cargados. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Runtime.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/HotReloadAgent/Microsoft.Extensions.DotNetDeltaApplier.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.IO.Pipes.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Linq.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Collections.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Console.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Memory.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Threading.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Net.Sockets.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Net.Primitives.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/Microsoft.Win32.Primitives.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Diagnostics.Tracing.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Threading.ThreadPool.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Threading.Thread.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Collections.Concurrent.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Runtime.InteropServices.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Runtime.Loader.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+Ir a: paso a paso por procedimientos en código 'Program.<Main>' que no es de usuario
+Ir a: paso a paso por procedimientos en código 'Program.<Main>$' que no es de usuario
+Ir a: paso a paso por procedimientos en código 'Program.<<Main>$>d__0..ctor' que no es de usuario
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Linq.Expressions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.ComponentModel.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Identity.Stores.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.ComponentModel.TypeConverter.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Linq.Queryable.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Hosting.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Http.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Routing.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Features.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Diagnostics.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.Core.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Configuration.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Identity.Core.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Identity.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Authentication.Cookies.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Authentication.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Session.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Hosting.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.HttpsPolicy.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.StaticFiles.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Authorization.Policy.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Diagnostics.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+Ir a: paso a paso por procedimientos en código 'Program.<>c__DisplayClass0_0..ctor' que no es de usuario
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Hosting.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Hosting.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Configuration.EnvironmentVariables.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.FileProviders.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.FileProviders.Physical.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Configuration.FileExtensions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.Options.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Diagnostics.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Configuration.Binder.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Configuration.Json.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.IO.FileSystem.Watcher.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.ComponentModel.Primitives.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/System.Text.Json.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Text.Encoding.Extensions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/System.IO.Pipelines.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Configuration.UserSecrets.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.UI.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Razor.Runtime.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Logging.Configuration.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Options.ConfigurationExtensions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Logging.Console.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Logging.Debug.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Logging.EventSource.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Server.Kestrel.Core.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Server.Kestrel.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Net.Quic.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Server.IIS.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Server.IISIntegration.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.FileProviders.Composite.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/System.Text.Encodings.Web.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Runtime.Intrinsics.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Numerics.Vectors.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Http.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Connections.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.HostFiltering.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.HttpOverrides.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Routing.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.ObjectPool.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.ObjectModel.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.Razor.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.ApiExplorer.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Authentication.Core.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Authentication.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Security.Claims.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Authorization.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.Cors.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Cors.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.DataAnnotations.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.ViewFeatures.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.DataProtection.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.DataProtection.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Cryptography.Internal.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Antiforgery.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.WebEncoders.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Components.Endpoints.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Components.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Components.Web.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.JSInterop.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.Caching.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Mvc.TagHelpers.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Razor.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.Localization.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Http.Extensions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Reflection.Emit.Lightweight.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Reflection.Emit.ILGeneration.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Reflection.Primitives.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Net.Http.Headers.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Http.Features.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Private.Uri.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Runtime.Numerics.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Html.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Metadata.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.Extensions.FileSystemGlobbing.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.ComponentModel.Annotations.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Collections.Immutable.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Data.Common.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Transactions.Local.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"Anonymously Hosted DynamicMethods Assembly".  cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Net.NetworkInformation.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/runtimes/unix/lib/net6.0/Microsoft.Data.SqlClient.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Diagnostics.StackTrace.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Diagnostics.Process.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Xml.ReaderWriter.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Private.Xml.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Collections.Specialized.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Net.WebClient.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Security.Cryptography.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/Microsoft.Identity.Client.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Text.Encoding.CodePages.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Net.Security.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Net.NameResolution.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Security.Cryptography.X509Certificates.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Collections.NonGeneric.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/app/bin/Debug/net8.0/System.Formats.Asn1.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Runtime.InteropServices.RuntimeInformation.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+El subproceso 119 terminó con código 0 (0x0).
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Text.RegularExpressions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+El subproceso 120 terminó con código 0 (0x0).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (457ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
+      CREATE DATABASE [SisfarmaciaDB];
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (457ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
+CREATE DATABASE [SisfarmaciaDB];
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (392ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [SisfarmaciaDB] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (392ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
+      IF SERVERPROPERTY('EngineEdition') <> 5
+      BEGIN
+          ALTER DATABASE [SisfarmaciaDB] SET READ_COMMITTED_SNAPSHOT ON;
+      END;
+El subproceso 124 terminó con código 0 (0x0).
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+info: Microsoft.EntityFrameworkCore.Migrations[20411]
+      Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Microsoft.EntityFrameworkCore.Migrations: Information: Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (29ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (29ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      DECLARE @result int;
+      EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+      SELECT @result
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+      BEGIN
+          CREATE TABLE [__EFMigrationsHistory] (
+              [MigrationId] nvarchar(150) NOT NULL,
+              [ProductVersion] nvarchar(32) NOT NULL,
+              CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+          );
+      END;
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (21ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [MigrationId], [ProductVersion]
+      FROM [__EFMigrationsHistory]
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (21ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+      ORDER BY [MigrationId];
+info: Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20251009091352_nuevafinal'.
+Microsoft.EntityFrameworkCore.Migrations: Information: Applying migration '20251009091352_nuevafinal'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [AperturasCaja] (
+          [IdAperturaCaja] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [AperturasCaja] (
+    [IdAperturaCaja] int NOT NULL IDENTITY,
+    [Monto] decimal(18,2) NOT NULL,
+    [FechaApertura] datetime2 NOT NULL,
+    CONSTRAINT [PK_AperturasCaja] PRIMARY KEY ([IdAperturaCaja])
+);
+          [Monto] decimal(18,2) NOT NULL,
+          [FechaApertura] datetime2 NOT NULL,
+          CONSTRAINT [PK_AperturasCaja] PRIMARY KEY ([IdAperturaCaja])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Boticas] (
+          [IdTienda] int NOT NULL IDENTITY,
+          [Nombre] nvarchar(100) NOT NULL,
+          [Ruc] nvarchar(11) NOT NULL,
+          [Celular] nvarchar(20) NULL,
+          [Email] nvarchar(100) NULL,
+          [Direccion] nvarchar(255) NOT NULL,
+          [PermitirStockNegativo] bit NOT NULL,
+          CONSTRAINT [PK_Boticas] PRIMARY KEY ([IdTienda])
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Boticas] (
+    [IdTienda] int NOT NULL IDENTITY,
+    [Nombre] nvarchar(100) NOT NULL,
+    [Ruc] nvarchar(11) NOT NULL,
+    [Celular] nvarchar(20) NULL,
+    [Email] nvarchar(100) NULL,
+    [Direccion] nvarchar(255) NOT NULL,
+    [PermitirStockNegativo] bit NOT NULL,
+    CONSTRAINT [PK_Boticas] PRIMARY KEY ([IdTienda])
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Categorias] (
+          [IdCategoria] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Categorias] (
+    [IdCategoria] int NOT NULL IDENTITY,
+    [Nombre] nvarchar(60) NOT NULL,
+    CONSTRAINT [PK_Categorias] PRIMARY KEY ([IdCategoria])
+);
+          [Nombre] nvarchar(60) NOT NULL,
+          CONSTRAINT [PK_Categorias] PRIMARY KEY ([IdCategoria])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Clientes] (
+          [IdCliente] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Clientes] (
+    [IdCliente] int NOT NULL IDENTITY,
+    [RucDni] nvarchar(20) NOT NULL,
+    [Nombre] nvarchar(100) NOT NULL,
+    [Apellido] nvarchar(100) NULL,
+    [Direccion] nvarchar(255) NULL,
+    [Telefono] nvarchar(20) NULL,
+    [Email] nvarchar(100) NULL,
+    CONSTRAINT [PK_Clientes] PRIMARY KEY ([IdCliente])
+);
+          [RucDni] nvarchar(20) NOT NULL,
+          [Nombre] nvarchar(100) NOT NULL,
+          [Apellido] nvarchar(100) NULL,
+          [Direccion] nvarchar(255) NULL,
+          [Telefono] nvarchar(20) NULL,
+          [Email] nvarchar(100) NULL,
+          CONSTRAINT [PK_Clientes] PRIMARY KEY ([IdCliente])
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [ConfiguracionesNumeracion] (
+    [IdConfigNumeracion] int NOT NULL IDENTITY,
+    [SerieNotaVenta] nvarchar(10) NULL,
+    [NumNotaVenta] int NULL,
+    [SerieBoleta] nvarchar(10) NULL,
+    [NumBoleta] nvarchar(20) NULL,
+    [SerieFactura] nvarchar(10) NULL,
+    [NumFactura] nvarchar(20) NULL,
+    CONSTRAINT [PK_ConfiguracionesNumeracion] PRIMARY KEY ([IdConfigNumeracion])
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [ConfiguracionesNumeracion] (
+          [IdConfigNumeracion] int NOT NULL IDENTITY,
+          [SerieNotaVenta] nvarchar(10) NULL,
+          [NumNotaVenta] int NULL,
+          [SerieBoleta] nvarchar(10) NULL,
+          [NumBoleta] nvarchar(20) NULL,
+          [SerieFactura] nvarchar(10) NULL,
+          [NumFactura] nvarchar(20) NULL,
+          CONSTRAINT [PK_ConfiguracionesNumeracion] PRIMARY KEY ([IdConfigNumeracion])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Impuestos] (
+          [IdImpuesto] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Impuestos] (
+    [IdImpuesto] int NOT NULL IDENTITY,
+    [Abreviatura] nvarchar(10) NOT NULL,
+    [PorcentajeTexto] nvarchar(10) NOT NULL,
+    [ValorPorcentaje] decimal(5,2) NOT NULL,
+    CONSTRAINT [PK_Impuestos] PRIMARY KEY ([IdImpuesto])
+);
+          [Abreviatura] nvarchar(10) NOT NULL,
+          [PorcentajeTexto] nvarchar(10) NOT NULL,
+          [ValorPorcentaje] decimal(5,2) NOT NULL,
+          CONSTRAINT [PK_Impuestos] PRIMARY KEY ([IdImpuesto])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [MetodosPago] (
+          [IdMetodoPago] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [MetodosPago] (
+    [IdMetodoPago] int NOT NULL IDENTITY,
+    [Nombre] nvarchar(50) NOT NULL,
+    [RequiereReferencia] bit NOT NULL,
+    CONSTRAINT [PK_MetodosPago] PRIMARY KEY ([IdMetodoPago])
+);
+          [Nombre] nvarchar(50) NOT NULL,
+          [RequiereReferencia] bit NOT NULL,
+          CONSTRAINT [PK_MetodosPago] PRIMARY KEY ([IdMetodoPago])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Monedas] (
+          [IdMoneda] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Monedas] (
+    [IdMoneda] int NOT NULL IDENTITY,
+    [Nombre] nvarchar(60) NOT NULL,
+    [Simbolo] nvarchar(10) NOT NULL,
+    CONSTRAINT [PK_Monedas] PRIMARY KEY ([IdMoneda])
+);
+          [Nombre] nvarchar(60) NOT NULL,
+          [Simbolo] nvarchar(10) NOT NULL,
+          CONSTRAINT [PK_Monedas] PRIMARY KEY ([IdMoneda])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Proveedores] (
+          [IdProveedor] nvarchar(6) NOT NULL,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Proveedores] (
+    [IdProveedor] nvarchar(6) NOT NULL,
+    [Nombre] nvarchar(100) NOT NULL,
+    [Ruc] nvarchar(11) NULL,
+    [Telefono] nvarchar(20) NULL,
+    [Direccion] nvarchar(255) NULL,
+    [Email] nvarchar(100) NULL,
+    CONSTRAINT [PK_Proveedores] PRIMARY KEY ([IdProveedor])
+);
+          [Nombre] nvarchar(100) NOT NULL,
+          [Ruc] nvarchar(11) NULL,
+          [Telefono] nvarchar(20) NULL,
+          [Direccion] nvarchar(255) NULL,
+          [Email] nvarchar(100) NULL,
+          CONSTRAINT [PK_Proveedores] PRIMARY KEY ([IdProveedor])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Recordatorios] (
+          [IdRecordatorio] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Recordatorios] (
+    [IdRecordatorio] int NOT NULL IDENTITY,
+    [Descripcion] nvarchar(max) NOT NULL,
+    [Fecha] datetime2 NOT NULL,
+    CONSTRAINT [PK_Recordatorios] PRIMARY KEY ([IdRecordatorio])
+);
+          [Descripcion] nvarchar(max) NOT NULL,
+          [Fecha] datetime2 NOT NULL,
+          CONSTRAINT [PK_Recordatorios] PRIMARY KEY ([IdRecordatorio])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Roles] (
+          [Id] int NOT NULL IDENTITY,
+          [Descripcion] nvarchar(100) NULL,
+          [Name] nvarchar(256) NULL,
+          [NormalizedName] nvarchar(256) NULL,
+          [ConcurrencyStamp] nvarchar(max) NULL,
+          CONSTRAINT [PK_Roles] PRIMARY KEY ([Id])
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Roles] (
+    [Id] int NOT NULL IDENTITY,
+    [Descripcion] nvarchar(100) NULL,
+    [Name] nvarchar(256) NULL,
+    [NormalizedName] nvarchar(256) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    CONSTRAINT [PK_Roles] PRIMARY KEY ([Id])
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [UnidadesMedida] (
+          [IdUnidadMedida] int NOT NULL IDENTITY,
+          [Nombre] nvarchar(55) NOT NULL,
+          [Simbolo] nvarchar(20) NOT NULL,
+          CONSTRAINT [PK_UnidadesMedida] PRIMARY KEY ([IdUnidadMedida])
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [UnidadesMedida] (
+    [IdUnidadMedida] int NOT NULL IDENTITY,
+    [Nombre] nvarchar(55) NOT NULL,
+    [Simbolo] nvarchar(20) NOT NULL,
+    CONSTRAINT [PK_UnidadesMedida] PRIMARY KEY ([IdUnidadMedida])
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Usuarios] (
+          [Id] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Usuarios] (
+    [Id] int NOT NULL IDENTITY,
+    [Nombre] nvarchar(50) NOT NULL,
+    [Apellido] nvarchar(50) NULL,
+    [Direccion] nvarchar(255) NULL,
+    [Estado] nvarchar(20) NOT NULL,
+    [FechaRegistro] datetime2 NOT NULL,
+    [UserName] nvarchar(256) NULL,
+    [NormalizedUserName] nvarchar(256) NULL,
+    [Email] nvarchar(256) NULL,
+    [NormalizedEmail] nvarchar(256) NULL,
+    [EmailConfirmed] bit NOT NULL,
+    [PasswordHash] nvarchar(max) NULL,
+    [SecurityStamp] nvarchar(max) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    [PhoneNumber] nvarchar(max) NULL,
+    [PhoneNumberConfirmed] bit NOT NULL,
+    [TwoFactorEnabled] bit NOT NULL,
+    [LockoutEnd] datetimeoffset NULL,
+    [LockoutEnabled] bit NOT NULL,
+    [AccessFailedCount] int NOT NULL,
+    CONSTRAINT [PK_Usuarios] PRIMARY KEY ([Id])
+);
+          [Nombre] nvarchar(50) NOT NULL,
+          [Apellido] nvarchar(50) NULL,
+          [Direccion] nvarchar(255) NULL,
+          [Estado] nvarchar(20) NOT NULL,
+          [FechaRegistro] datetime2 NOT NULL,
+          [UserName] nvarchar(256) NULL,
+          [NormalizedUserName] nvarchar(256) NULL,
+          [Email] nvarchar(256) NULL,
+          [NormalizedEmail] nvarchar(256) NULL,
+          [EmailConfirmed] bit NOT NULL,
+          [PasswordHash] nvarchar(max) NULL,
+          [SecurityStamp] nvarchar(max) NULL,
+          [ConcurrencyStamp] nvarchar(max) NULL,
+          [PhoneNumber] nvarchar(max) NULL,
+          [PhoneNumberConfirmed] bit NOT NULL,
+          [TwoFactorEnabled] bit NOT NULL,
+          [LockoutEnd] datetimeoffset NULL,
+          [LockoutEnabled] bit NOT NULL,
+          [AccessFailedCount] int NOT NULL,
+          CONSTRAINT [PK_Usuarios] PRIMARY KEY ([Id])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [RolClaims] (
+          [Id] int NOT NULL IDENTITY,
+          [RoleId] int NOT NULL,
+          [ClaimType] nvarchar(max) NULL,
+          [ClaimValue] nvarchar(max) NULL,
+          CONSTRAINT [PK_RolClaims] PRIMARY KEY ([Id]),
+          CONSTRAINT [FK_RolClaims_Roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [Roles] ([Id]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [RolClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [RoleId] int NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_RolClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_RolClaims_Roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [Roles] ([Id]) ON DELETE CASCADE
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Productos] (
+          [IdProducto] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Productos] (
+    [IdProducto] int NOT NULL IDENTITY,
+    [IdCategoria] int NOT NULL,
+    [IdUnidadMedida] int NOT NULL,
+    [Nombre] nvarchar(255) NOT NULL,
+    [Descripcion] nvarchar(max) NULL,
+    [CodigoBarras] nvarchar(60) NOT NULL,
+    [Laboratorio] nvarchar(255) NULL,
+    [RegistroSanitario] nvarchar(255) NULL,
+    [PrincipioActivo] nvarchar(255) NULL,
+    [Presentacion] nvarchar(255) NULL,
+    [Lote] nvarchar(80) NULL,
+    [Ubicacion] nvarchar(80) NULL,
+    [PrecioCompra] decimal(18,2) NOT NULL,
+    [PrecioMenor] decimal(18,2) NOT NULL,
+    [PrecioMayor] decimal(18,2) NOT NULL,
+    [Stock] decimal(18,2) NOT NULL,
+    [StockMinimo] decimal(18,2) NOT NULL,
+    [FechaVencimiento] datetime2 NULL,
+    CONSTRAINT [PK_Productos] PRIMARY KEY ([IdProducto]),
+    CONSTRAINT [FK_Productos_Categorias_IdCategoria] FOREIGN KEY ([IdCategoria]) REFERENCES [Categorias] ([IdCategoria]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Productos_UnidadesMedida_IdUnidadMedida] FOREIGN KEY ([IdUnidadMedida]) REFERENCES [UnidadesMedida] ([IdUnidadMedida]) ON DELETE CASCADE
+);
+          [IdCategoria] int NOT NULL,
+          [IdUnidadMedida] int NOT NULL,
+          [Nombre] nvarchar(255) NOT NULL,
+          [Descripcion] nvarchar(max) NULL,
+          [CodigoBarras] nvarchar(60) NOT NULL,
+          [Laboratorio] nvarchar(255) NULL,
+          [RegistroSanitario] nvarchar(255) NULL,
+          [PrincipioActivo] nvarchar(255) NULL,
+          [Presentacion] nvarchar(255) NULL,
+          [Lote] nvarchar(80) NULL,
+          [Ubicacion] nvarchar(80) NULL,
+          [PrecioCompra] decimal(18,2) NOT NULL,
+          [PrecioMenor] decimal(18,2) NOT NULL,
+          [PrecioMayor] decimal(18,2) NOT NULL,
+          [Stock] decimal(18,2) NOT NULL,
+          [StockMinimo] decimal(18,2) NOT NULL,
+          [FechaVencimiento] datetime2 NULL,
+          CONSTRAINT [PK_Productos] PRIMARY KEY ([IdProducto]),
+          CONSTRAINT [FK_Productos_Categorias_IdCategoria] FOREIGN KEY ([IdCategoria]) REFERENCES [Categorias] ([IdCategoria]) ON DELETE CASCADE,
+          CONSTRAINT [FK_Productos_UnidadesMedida_IdUnidadMedida] FOREIGN KEY ([IdUnidadMedida]) REFERENCES [UnidadesMedida] ([IdUnidadMedida]) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Compras] (
+          [IdCompra] int NOT NULL IDENTITY,
+          [IdUsuario] int NOT NULL,
+          [IdProveedor] nvarchar(6) NOT NULL,
+          [NumeroComprobante] nvarchar(255) NOT NULL,
+          [TotalCompra] decimal(18,2) NOT NULL,
+          [FechaCompra] datetime2 NOT NULL,
+          CONSTRAINT [PK_Compras] PRIMARY KEY ([IdCompra]),
+          CONSTRAINT [FK_Compras_Proveedores_IdProveedor] FOREIGN KEY ([IdProveedor]) REFERENCES [Proveedores] ([IdProveedor]) ON DELETE CASCADE,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Compras] (
+    [IdCompra] int NOT NULL IDENTITY,
+    [IdUsuario] int NOT NULL,
+    [IdProveedor] nvarchar(6) NOT NULL,
+    [NumeroComprobante] nvarchar(255) NOT NULL,
+    [TotalCompra] decimal(18,2) NOT NULL,
+    [FechaCompra] datetime2 NOT NULL,
+    CONSTRAINT [PK_Compras] PRIMARY KEY ([IdCompra]),
+    CONSTRAINT [FK_Compras_Proveedores_IdProveedor] FOREIGN KEY ([IdProveedor]) REFERENCES [Proveedores] ([IdProveedor]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Compras_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+          CONSTRAINT [FK_Compras_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Cotizaciones] (
+          [IdCotizacion] int NOT NULL IDENTITY,
+          [IdUsuario] int NOT NULL,
+          [IdCliente] int NOT NULL,
+          [IdTienda] int NOT NULL,
+          [IdMoneda] int NOT NULL,
+          [NumeroCotizacion] nvarchar(255) NOT NULL,
+          [TotalPagar] decimal(18,2) NOT NULL,
+          [PlazoEntrega] nvarchar(255) NOT NULL,
+          [Validez] nvarchar(255) NOT NULL,
+          CONSTRAINT [PK_Cotizaciones] PRIMARY KEY ([IdCotizacion]),
+          CONSTRAINT [FK_Cotizaciones_Boticas_IdTienda] FOREIGN KEY ([IdTienda]) REFERENCES [Boticas] ([IdTienda]) ON DELETE CASCADE,
+          CONSTRAINT [FK_Cotizaciones_Clientes_IdCliente] FOREIGN KEY ([IdCliente]) REFERENCES [Clientes] ([IdCliente]) ON DELETE CASCADE,
+          CONSTRAINT [FK_Cotizaciones_Monedas_IdMoneda] FOREIGN KEY ([IdMoneda]) REFERENCES [Monedas] ([IdMoneda]) ON DELETE CASCADE,
+          CONSTRAINT [FK_Cotizaciones_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Cotizaciones] (
+    [IdCotizacion] int NOT NULL IDENTITY,
+    [IdUsuario] int NOT NULL,
+    [IdCliente] int NOT NULL,
+    [IdTienda] int NOT NULL,
+    [IdMoneda] int NOT NULL,
+    [NumeroCotizacion] nvarchar(255) NOT NULL,
+    [TotalPagar] decimal(18,2) NOT NULL,
+    [PlazoEntrega] nvarchar(255) NOT NULL,
+    [Validez] nvarchar(255) NOT NULL,
+    CONSTRAINT [PK_Cotizaciones] PRIMARY KEY ([IdCotizacion]),
+    CONSTRAINT [FK_Cotizaciones_Boticas_IdTienda] FOREIGN KEY ([IdTienda]) REFERENCES [Boticas] ([IdTienda]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Cotizaciones_Clientes_IdCliente] FOREIGN KEY ([IdCliente]) REFERENCES [Clientes] ([IdCliente]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Cotizaciones_Monedas_IdMoneda] FOREIGN KEY ([IdMoneda]) REFERENCES [Monedas] ([IdMoneda]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Cotizaciones_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Gastos] (
+          [IdGasto] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Gastos] (
+    [IdGasto] int NOT NULL IDENTITY,
+    [IdUsuario] int NOT NULL,
+    [IdAperturaCaja] int NOT NULL,
+    [Descripcion] nvarchar(255) NOT NULL,
+    [Monto] decimal(18,2) NOT NULL,
+    [FechaGasto] datetime2 NOT NULL,
+    CONSTRAINT [PK_Gastos] PRIMARY KEY ([IdGasto]),
+    CONSTRAINT [FK_Gastos_AperturasCaja_IdAperturaCaja] FOREIGN KEY ([IdAperturaCaja]) REFERENCES [AperturasCaja] ([IdAperturaCaja]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Gastos_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+          [IdUsuario] int NOT NULL,
+          [IdAperturaCaja] int NOT NULL,
+          [Descripcion] nvarchar(255) NOT NULL,
+          [Monto] decimal(18,2) NOT NULL,
+          [FechaGasto] datetime2 NOT NULL,
+          CONSTRAINT [PK_Gastos] PRIMARY KEY ([IdGasto]),
+          CONSTRAINT [FK_Gastos_AperturasCaja_IdAperturaCaja] FOREIGN KEY ([IdAperturaCaja]) REFERENCES [AperturasCaja] ([IdAperturaCaja]) ON DELETE CASCADE,
+          CONSTRAINT [FK_Gastos_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [IngresosSalidas] (
+    [IdIngresoSalida] int NOT NULL IDENTITY,
+    [IdUsuario] int NOT NULL,
+    [Fecha] datetime2 NOT NULL,
+    [Concepto] nvarchar(max) NULL,
+    [Operacion] nvarchar(80) NULL,
+    [Monto] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_IngresosSalidas] PRIMARY KEY ([IdIngresoSalida]),
+    CONSTRAINT [FK_IngresosSalidas_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [IngresosSalidas] (
+          [IdIngresoSalida] int NOT NULL IDENTITY,
+          [IdUsuario] int NOT NULL,
+          [Fecha] datetime2 NOT NULL,
+          [Concepto] nvarchar(max) NULL,
+          [Operacion] nvarchar(80) NULL,
+          [Monto] decimal(18,2) NOT NULL,
+          CONSTRAINT [PK_IngresosSalidas] PRIMARY KEY ([IdIngresoSalida]),
+          CONSTRAINT [FK_IngresosSalidas_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Notas] (
+          [IdNota] int NOT NULL IDENTITY,
+          [IdUsuario] int NOT NULL,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Notas] (
+    [IdNota] int NOT NULL IDENTITY,
+    [IdUsuario] int NOT NULL,
+    [Descripcion] nvarchar(max) NOT NULL,
+    [FechaHora] datetime2 NOT NULL,
+    CONSTRAINT [PK_Notas] PRIMARY KEY ([IdNota]),
+    CONSTRAINT [FK_Notas_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+          [Descripcion] nvarchar(max) NOT NULL,
+          [FechaHora] datetime2 NOT NULL,
+          CONSTRAINT [PK_Notas] PRIMARY KEY ([IdNota]),
+          CONSTRAINT [FK_Notas_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [UsuarioClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] int NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_UsuarioClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_UsuarioClaims_Usuarios_UserId] FOREIGN KEY ([UserId]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [UsuarioClaims] (
+          [Id] int NOT NULL IDENTITY,
+          [UserId] int NOT NULL,
+          [ClaimType] nvarchar(max) NULL,
+          [ClaimValue] nvarchar(max) NULL,
+          CONSTRAINT [PK_UsuarioClaims] PRIMARY KEY ([Id]),
+          CONSTRAINT [FK_UsuarioClaims_Usuarios_UserId] FOREIGN KEY ([UserId]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [UsuarioLogins] (
+    [LoginProvider] nvarchar(450) NOT NULL,
+    [ProviderKey] nvarchar(450) NOT NULL,
+    [ProviderDisplayName] nvarchar(max) NULL,
+    [UserId] int NOT NULL,
+    CONSTRAINT [PK_UsuarioLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+    CONSTRAINT [FK_UsuarioLogins_Usuarios_UserId] FOREIGN KEY ([UserId]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [UsuarioLogins] (
+          [LoginProvider] nvarchar(450) NOT NULL,
+          [ProviderKey] nvarchar(450) NOT NULL,
+          [ProviderDisplayName] nvarchar(max) NULL,
+          [UserId] int NOT NULL,
+          CONSTRAINT [PK_UsuarioLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+          CONSTRAINT [FK_UsuarioLogins_Usuarios_UserId] FOREIGN KEY ([UserId]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [UsuarioRoles] (
+          [UserId] int NOT NULL,
+          [RoleId] int NOT NULL,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [UsuarioRoles] (
+    [UserId] int NOT NULL,
+    [RoleId] int NOT NULL,
+    CONSTRAINT [PK_UsuarioRoles] PRIMARY KEY ([UserId], [RoleId]),
+    CONSTRAINT [FK_UsuarioRoles_Roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [Roles] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_UsuarioRoles_Usuarios_UserId] FOREIGN KEY ([UserId]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+          CONSTRAINT [PK_UsuarioRoles] PRIMARY KEY ([UserId], [RoleId]),
+          CONSTRAINT [FK_UsuarioRoles_Roles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [Roles] ([Id]) ON DELETE CASCADE,
+          CONSTRAINT [FK_UsuarioRoles_Usuarios_UserId] FOREIGN KEY ([UserId]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [UsuarioTokens] (
+    [UserId] int NOT NULL,
+    [LoginProvider] nvarchar(450) NOT NULL,
+    [Name] nvarchar(450) NOT NULL,
+    [Value] nvarchar(max) NULL,
+    CONSTRAINT [PK_UsuarioTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+    CONSTRAINT [FK_UsuarioTokens_Usuarios_UserId] FOREIGN KEY ([UserId]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [UsuarioTokens] (
+          [UserId] int NOT NULL,
+          [LoginProvider] nvarchar(450) NOT NULL,
+          [Name] nvarchar(450) NOT NULL,
+          [Value] nvarchar(max) NULL,
+          CONSTRAINT [PK_UsuarioTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+          CONSTRAINT [FK_UsuarioTokens_Usuarios_UserId] FOREIGN KEY ([UserId]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Ventas] (
+          [IdVenta] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Ventas] (
+    [IdVenta] int NOT NULL IDENTITY,
+    [IdUsuario] int NOT NULL,
+    [IdCliente] int NOT NULL,
+    [IdMoneda] int NOT NULL,
+    [NumeroComprobante] nvarchar(40) NOT NULL,
+    [TotalPagar] decimal(18,2) NOT NULL,
+    [FechaVenta] datetime2 NOT NULL,
+    [CondicionPago] nvarchar(50) NOT NULL,
+    CONSTRAINT [PK_Ventas] PRIMARY KEY ([IdVenta]),
+    CONSTRAINT [FK_Ventas_Clientes_IdCliente] FOREIGN KEY ([IdCliente]) REFERENCES [Clientes] ([IdCliente]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Ventas_Monedas_IdMoneda] FOREIGN KEY ([IdMoneda]) REFERENCES [Monedas] ([IdMoneda]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Ventas_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+);
+          [IdUsuario] int NOT NULL,
+          [IdCliente] int NOT NULL,
+          [IdMoneda] int NOT NULL,
+          [NumeroComprobante] nvarchar(40) NOT NULL,
+          [TotalPagar] decimal(18,2) NOT NULL,
+          [FechaVenta] datetime2 NOT NULL,
+          [CondicionPago] nvarchar(50) NOT NULL,
+          CONSTRAINT [PK_Ventas] PRIMARY KEY ([IdVenta]),
+          CONSTRAINT [FK_Ventas_Clientes_IdCliente] FOREIGN KEY ([IdCliente]) REFERENCES [Clientes] ([IdCliente]) ON DELETE CASCADE,
+          CONSTRAINT [FK_Ventas_Monedas_IdMoneda] FOREIGN KEY ([IdMoneda]) REFERENCES [Monedas] ([IdMoneda]) ON DELETE CASCADE,
+          CONSTRAINT [FK_Ventas_Usuarios_IdUsuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuarios] ([Id]) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [DetallesCompra] (
+          [IdDetalleCompra] int NOT NULL IDENTITY,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [DetallesCompra] (
+    [IdDetalleCompra] int NOT NULL IDENTITY,
+    [IdCompra] int NOT NULL,
+    [IdProducto] int NOT NULL,
+    [Precio] decimal(18,2) NOT NULL,
+    [Cantidad] decimal(18,2) NOT NULL,
+    [Importe] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_DetallesCompra] PRIMARY KEY ([IdDetalleCompra]),
+    CONSTRAINT [FK_DetallesCompra_Compras_IdCompra] FOREIGN KEY ([IdCompra]) REFERENCES [Compras] ([IdCompra]) ON DELETE CASCADE,
+    CONSTRAINT [FK_DetallesCompra_Productos_IdProducto] FOREIGN KEY ([IdProducto]) REFERENCES [Productos] ([IdProducto]) ON DELETE CASCADE
+);
+          [IdCompra] int NOT NULL,
+          [IdProducto] int NOT NULL,
+          [Precio] decimal(18,2) NOT NULL,
+          [Cantidad] decimal(18,2) NOT NULL,
+          [Importe] decimal(18,2) NOT NULL,
+          CONSTRAINT [PK_DetallesCompra] PRIMARY KEY ([IdDetalleCompra]),
+          CONSTRAINT [FK_DetallesCompra_Compras_IdCompra] FOREIGN KEY ([IdCompra]) REFERENCES [Compras] ([IdCompra]) ON DELETE CASCADE,
+          CONSTRAINT [FK_DetallesCompra_Productos_IdProducto] FOREIGN KEY ([IdProducto]) REFERENCES [Productos] ([IdProducto]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [DetallesCotizacion] (
+    [IdDetalleCotizacion] int NOT NULL IDENTITY,
+    [IdCotizacion] int NOT NULL,
+    [IdProducto] int NOT NULL,
+    [Precio] decimal(18,2) NOT NULL,
+    [Cantidad] decimal(18,2) NOT NULL,
+    [Importe] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_DetallesCotizacion] PRIMARY KEY ([IdDetalleCotizacion]),
+    CONSTRAINT [FK_DetallesCotizacion_Cotizaciones_IdCotizacion] FOREIGN KEY ([IdCotizacion]) REFERENCES [Cotizaciones] ([IdCotizacion]) ON DELETE CASCADE,
+    CONSTRAINT [FK_DetallesCotizacion_Productos_IdProducto] FOREIGN KEY ([IdProducto]) REFERENCES [Productos] ([IdProducto]) ON DELETE CASCADE
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [DetallesCotizacion] (
+          [IdDetalleCotizacion] int NOT NULL IDENTITY,
+          [IdCotizacion] int NOT NULL,
+          [IdProducto] int NOT NULL,
+          [Precio] decimal(18,2) NOT NULL,
+          [Cantidad] decimal(18,2) NOT NULL,
+          [Importe] decimal(18,2) NOT NULL,
+          CONSTRAINT [PK_DetallesCotizacion] PRIMARY KEY ([IdDetalleCotizacion]),
+          CONSTRAINT [FK_DetallesCotizacion_Cotizaciones_IdCotizacion] FOREIGN KEY ([IdCotizacion]) REFERENCES [Cotizaciones] ([IdCotizacion]) ON DELETE CASCADE,
+          CONSTRAINT [FK_DetallesCotizacion_Productos_IdProducto] FOREIGN KEY ([IdProducto]) REFERENCES [Productos] ([IdProducto]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [DetallesVenta] (
+    [IdDetalleVenta] int NOT NULL IDENTITY,
+    [IdVenta] int NOT NULL,
+    [IdProducto] int NOT NULL,
+    [Precio] decimal(18,2) NOT NULL,
+    [Cantidad] decimal(18,2) NOT NULL,
+    [Importe] decimal(18,2) NOT NULL,
+    [Utilidad] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_DetallesVenta] PRIMARY KEY ([IdDetalleVenta]),
+    CONSTRAINT [FK_DetallesVenta_Productos_IdProducto] FOREIGN KEY ([IdProducto]) REFERENCES [Productos] ([IdProducto]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_DetallesVenta_Ventas_IdVenta] FOREIGN KEY ([IdVenta]) REFERENCES [Ventas] ([IdVenta]) ON DELETE CASCADE
+);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [DetallesVenta] (
+          [IdDetalleVenta] int NOT NULL IDENTITY,
+          [IdVenta] int NOT NULL,
+          [IdProducto] int NOT NULL,
+          [Precio] decimal(18,2) NOT NULL,
+          [Cantidad] decimal(18,2) NOT NULL,
+          [Importe] decimal(18,2) NOT NULL,
+          [Utilidad] decimal(18,2) NOT NULL,
+          CONSTRAINT [PK_DetallesVenta] PRIMARY KEY ([IdDetalleVenta]),
+          CONSTRAINT [FK_DetallesVenta_Productos_IdProducto] FOREIGN KEY ([IdProducto]) REFERENCES [Productos] ([IdProducto]) ON DELETE NO ACTION,
+          CONSTRAINT [FK_DetallesVenta_Ventas_IdVenta] FOREIGN KEY ([IdVenta]) REFERENCES [Ventas] ([IdVenta]) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Pagos] (
+          [IdPago] int NOT NULL IDENTITY,
+          [IdVenta] int NOT NULL,
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [Pagos] (
+    [IdPago] int NOT NULL IDENTITY,
+    [IdVenta] int NOT NULL,
+    [IdMetodoPago] int NOT NULL,
+    [Monto] decimal(18,2) NOT NULL,
+    [FechaPago] datetime2 NOT NULL,
+    [Referencia] nvarchar(100) NULL,
+    CONSTRAINT [PK_Pagos] PRIMARY KEY ([IdPago]),
+    CONSTRAINT [FK_Pagos_MetodosPago_IdMetodoPago] FOREIGN KEY ([IdMetodoPago]) REFERENCES [MetodosPago] ([IdMetodoPago]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Pagos_Ventas_IdVenta] FOREIGN KEY ([IdVenta]) REFERENCES [Ventas] ([IdVenta]) ON DELETE CASCADE
+);
+          [IdMetodoPago] int NOT NULL,
+          [Monto] decimal(18,2) NOT NULL,
+          [FechaPago] datetime2 NOT NULL,
+          [Referencia] nvarchar(100) NULL,
+          CONSTRAINT [PK_Pagos] PRIMARY KEY ([IdPago]),
+          CONSTRAINT [FK_Pagos_MetodosPago_IdMetodoPago] FOREIGN KEY ([IdMetodoPago]) REFERENCES [MetodosPago] ([IdMetodoPago]) ON DELETE CASCADE,
+          CONSTRAINT [FK_Pagos_Ventas_IdVenta] FOREIGN KEY ([IdVenta]) REFERENCES [Ventas] ([IdVenta]) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Compras_IdProveedor] ON [Compras] ([IdProveedor]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Compras_IdProveedor] ON [Compras] ([IdProveedor]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Compras_IdUsuario] ON [Compras] ([IdUsuario]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Compras_IdUsuario] ON [Compras] ([IdUsuario]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Cotizaciones_IdCliente] ON [Cotizaciones] ([IdCliente]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Cotizaciones_IdCliente] ON [Cotizaciones] ([IdCliente]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Cotizaciones_IdMoneda] ON [Cotizaciones] ([IdMoneda]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Cotizaciones_IdMoneda] ON [Cotizaciones] ([IdMoneda]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Cotizaciones_IdTienda] ON [Cotizaciones] ([IdTienda]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Cotizaciones_IdTienda] ON [Cotizaciones] ([IdTienda]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Cotizaciones_IdUsuario] ON [Cotizaciones] ([IdUsuario]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Cotizaciones_IdUsuario] ON [Cotizaciones] ([IdUsuario]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_DetallesCompra_IdCompra] ON [DetallesCompra] ([IdCompra]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_DetallesCompra_IdCompra] ON [DetallesCompra] ([IdCompra]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_DetallesCompra_IdProducto] ON [DetallesCompra] ([IdProducto]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_DetallesCompra_IdProducto] ON [DetallesCompra] ([IdProducto]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_DetallesCotizacion_IdCotizacion] ON [DetallesCotizacion] ([IdCotizacion]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_DetallesCotizacion_IdCotizacion] ON [DetallesCotizacion] ([IdCotizacion]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_DetallesCotizacion_IdProducto] ON [DetallesCotizacion] ([IdProducto]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_DetallesCotizacion_IdProducto] ON [DetallesCotizacion] ([IdProducto]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_DetallesVenta_IdProducto] ON [DetallesVenta] ([IdProducto]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_DetallesVenta_IdProducto] ON [DetallesVenta] ([IdProducto]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_DetallesVenta_IdVenta] ON [DetallesVenta] ([IdVenta]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_DetallesVenta_IdVenta] ON [DetallesVenta] ([IdVenta]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Gastos_IdAperturaCaja] ON [Gastos] ([IdAperturaCaja]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Gastos_IdAperturaCaja] ON [Gastos] ([IdAperturaCaja]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Gastos_IdUsuario] ON [Gastos] ([IdUsuario]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Gastos_IdUsuario] ON [Gastos] ([IdUsuario]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_IngresosSalidas_IdUsuario] ON [IngresosSalidas] ([IdUsuario]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_IngresosSalidas_IdUsuario] ON [IngresosSalidas] ([IdUsuario]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Notas_IdUsuario] ON [Notas] ([IdUsuario]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Notas_IdUsuario] ON [Notas] ([IdUsuario]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Pagos_IdMetodoPago] ON [Pagos] ([IdMetodoPago]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Pagos_IdMetodoPago] ON [Pagos] ([IdMetodoPago]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Pagos_IdVenta] ON [Pagos] ([IdVenta]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Pagos_IdVenta] ON [Pagos] ([IdVenta]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Productos_IdCategoria] ON [Productos] ([IdCategoria]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Productos_IdCategoria] ON [Productos] ([IdCategoria]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Productos_IdUnidadMedida] ON [Productos] ([IdUnidadMedida]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Productos_IdUnidadMedida] ON [Productos] ([IdUnidadMedida]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_RolClaims_RoleId] ON [RolClaims] ([RoleId]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_RolClaims_RoleId] ON [RolClaims] ([RoleId]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX [RoleNameIndex] ON [Roles] ([NormalizedName]) WHERE [NormalizedName] IS NOT NULL;
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX [RoleNameIndex] ON [Roles] ([NormalizedName]) WHERE [NormalizedName] IS NOT NULL;
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_UsuarioClaims_UserId] ON [UsuarioClaims] ([UserId]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_UsuarioClaims_UserId] ON [UsuarioClaims] ([UserId]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_UsuarioLogins_UserId] ON [UsuarioLogins] ([UserId]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_UsuarioLogins_UserId] ON [UsuarioLogins] ([UserId]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_UsuarioRoles_RoleId] ON [UsuarioRoles] ([RoleId]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_UsuarioRoles_RoleId] ON [UsuarioRoles] ([RoleId]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [EmailIndex] ON [Usuarios] ([NormalizedEmail]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [EmailIndex] ON [Usuarios] ([NormalizedEmail]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX [UserNameIndex] ON [Usuarios] ([NormalizedUserName]) WHERE [NormalizedUserName] IS NOT NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE UNIQUE INDEX [UserNameIndex] ON [Usuarios] ([NormalizedUserName]) WHERE [NormalizedUserName] IS NOT NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Ventas_IdCliente] ON [Ventas] ([IdCliente]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Ventas_IdCliente] ON [Ventas] ([IdCliente]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Ventas_IdMoneda] ON [Ventas] ([IdMoneda]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Ventas_IdMoneda] ON [Ventas] ([IdMoneda]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Ventas_IdUsuario] ON [Ventas] ([IdUsuario]);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX [IX_Ventas_IdUsuario] ON [Ventas] ([IdUsuario]);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20251009091352_nuevafinal', N'9.0.9');
+      VALUES (N'20251009091352_nuevafinal', N'9.0.9');
+info: Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20251009182718_AgregarEstadoAProducto'.
+Microsoft.EntityFrameworkCore.Migrations: Information: Applying migration '20251009182718_AgregarEstadoAProducto'.
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE [Productos] ADD [Estado] nvarchar(20) NOT NULL DEFAULT N'';
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE [Productos] ADD [Estado] nvarchar(20) NOT NULL DEFAULT N'';
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20251009182718_AgregarEstadoAProducto', N'9.0.9');
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+      VALUES (N'20251009182718_AgregarEstadoAProducto', N'9.0.9');
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      DECLARE @result int;
+      EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+      SELECT @result
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Clientes] AS [c]
+        WHERE [c].[Nombre] = N'PÚBLICO GENERAL') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT CASE
+          WHEN EXISTS (
+              SELECT 1
+              FROM [Clientes] AS [c]
+              WHERE [c].[Nombre] = N'PÚBLICO GENERAL') THEN CAST(1 AS bit)
+          ELSE CAST(0 AS bit)
+      END
+"/app/bin/Debug/net8.0/Microsoft.SqlServer.Server.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/netstandard.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (46ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 100), @p3='?' (Size = 100), @p4='?' (Size = 20), @p5='?' (Size = 20)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Clientes] ([Apellido], [Direccion], [Email], [Nombre], [RucDni], [Telefono])
+OUTPUT INSERTED.[IdCliente]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (46ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 100), @p3='?' (Size = 100), @p4='?' (Size = 20), @p5='?' (Size = 20)], CommandType='Text', CommandTimeout='30']
+      SET IMPLICIT_TRANSACTIONS OFF;
+      SET NOCOUNT ON;
+      INSERT INTO [Clientes] ([Apellido], [Direccion], [Email], [Nombre], [RucDni], [Telefono])
+      OUTPUT INSERTED.[IdCliente]
+      VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [MetodosPago] AS [m]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT CASE
+          WHEN EXISTS (
+              SELECT 1
+              FROM [MetodosPago] AS [m]) THEN CAST(1 AS bit)
+          ELSE CAST(0 AS bit)
+      END
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (15ms) [Parameters=[@p0='?' (Size = 50), @p1='?' (DbType = Boolean), @p2='?' (Size = 50), @p3='?' (DbType = Boolean), @p4='?' (Size = 50), @p5='?' (DbType = Boolean), @p6='?' (Size = 50), @p7='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+MERGE [MetodosPago] USING (
+VALUES (@p0, @p1, 0),
+(@p2, @p3, 1),
+(@p4, @p5, 2),
+(@p6, @p7, 3)) AS i ([Nombre], [RequiereReferencia], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([Nombre], [RequiereReferencia])
+VALUES (i.[Nombre], i.[RequiereReferencia])
+OUTPUT INSERTED.[IdMetodoPago], i._Position;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[@p0='?' (Size = 50), @p1='?' (DbType = Boolean), @p2='?' (Size = 50), @p3='?' (DbType = Boolean), @p4='?' (Size = 50), @p5='?' (DbType = Boolean), @p6='?' (Size = 50), @p7='?' (DbType = Boolean)], CommandType='Text', CommandTimeout='30']
+      SET IMPLICIT_TRANSACTIONS OFF;
+      SET NOCOUNT ON;
+      MERGE [MetodosPago] USING (
+      VALUES (@p0, @p1, 0),
+      (@p2, @p3, 1),
+      (@p4, @p5, 2),
+      (@p6, @p7, 3)) AS i ([Nombre], [RequiereReferencia], _Position) ON 1=0
+      WHEN NOT MATCHED THEN
+      INSERT ([Nombre], [RequiereReferencia])
+      VALUES (i.[Nombre], i.[RequiereReferencia])
+      OUTPUT INSERTED.[IdMetodoPago], i._Position;
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Monedas] AS [m]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT CASE
+          WHEN EXISTS (
+              SELECT 1
+              FROM [Monedas] AS [m]) THEN CAST(1 AS bit)
+          ELSE CAST(0 AS bit)
+      END
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (9ms) [Parameters=[@p0='?' (Size = 60), @p1='?' (Size = 10)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Monedas] ([Nombre], [Simbolo])
+OUTPUT INSERTED.[IdMoneda]
+VALUES (@p0, @p1);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[@p0='?' (Size = 60), @p1='?' (Size = 10)], CommandType='Text', CommandTimeout='30']
+      SET IMPLICIT_TRANSACTIONS OFF;
+      SET NOCOUNT ON;
+      INSERT INTO [Monedas] ([Nombre], [Simbolo])
+      OUTPUT INSERTED.[IdMoneda]
+      VALUES (@p0, @p1);
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Xml.XDocument.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Private.Xml.Linq.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/Microsoft.Win32.Registry.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+warn: Microsoft.AspNetCore.DataProtection.Repositories.EphemeralXmlRepository[50]
+      Using an in-memory repository. Keys will not be persisted to storage.
+Microsoft.AspNetCore.DataProtection.Repositories.EphemeralXmlRepository: Warning: Using an in-memory repository. Keys will not be persisted to storage.
+warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[59]
+      Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager: Warning: Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+      No XML encryptor configured. Key {fecfc42c-40a6-450b-97b8-450e7dddb460} may be persisted to storage in unencrypted form.
+Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager: Warning: No XML encryptor configured. Key {fecfc42c-40a6-450b-97b8-450e7dddb460} may be persisted to storage in unencrypted form.
+warn: Microsoft.AspNetCore.Hosting.Diagnostics[15]
+      Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+Microsoft.AspNetCore.Hosting.Diagnostics: Warning: Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.Diagnostics.Abstractions.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+Microsoft.Hosting.Lifetime: Information: Now listening on: http://[::]:8080
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://[::]:8080
+Microsoft.Hosting.Lifetime: Information: Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+Microsoft.Hosting.Lifetime: Information: Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /app
+Microsoft.Hosting.Lifetime: Information: Content root path: /app
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Net.WebSockets.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware: Warning: Failed to determine the https port for redirect.
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/System.Reflection.Metadata.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+warn: Microsoft.AspNetCore.Session.SessionMiddleware[7]
+      Error unprotecting the session cookie.
+      System.Security.Cryptography.CryptographicException: The key {ce4ce8b9-3998-407f-ba9d-55395efaae0c} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+         at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+         at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+         at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+Microsoft.AspNetCore.Session.SessionMiddleware: Warning: Error unprotecting the session cookie.
+
+System.Security.Cryptography.CryptographicException: The key {ce4ce8b9-3998-407f-ba9d-55395efaae0c} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+"/usr/share/dotnet/shared/Microsoft.AspNetCore.App/8.0.21/Microsoft.AspNetCore.WebUtilities.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+warn: Microsoft.AspNetCore.Session.SessionMiddleware[7]
+      Error unprotecting the session cookie.
+      System.Security.Cryptography.CryptographicException: The key {ce4ce8b9-3998-407f-ba9d-55395efaae0c} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+         at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+         at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+         at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+Microsoft.AspNetCore.Session.SessionMiddleware: Warning: Error unprotecting the session cookie.
+
+System.Security.Cryptography.CryptographicException: The key {ce4ce8b9-3998-407f-ba9d-55395efaae0c} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (6ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Apellido], [u].[ConcurrencyStamp], [u].[Direccion], [u].[Email], [u].[EmailConfirmed], [u].[Estado], [u].[FechaRegistro], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[Nombre], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [Usuarios] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Apellido], [u].[ConcurrencyStamp], [u].[Direccion], [u].[Email], [u].[EmailConfirmed], [u].[Estado], [u].[FechaRegistro], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[Nombre], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[TwoFactorEnabled], [u].[UserName]
+      FROM [Usuarios] AS [u]
+      WHERE [u].[NormalizedUserName] = @__normalizedUserName_0
+warn: Microsoft.AspNetCore.Session.SessionMiddleware[7]
+      Error unprotecting the session cookie.
+      System.Security.Cryptography.CryptographicException: The key {ce4ce8b9-3998-407f-ba9d-55395efaae0c} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+         at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+         at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+         at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+Microsoft.AspNetCore.Session.SessionMiddleware: Warning: Error unprotecting the session cookie.
+
+System.Security.Cryptography.CryptographicException: The key {ce4ce8b9-3998-407f-ba9d-55395efaae0c} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+"/usr/share/dotnet/shared/Microsoft.NETCore.App/8.0.21/Microsoft.CSharp.dll". Se omitió la carga de símbolos. El módulo está optimizado y la opción del depurador 'Sólo mi código' está habilitada. cargado
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (7ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+      FROM [Roles] AS [r]
+      WHERE [r].[NormalizedName] = @__normalizedName_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+      FROM [Roles] AS [r]
+      WHERE [r].[NormalizedName] = @__normalizedName_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (14ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 100), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Roles] ([ConcurrencyStamp], [Descripcion], [Name], [NormalizedName])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 100), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SET IMPLICIT_TRANSACTIONS OFF;
+      SET NOCOUNT ON;
+      INSERT INTO [Roles] ([ConcurrencyStamp], [Descripcion], [Name], [NormalizedName])
+      OUTPUT INSERTED.[Id]
+      VALUES (@p0, @p1, @p2, @p3);
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (22ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (22ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+      FROM [Roles] AS [r]
+      WHERE [r].[NormalizedName] = @__normalizedName_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (15ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+      FROM [Roles] AS [r]
+      WHERE [r].[NormalizedName] = @__normalizedName_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (17ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 100), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (17ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 100), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Roles] ([ConcurrencyStamp], [Descripcion], [Name], [NormalizedName])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+      SET IMPLICIT_TRANSACTIONS OFF;
+      SET NOCOUNT ON;
+      INSERT INTO [Roles] ([ConcurrencyStamp], [Descripcion], [Name], [NormalizedName])
+      OUTPUT INSERTED.[Id]
+      VALUES (@p0, @p1, @p2, @p3);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (8ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+FROM [Roles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedRoleName_0
+      SELECT TOP(2) [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+      FROM [Roles] AS [r]
+      WHERE [r].[NormalizedName] = @__normalizedRoleName_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (9ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [u0].[Id], [u0].[AccessFailedCount], [u0].[Apellido], [u0].[ConcurrencyStamp], [u0].[Direccion], [u0].[Email], [u0].[EmailConfirmed], [u0].[Estado], [u0].[FechaRegistro], [u0].[LockoutEnabled], [u0].[LockoutEnd], [u0].[Nombre], [u0].[NormalizedEmail], [u0].[NormalizedUserName], [u0].[PasswordHash], [u0].[PhoneNumber], [u0].[PhoneNumberConfirmed], [u0].[SecurityStamp], [u0].[TwoFactorEnabled], [u0].[UserName]
+FROM [UsuarioRoles] AS [u]
+INNER JOIN [Usuarios] AS [u0] ON [u].[UserId] = [u0].[Id]
+WHERE [u].[RoleId] = @__role_Id_0
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[@__role_Id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      SELECT [u0].[Id], [u0].[AccessFailedCount], [u0].[Apellido], [u0].[ConcurrencyStamp], [u0].[Direccion], [u0].[Email], [u0].[EmailConfirmed], [u0].[Estado], [u0].[FechaRegistro], [u0].[LockoutEnabled], [u0].[LockoutEnd], [u0].[Nombre], [u0].[NormalizedEmail], [u0].[NormalizedUserName], [u0].[PasswordHash], [u0].[PhoneNumber], [u0].[PhoneNumberConfirmed], [u0].[SecurityStamp], [u0].[TwoFactorEnabled], [u0].[UserName]
+      FROM [UsuarioRoles] AS [u]
+      INNER JOIN [Usuarios] AS [u0] ON [u].[UserId] = [u0].[Id]
+      WHERE [u].[RoleId] = @__role_Id_0
+Microsoft.EntityFrameworkCore.Database.Command: Information: Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+FROM [Roles] AS [r]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [r].[Id], [r].[ConcurrencyStamp], [r].[Descripcion], [r].[Name], [r].[NormalizedName]
+      FROM [Roles] AS [r]
+El subproceso 106 terminó con código 0 (0x0).
+El subproceso 133 terminó con código 0 (0x0).
+El subproceso 127 terminó con código 0 (0x0).
+El subproceso 125 terminó con código 0 (0x0).
+El subproceso 116 terminó con código 0 (0x0).
+El subproceso 135 terminó con código 0 (0x0).
+El subproceso 129 terminó con código 0 (0x0).
+El subproceso 134 terminó con código 0 (0x0).
+El programa 'dotnet' terminó con código 0 (0x0).
