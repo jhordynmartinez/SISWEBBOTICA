@@ -104,3 +104,6 @@ packages.lock.json
 
 # Tell git to ignore this file to avoid conflicts on merge
 .gitattributes
+
+
+Dockerfile
