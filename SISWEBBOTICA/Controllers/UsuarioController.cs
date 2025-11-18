@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SISWEBBOTICA.Data;
 using SISWEBBOTICA.Models;
 using SISWEBBOTICA.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,16 +14,17 @@ namespace SISWEBBOTICA.Controllers
     [Authorize(Roles = "Administrador")]
     public class UsuarioController : Controller
     {
-        private readonly AppDBContext _context;
+        // --- INICIO DE LA CORRECCIÓN ---
+        // Se elimina la dependencia _context que no se usaba.
         private readonly UserManager<Usuario> _userManager;
         private readonly RoleManager<TipoUsuario> _roleManager;
 
-        public UsuarioController(AppDBContext context, UserManager<Usuario> userManager, RoleManager<TipoUsuario> roleManager)
+        public UsuarioController(UserManager<Usuario> userManager, RoleManager<TipoUsuario> roleManager)
         {
-            _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
         }
+        // --- FIN DE LA CORRECCIÓN ---
 
         // GET: Usuario
         public async Task<IActionResult> Index()
@@ -59,7 +60,7 @@ namespace SISWEBBOTICA.Controllers
                     Email = model.Email,
                     UserName = model.UserName,
                     Estado = "Activo",
-                    FechaRegistro = DateTime.Now
+                    FechaRegistro = System.DateTime.Now
                 };
                 var result = await _userManager.CreateAsync(usuario, model.Password);
                 if (result.Succeeded)
@@ -103,11 +104,11 @@ namespace SISWEBBOTICA.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
-}
 
-// ViewModel para la vista Index de Usuario
-public class UsuarioVM
-{
-    public Usuario Usuario { get; set; }
-    public string Rol { get; set; }
+    // El ViewModel se puede mantener aquí o moverlo a la carpeta ViewModels si prefieres
+    public class UsuarioVM
+    {
+        public Usuario Usuario { get; set; }
+        public string Rol { get; set; }
+    }
 }
