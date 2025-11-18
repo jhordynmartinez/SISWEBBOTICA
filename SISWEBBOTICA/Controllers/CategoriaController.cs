@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SISWEBBOTICA.Controllers
 {
-    [Authorize] // Requiere que el usuario esté logueado para todo el controlador
+    [Authorize] // Requiere que el usuario esté logueado para el controlador
     public class CategoriaController : Controller
     {
         private readonly AppDBContext _context;
