@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SISWEBBOTICA.Controllers
 {
-    [Authorize]
+    [Authorize]//nuevoooo
     public class ClienteController : Controller
     {
         private readonly AppDBContext _context;
