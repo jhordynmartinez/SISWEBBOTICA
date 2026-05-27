@@ -1,0 +1,69 @@
+@model List<SISWEBBOTICA.Models.ML.ProductoRecomendacionML>
+@{
+    ViewData["Title"] = "Productos de Lenta Rotación";
+}
+
+<div class="container mt-4">
+    <h2><i class="fas fa-snail text-warning"></i> Productos de Lenta Rotación</h2>
+    <p class="text-muted">Productos con stock estancado - NO RECOMENDADO COMPRAR</p>
+
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Volver al Dashboard
+        </a>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+        <i class="fas fa-exclamation-triangle"></i> 
+        <strong>Atención:</strong> Estos productos tienen menos de 2 ventas en los últimos 30 días y stock mayor a 10 unidades.
+        Se recomienda NO COMPRAR hasta que se reduzca el stock actual.
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Principio Activo</th>
+                        <th>Laboratorio</th>
+                        <th>Stock Actual</th>
+                        <th>Ventas/Mes</th>
+                        <th>Meses para Agotarse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var mesesParaAgotarse = item.VentasPromedio > 0 ? item.Stock / item.VentasPromedio : 999;
+                        <tr>
+                            <td><strong>@item.Nombre</strong></td>
+                            <td>@item.IdCategoria</td>
+                            <td>@item.PrincipioActivo</td>
+                            <td>@item.Laboratorio</td>
+                            <td>
+                                <span class="badge bg-danger">@item.Stock und.</span>
+                            </td>
+                            <td class="text-muted">@item.VentasPromedio.ToString("N2")</td>
+                            <td>
+                                @if (mesesParaAgotarse > 12)
+                                {
+                                    <span class="badge bg-danger">+1 año</span>
+                                }
+                                else if (mesesParaAgotarse > 6)
+                                {
+                                    <span class="badge bg-warning">@((int)mesesParaAgotarse) meses</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-info">@((int)mesesParaAgotarse) meses</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
