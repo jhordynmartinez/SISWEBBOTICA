@@ -1,0 +1,73 @@
+@model List<SISWEBBOTICA.Models.ML.PrediccionDemandaResult>
+@{
+    ViewData["Title"] = "Predicciones de Demanda Detalladas";
+}
+
+<div class="container mt-4">
+    <h2><i class="fas fa-chart-line text-primary"></i> Predicciones de Demanda - Todos los Productos</h2>
+    <p class="text-muted">Lista completa de predicciones basada en análisis de ventas históricas</p>
+
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Volver al Dashboard
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Stock Actual</th>
+                        <th>Stock Mínimo</th>
+                        <th>Ventas Estimadas (Semana)</th>
+                        <th>Recomendación</th>
+                        <th>Cantidad Sugerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.NombreProducto</td>
+                            <td class="@(item.StockActual <= item.StockMinimo ? "text-danger fw-bold" : "")">
+                                @item.StockActual
+                            </td>
+                            <td>@item.StockMinimo</td>
+                            <td>@item.CantidadPredicha.ToString("N0")</td>
+                            <td>
+                                @if (item.Recomendacion == "Comprar Urgente")
+                                {
+                                    <span class="badge bg-danger">@item.Recomendacion</span>
+                                }
+                                else if (item.Recomendacion == "Comprar")
+                                {
+                                    <span class="badge bg-warning">@item.Recomendacion</span>
+                                }
+                                else if (item.Recomendacion == "Mantener")
+                                {
+                                    <span class="badge bg-info">@item.Recomendacion</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@item.Recomendacion</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (item.CantidadSugeridaCompra > 0)
+                                {
+                                    <span class="badge bg-primary">@item.CantidadSugeridaCompra und.</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

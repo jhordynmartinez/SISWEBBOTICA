@@ -1,0 +1,166 @@
+@model SISWEBBOTICA.ViewModels.RecomendacionVM
+@{
+    ViewData["Title"] = "Recomendador de Productos Alternativos";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2><i class="fas fa-exchange-alt text-info"></i> Recomendador de Productos Alternativos</h2>
+            <p class="text-muted">Encuentra productos similares cuando el que busca el cliente no está disponible</p>
+        </div>
+    </div>
+
+    <!-- Buscador -->
+    <div class="row mb-4">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Producto" method="get">
+                        <div class="mb-3">
+                            <label class="form-label">Buscar producto por nombre o principio activo:</label>
+                            <div class="input-group">
+                                <input type="text" name="termino" class="form-control" 
+                                       placeholder="Ej: Paracetamol, Ibuprofeno, Aspirina..." 
+                                       value="@Model.TerminoBusqueda" required>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Buscar Alternativas
+                                </button>
+                            </div>
+                            <small class="text-muted">Si el producto no tiene stock, el sistema te mostrará alternativas similares</small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    @if (!string.IsNullOrEmpty(Model.TerminoBusqueda) || Model.IdProductoSeleccionado.HasValue)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-lightbulb"></i> 
+                            Alternativas Recomendadas por IA
+                            @if (!string.IsNullOrEmpty(Model.ProductoOriginalNombre))
+                            {
+                                <span class="ms-2">para: @Model.ProductoOriginalNombre</span>
+                            }
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Alternativas.Any())
+                        {
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Similitud</th>
+                                        <th>Producto</th>
+                                        <th>Principio Activo</th>
+                                        <th>Laboratorio</th>
+                                        <th>Precio</th>
+                                        <th>Stock</th>
+                                        <th>Motivo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Alternativas)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="progress" style="height: 25px; width: 100px;">
+                                                    <div class="progress-bar 
+                                                        @(item.Similitud >= 0.9 ? "bg-success" : 
+                                                          item.Similitud >= 0.7 ? "bg-primary" : 
+                                                          item.Similitud >= 0.5 ? "bg-warning" : "bg-secondary")" 
+                                                         role="progressbar" 
+                                                         style="width: @(item.Similitud * 100)%">
+                                                        @(item.Similitud * 100)%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><strong>@item.Nombre</strong></td>
+                                            <td>@item.PrincipioActivo</td>
+                                            <td>@item.Laboratorio</td>
+                                            <td class="text-success">S/ @item.Precio.ToString("N2")</td>
+                                            <td>
+                                                @if (item.Stock > 10)
+                                                {
+                                                    <span class="badge bg-success">@item.Stock und.</span>
+                                                }
+                                                else if (item.Stock > 0)
+                                                {
+                                                    <span class="badge bg-warning">@item.Stock und.</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-danger">Sin Stock</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">@item.MotivoRecomendacion</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning" role="alert">
+                                <i class="fas fa-exclamation-triangle"></i> 
+                                No se encontraron productos alternativos. Intenta con otro término de búsqueda.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guía de Recomendación -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6><i class="fas fa-info-circle text-primary"></i> ¿Cómo interpretar las recomendaciones?</h6>
+                        <ul class="mb-0">
+                            <li><strong>90-100%:</strong> Mismo principio activo (recomendación directa)</li>
+                            <li><strong>70-89%:</strong> Mismo laboratorio o categoría terapéutica</li>
+                            <li><strong>50-69%:</strong> Producto similar en nombre o función</li>
+                            <li><strong>&lt;50%:</strong> Alternativa genérica</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6><i class="fas fa-user-md text-success"></i> Tips para el Vendedor</h6>
+                        <ul class="mb-0">
+                            <li>Verifica siempre el principio activo antes de recomendar</li>
+                            <li>Pregunta al cliente si tiene alergias o preferencias</li>
+                            <li>Explica las diferencias entre marcas</li>
+                            <li>Ofrece opciones en diferentes rangos de precio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Estado inicial - Sin búsqueda -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-hand-pointer fa-3x mb-3"></i>
+                    <h5>Comienza buscando un producto</h5>
+                    <p>Ingresa el nombre de un producto o principio activo para encontrar alternativas</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

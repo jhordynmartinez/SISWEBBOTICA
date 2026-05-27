@@ -1,0 +1,130 @@
+@model SISWEBBOTICA.ViewModels.RecomendacionVM
+@{
+    ViewData["Title"] = "Recomendaciones de Compra Inteligente";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2><i class="fas fa-shopping-cart text-success"></i> Optimización de Compras con IA</h2>
+            <p class="text-muted">El sistema te recomienda qué productos comprar basado en la demanda预测 y stock actual</p>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <form asp-action="Compra" method="get" class="d-flex gap-2">
+                <label class="col-form-label">Filtrar por prioridad:</label>
+                    <select name="filtroPrioridad" class="form-select w-auto" onchange="this.form.submit()">
+                        <option value="Todas" selected="@(Model.FiltroPrioridad == "Todas" ? "selected" : null)">Todas</option>
+                        <option value="Alta" selected="@(Model.FiltroPrioridad == "Alta" ? "selected" : null)">Alta Prioridad</option>
+                        <option value="Media" selected="@(Model.FiltroPrioridad == "Media" ? "selected" : null)">Media Prioridad</option>
+                        <option value="Baja" selected="@(Model.FiltroPrioridad == "Baja" ? "selected" : null)">Baja Prioridad</option>
+                    </select>
+                <a asp-action="ExportarCompras" class="btn btn-success ms-2">
+                    <i class="fas fa-file-excel"></i> Exportar Lista
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de Compras Sugeridas -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (Model.ComprasSugeridas.Any())
+                    {
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Prioridad</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad Sugerida</th>
+                                    <th>Costo Estimado</th>
+                                    <th>Utilidad Esperada</th>
+                                    <th>Días para Agotarse</th>
+                                    <th>Justificación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ComprasSugeridas)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (item.Prioridad == "Alta")
+                                            {
+                                                <span class="badge bg-danger fs-6">Alta</span>
+                                            }
+                                            else if (item.Prioridad == "Media")
+                                            {
+                                                <span class="badge bg-warning fs-6">Media</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-info fs-6">Baja</span>
+                                            }
+                                        </td>
+                                        <td><strong>@item.NombreProducto</strong></td>
+                                        <td class="text-center">
+                                            <span class="badge bg-primary fs-6">@item.CantidadSugerida und.</span>
+                                        </td>
+                                        <td class="text-success">S/ @item.CostoEstimado.ToString("N2")</td>
+                                        <td class="text-primary">S/ @item.UtilidadEsperada.ToString("N2")</td>
+                                        <td class="text-center">@item.DiasParaAgotarse días</td>
+                                        <td><small>@item.Justificacion</small></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-active">
+                                    <td colspan="3" class="text-end"><strong>Total Estimado:</strong></td>
+                                    <td colspan="4">
+                                        <strong class="text-success">
+                                            S/ @Model.ComprasSugeridas.Sum(c => c.CostoEstimado).ToString("N2")
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info" role="alert">
+                            <i class="fas fa-info-circle"></i> No hay compras sugeridas en este momento. Todos los productos tienen stock suficiente.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card bg-danger text-white">
+                <div class="card-body text-center">
+                    <h3>@Model.ComprasSugeridas.Count(c => c.Prioridad == "Alta")</h3>
+                    <small>Productos Prioridad Alta</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body text-center">
+                    <h3>@Model.ComprasSugeridas.Count(c => c.Prioridad == "Media")</h3>
+                    <small>Productos Prioridad Media</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <h3>@Model.ComprasSugeridas.Count(c => c.Prioridad == "Baja")</h3>
+                    <small>Productos Prioridad Baja</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

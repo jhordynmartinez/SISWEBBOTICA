@@ -1,0 +1,76 @@
+@model List<SISWEBBOTICA.Models.ML.ProductoRecomendacionML>
+@{
+    ViewData["Title"] = "Productos Más Vendidos";
+}
+
+<div class="container mt-4">
+    <h2><i class="fas fa-fire text-success"></i> Ranking de Productos Más Vendidos</h2>
+    <p class="text-muted">Top 20 productos con mayor rotación en el período seleccionado</p>
+
+    <div class="mb-3">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Volver al Dashboard
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Principio Activo</th>
+                        <th>Laboratorio</th>
+                        <th>Ventas Promedio/Día</th>
+                        <th>Stock Actual</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var item = Model[i];
+                        <tr>
+                            <td>
+                                @if (i < 3)
+                                {
+                                    <span class="badge @(i == 0 ? "bg-warning" : i == 1 ? "bg-secondary" : "bg-danger") text-white fs-6">
+                                        @(i + 1)°
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-light text-dark">@(i + 1)</span>
+                                }
+                            </td>
+                            <td><strong>@item.Nombre</strong></td>
+                            <td>@item.IdCategoria</td>
+                            <td>@item.PrincipioActivo</td>
+                            <td>@item.Laboratorio</td>
+                            <td class="text-center">
+                                <span class="badge bg-success">@item.VentasPromedio.ToString("N1") und.</span>
+                            </td>
+                            <td>
+                                @if (item.Stock > 20)
+                                {
+                                    <span class="badge bg-success">@item.Stock</span>
+                                }
+                                else if (item.Stock > 10)
+                                {
+                                    <span class="badge bg-warning">@item.Stock</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">@item.Stock</span>
+                                }
+                            </td>
+                            <td class="text-success">S/ @item.PrecioMenor.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

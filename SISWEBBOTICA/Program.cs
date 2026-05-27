@@ -20,6 +20,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IUnidadMedidaRepository, UnidadMedidaRepository>();
+builder.Services.AddScoped<IMLService, MLService>();
 
 builder.Services.AddIdentity<Usuario, TipoUsuario>(options => {
     options.Password.RequireDigit = true;
