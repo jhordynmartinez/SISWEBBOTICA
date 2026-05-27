@@ -1,0 +1,125 @@
+@model SISWEBBOTICA.ViewModels.ClienteCreateVM
+@{
+    ViewData["Title"] = "Registrar Nuevo Cliente";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2><i class="fas fa-user-plus text-primary me-2"></i> @ViewData["Title"]</h2>
+            <p class="text-muted">Completa los datos del cliente para registrarlo en el sistema</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-id-card me-2"></i> Información del Cliente</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" novalidate>
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="All" class="alert alert-danger d-none" id="validationSummary" role="alert"></div>
+
+                        <!-- RUC/DNI -->
+                        <div class="mb-3">
+                            <label asp-for="RucDni" class="form-label fw-bold"></label>
+                            <input asp-for="RucDni" class="form-control form-control-lg" placeholder="Ej: 12345678 o 10123456789" />
+                            <span asp-validation-for="RucDni" class="text-danger small d-block mt-1"></span>
+                            <small class="text-muted">RUC o DNI del cliente</small>
+                        </div>
+
+                        <!-- Nombre y Apellido -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Nombre" class="form-label fw-bold"></label>
+                                    <input asp-for="Nombre" class="form-control" placeholder="Nombre del cliente" />
+                                    <span asp-validation-for="Nombre" class="text-danger small d-block mt-1"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Apellido" class="form-label fw-bold"></label>
+                                    <input asp-for="Apellido" class="form-control" placeholder="Apellido (opcional)" />
+                                    <span asp-validation-for="Apellido" class="text-danger small d-block mt-1"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Teléfono y Email -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Telefono" class="form-label fw-bold"></label>
+                                    <input asp-for="Telefono" class="form-control" placeholder="Ej: 987654321" />
+                                    <span asp-validation-for="Telefono" class="text-danger small d-block mt-1"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Email" class="form-label fw-bold"></label>
+                                    <input asp-for="Email" type="email" class="form-control" placeholder="cliente@email.com" />
+                                    <span asp-validation-for="Email" class="text-danger small d-block mt-1"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dirección -->
+                        <div class="mb-3">
+                            <label asp-for="Direccion" class="form-label fw-bold"></label>
+                            <input asp-for="Direccion" class="form-control" placeholder="Calle, número, distrito..." />
+                            <span asp-validation-for="Direccion" class="text-danger small d-block mt-1"></span>
+                        </div>
+
+                        <!-- VIP y Notas -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input asp-for="EsClienteVIP" type="checkbox" class="form-check-input" id="esVip" />
+                                        <label class="form-check-label fw-bold" for="esVip">
+                                            <i class="fas fa-star text-warning"></i> Marcar como Cliente VIP
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notas -->
+                        <div class="mb-3">
+                            <label asp-for="Notas" class="form-label fw-bold"></label>
+                            <textarea asp-for="Notas" class="form-control" rows="3" placeholder="Notas adicionales sobre el cliente (opcional)"></textarea>
+                            <span asp-validation-for="Notas" class="text-danger small d-block mt-1"></span>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex gap-2 mt-4 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                                <i class="fas fa-save me-2"></i> Registrar Cliente
+                            </button>
+                            <a href="@Url.Action("Index", "Cliente")" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-arrow-left me-2"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar resumen de validación si hay errores
+            const summary = document.getElementById('validationSummary');
+            if (document.querySelectorAll('.text-danger').length > 0) {
+                summary.classList.remove('d-none');
+            }
+        });
+    </script>
+}

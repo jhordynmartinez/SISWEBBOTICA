@@ -65,13 +65,31 @@ namespace SISWEBBOTICA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Crear(VentaVM model)
         {
-            if (model.Detalles == null || !model.Detalles.Any())
+            bool isAjax = Request.Headers["X-Requested-With"].ToString() == "XMLHttpRequest";
+            
+            System.Diagnostics.Debug.WriteLine($"[VENTA] POST recibido. AJAX: {isAjax}, Model null: {model == null}");
+            if (model != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"[VENTA] Detalles count: {model.Detalles?.Count ?? 0}, IdMetodoPago: {model.IdMetodoPago}, Total: {model.Total}, IdCliente: {model.IdCliente}, ModelState.IsValid: {ModelState.IsValid}");
+            }
+
+            if (model == null)
+            {
+                ModelState.AddModelError("", "Error: No se recibieron los datos de la venta.");
+            }
+            else if (model.Detalles == null || !model.Detalles.Any())
             {
                 ModelState.AddModelError("", "Debe seleccionar al menos un medicamento para registrar la venta.");
             }
 
             if (!ModelState.IsValid)
             {
+                var errorMessages = string.Join("; ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                System.Diagnostics.Debug.WriteLine($"[VENTA] ModelState NO válido. Errores: {errorMessages}");
+                if (isAjax)
+                    // Asegurarse de que se devuelva un JSON con el campo 'error'
+                    return Json(new { success = false, error = errorMessages, errors = ModelState.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()) });
+                
                 await RecargarDatosParaVista(model);
                 return View(model);
             }
@@ -90,29 +108,75 @@ namespace SISWEBBOTICA.Controllers
 
                     foreach (var detalleVM in model.Detalles)
                     {
-                        if (!productosEnVenta.TryGetValue(detalleVM.IdProducto, out var producto) || (!permitirStockNegativo && producto.Stock < detalleVM.Cantidad))
+                        if (!productosEnVenta.TryGetValue(detalleVM.IdProducto, out var producto))
                         {
-                            var nombreProducto = producto?.Nombre ?? "desconocido";
-                            ModelState.AddModelError("", $"Stock insuficiente para '{nombreProducto}'. Disponible: {producto?.Stock ?? 0}");
-
+                            var errMsg = $"El producto ID {detalleVM.IdProducto} no fue encontrado.";
+                            ModelState.AddModelError("", errMsg);
+                            if (isAjax)
+                                return Json(new { success = false, error = errMsg });
+                            await RecargarDatosParaVista(model);
+                            return View(model);
+                        }
+                        if (!permitirStockNegativo && producto.Stock < detalleVM.Cantidad)
+                        {
+                            var errMsg = $"Stock insuficiente para '{producto.Nombre}'. Disponible: {producto.Stock}";
+                            ModelState.AddModelError("", errMsg);
+                            if (isAjax)
+                                return Json(new { success = false, error = errMsg });
                             await RecargarDatosParaVista(model);
                             return View(model);
                         }
                     }
 
                     var usuarioActual = await _userManager.GetUserAsync(User);
-                    var clienteDefault = await _context.Clientes.FirstOrDefaultAsync(c => c.Nombre == "PÚBLICO GENERAL");
-
-                    if (clienteDefault == null && model.IdCliente == null)
+                    if (usuarioActual == null)
                     {
-                        ModelState.AddModelError("", "No se encontró el cliente 'PÚBLICO GENERAL'.");
+                        var errMsg = "Error: No se pudo identificar al usuario. Inicie sesión nuevamente.";
+                        ModelState.AddModelError("", errMsg);
+                        if (isAjax)
+                            return Json(new { success = false, error = errMsg });
                         await RecargarDatosParaVista(model);
                         return View(model);
                     }
+
+                    // Validar que el cliente seleccionado exista
+                    int idClienteFinal;
+                    if (model.IdCliente.HasValue && model.IdCliente.Value > 0)
+                    {
+                        var clienteSeleccionado = await _context.Clientes.FindAsync(model.IdCliente.Value);
+                        if (clienteSeleccionado == null)
+                        {
+                            var errMsg = $"El cliente seleccionado no existe en el sistema (ID: {model.IdCliente}).";
+                            ModelState.AddModelError("", errMsg);
+                            if (isAjax)
+                                return Json(new { success = false, error = errMsg });
+                            await RecargarDatosParaVista(model);
+                            return View(model);
+                        }
+                        idClienteFinal = model.IdCliente.Value;
+                    }
+                    else
+                    {
+                        var clienteDefault = await _context.Clientes.FirstOrDefaultAsync(c => c.Nombre == "PÚBLICO GENERAL");
+                        if (clienteDefault == null)
+                        {
+                            var errMsg = "No se encontró el cliente 'PÚBLICO GENERAL'. Contacte al administrador.";
+                            ModelState.AddModelError("", errMsg);
+                            if (isAjax)
+                                return Json(new { success = false, error = errMsg });
+                            await RecargarDatosParaVista(model);
+                            return View(model);
+                        }
+                        idClienteFinal = clienteDefault.IdCliente;
+                    }
+
                     var monedaDefault = await _context.Monedas.FirstOrDefaultAsync();
                     if (monedaDefault == null)
                     {
-                        ModelState.AddModelError("", "No hay ninguna moneda configurada.");
+                        var errMsg = "No hay ninguna moneda configurada. Contacte al administrador.";
+                        ModelState.AddModelError("", errMsg);
+                        if (isAjax)
+                            return Json(new { success = false, error = errMsg });
                         await RecargarDatosParaVista(model);
                         return View(model);
                     }
@@ -120,7 +184,7 @@ namespace SISWEBBOTICA.Controllers
                     var venta = new Venta
                     {
                         IdUsuario = usuarioActual.Id,
-                        IdCliente = model.IdCliente ?? clienteDefault.IdCliente,
+                        IdCliente = idClienteFinal,
                         IdMoneda = monedaDefault.IdMoneda,
                         NumeroComprobante = await GenerarSiguienteCorrelativo(),
                         TotalPagar = model.Total,
@@ -162,15 +226,33 @@ namespace SISWEBBOTICA.Controllers
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
+                    System.Diagnostics.Debug.WriteLine($"[VENTA] Venta {venta.IdVenta} registrada exitosamente!");
+
+                    if (isAjax)
+                        return Json(new { success = true, redirectUrl = $"/Venta/Boleta/{venta.IdVenta}" });
+
                     TempData["SuccessMessage"] = $"Venta N° {venta.IdVenta} registrada correctamente.";
                     return RedirectToAction("Boleta", new { id = venta.IdVenta });
+                }
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException dbEx)
+                {
+                    await transaction.RollbackAsync();
+                    var errMsg = $"Error al guardar en base de datos: {dbEx.InnerException?.Message ?? dbEx.Message}";
+                    System.Diagnostics.Debug.WriteLine($"[VENTA] Error DB: {dbEx.ToString()}");
+                    if (isAjax)
+                        return Json(new { success = false, error = errMsg }); // Asegurarse de que devuelva un JSON con el campo 'error'
+                    ModelState.AddModelError("", errMsg);
+                    await RecargarDatosParaVista(model);
+                    return View(model);
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    System.Diagnostics.Debug.WriteLine(ex.ToString());
-                    ModelState.AddModelError("", "Ocurrió un error inesperado al registrar la venta. Revise la consola de depuración para más detalles.");
-
+                    var errMsg = $"Ocurrió un error inesperado: {ex.Message}";
+                    System.Diagnostics.Debug.WriteLine($"[VENTA] Error general: {ex.ToString()}");
+                    if (isAjax)
+                        return Json(new { success = false, error = errMsg }); // Asegurarse de que devuelva un JSON con el campo 'error'
+                    ModelState.AddModelError("", errMsg);
                     await RecargarDatosParaVista(model);
                     return View(model);
                 }
@@ -261,9 +343,31 @@ namespace SISWEBBOTICA.Controllers
 
         private async Task RecargarDatosParaVista(VentaVM model)
         {
-            var clientes = await _context.Clientes.OrderBy(c => c.Nombre).ToListAsync();
-            model.Clientes = new SelectList(clientes, "IdCliente", "Nombre", model.IdCliente);
-            model.MetodosPago = new SelectList(await _context.MetodosPago.ToListAsync(), "IdMetodoPago", "Nombre", model.IdMetodoPago);
+            try
+            {
+                var clientes = await _context.Clientes
+                    .Where(c => c.Estado == "Activo")
+                    .OrderBy(c => c.Nombre)
+                    .ToListAsync();
+                model.Clientes = new SelectList(clientes, "IdCliente", "Nombre", model.IdCliente);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error al cargar clientes: {ex.Message}");
+                // If the Estado column doesn't exist yet, try without filter
+                try
+                {
+                    var clientes = await _context.Clientes.OrderBy(c => c.Nombre).ToListAsync();
+                    model.Clientes = new SelectList(clientes, "IdCliente", "Nombre", model.IdCliente);
+                }
+                catch { /* Ignore if clientes table has issues */ }
+            }
+            
+            try
+            {
+                model.MetodosPago = new SelectList(await _context.MetodosPago.ToListAsync(), "IdMetodoPago", "Nombre", model.IdMetodoPago);
+            }
+            catch { /* Ignore if metodos pago table has issues */ }
         }
 
         private async Task<string> GenerarSiguienteCorrelativo()

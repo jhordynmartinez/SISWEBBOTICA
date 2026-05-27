@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using SISWEBBOTICA.Data;
@@ -223,7 +222,7 @@ namespace SISWEBBOTICA.Services
                     NombreProducto = producto.Nombre,
                     StockActual = (float)producto.Stock,
                     StockMinimo = (float)producto.StockMinimo,
-                    CantidadPredicha = (float)promedioVentasDiarias * 7, // Predicción para próxima semana
+                    CantidadPredicha = (float)(promedioVentasDiarias * 7m), // Predicción para próxima semana
                     Confianza = 0.85f, // Confianza base (se puede mejorar con más datos)
                     Recomendacion = recomendacion,
                     CantidadSugeridaCompra = cantidadSugerida
@@ -506,7 +505,7 @@ namespace SISWEBBOTICA.Services
                         IdCategoria = producto.IdCategoria,
                         PrecioMenor = (float)producto.PrecioMenor,
                         Stock = (float)producto.Stock,
-                        VentasPromedio = (float)ventasProducto / 30
+                        VentasPromedio = (float)ventasProducto / 30f
                     });
                 }
             }

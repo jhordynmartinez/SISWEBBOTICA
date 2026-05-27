@@ -80,20 +80,6 @@
                                 <i class="fas fa-play"></i> Entrenar Modelo Ahora
                             </button>
                         </form>
-
-                        <form asp-action="GenerarTemporalEntrenar" method="post">
-                            <input type="hidden" name="meses" value="6" />
-                            <button type="submit" class="btn btn-outline-secondary">
-                                <i class="fas fa-database"></i> Generar Temporal y Entrenar (6m)
-                            </button>
-                        </form>
-
-                        <form asp-action="GenerarHistorial" method="post">
-                            <input type="hidden" name="meses" value="6" />
-                            <button type="submit" class="btn btn-outline-danger">
-                                <i class="fas fa-save"></i> Generar Historial en BD (6m)
-                            </button>
-                        </form>
                     </div>
 
                     @* Métricas del último entrenamiento *@

@@ -37,6 +37,21 @@ namespace SISWEBBOTICA.Tests
                 _categoriaRepoMock.Object,
                 _unidadMedidaRepoMock.Object
             );
+
+            // Inyectar TempData y ControllerContext directamente para que funcione en tests
+            var tempDataMock = new Mock<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionary>();
+            tempDataMock.Setup(t => t.Keys).Returns(new List<string>());
+            _controller.TempData = tempDataMock.Object;
+            var httpContext = new Microsoft.AspNetCore.Http.DefaultHttpContext();
+            _controller.ControllerContext = new Microsoft.AspNetCore.Mvc.ControllerContext
+            {
+                HttpContext = httpContext,
+                ActionDescriptor = new Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor
+                {
+                    ControllerName = "Producto",
+                    ActionName = "Index"
+                }
+            };
         }
 
         [TestMethod]
@@ -77,7 +92,7 @@ namespace SISWEBBOTICA.Tests
             };
 
             // Simulamos que el producto no existe
-            _productoRepoMock.Setup(repo => repo.ProductoDuplicadoExistsAsync(It.IsAny<string>(), It.IsAny<string>(), 0)).ReturnsAsync(false);
+            _productoRepoMock.Setup(repo => repo.ProductoDuplicadoExistsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(false);
 
             // Act
             var result = await _controller.Create(viewModel);
@@ -92,7 +107,7 @@ namespace SISWEBBOTICA.Tests
         {
             // Arrange
             var viewModel = new ProductoVM { Producto = new Producto { Nombre = "Duplicado" } };
-            _productoRepoMock.Setup(repo => repo.ProductoDuplicadoExistsAsync("Duplicado", null, 0)).ReturnsAsync(true);
+            _productoRepoMock.Setup(repo => repo.ProductoDuplicadoExistsAsync("Duplicado", null, It.IsAny<int>())).ReturnsAsync(true);
 
             // Act
             var result = await _controller.Create(viewModel);
