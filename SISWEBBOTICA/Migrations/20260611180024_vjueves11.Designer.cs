@@ -12,15 +12,15 @@ using SISWEBBOTICA.Data;
 namespace SISWEBBOTICA.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20251009182718_AgregarEstadoAProducto")]
-    partial class AgregarEstadoAProducto
+    [Migration("20260611180024_vjueves11")]
+    partial class vjueves11
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -224,10 +224,24 @@ namespace SISWEBBOTICA.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("EsClienteVIP")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("FechaRegistro")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Notas")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RucDni")
                         .IsRequired()

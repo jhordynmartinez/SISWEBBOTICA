@@ -20,6 +20,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IUnidadMedidaRepository, UnidadMedidaRepository>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IMLService, MLService>();
 
 builder.Services.AddIdentity<Usuario, TipoUsuario>(options => {
@@ -86,35 +87,85 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<AppDBContext>();
-        await context.Database.MigrateAsync();
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        // Las migraciones se aplican manualmente
+        // await context.Database.MigrateAsync();
 
-        if (!context.Clientes.Any(c => c.Nombre == "PÚBLICO GENERAL"))
+        try
         {
-            context.Clientes.Add(new Cliente { Nombre = "PÚBLICO GENERAL", RucDni = "00000000" });
-            await context.SaveChangesAsync();
+            // Seed de PÚBLICO GENERAL - Usar DateTime.Now para consistencia
+            var publicoGeneral = await context.Clientes
+                .FirstOrDefaultAsync(c => c.Nombre == "PÚBLICO GENERAL");
+            
+            if (publicoGeneral == null)
+            {
+                publicoGeneral = new Cliente
+                {
+                    Nombre = "PÚBLICO GENERAL",
+                    RucDni = "00000000",
+                    Estado = "Activo",
+                    FechaRegistro = DateTime.Now,
+                    EsClienteVIP = false
+                };
+                context.Clientes.Add(publicoGeneral);
+                await context.SaveChangesAsync();
+                logger.LogInformation("Cliente 'PÚBLICO GENERAL' creado exitosamente.");
+            }
+            else
+            {
+                logger.LogInformation("Cliente 'PÚBLICO GENERAL' ya existe.");
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error al inicializar cliente 'PÚBLICO GENERAL'.");
         }
 
-        if (!context.MetodosPago.Any())
+        try
         {
-            context.MetodosPago.AddRange(
-                new MetodoPago { Nombre = "Efectivo", RequiereReferencia = false },
-                new MetodoPago { Nombre = "Yape", RequiereReferencia = true },
-                new MetodoPago { Nombre = "Plin", RequiereReferencia = true },
-                new MetodoPago { Nombre = "Tarjeta", RequiereReferencia = true }
-            );
-            await context.SaveChangesAsync();
+            if (!context.MetodosPago.Any())
+            {
+                context.MetodosPago.AddRange(
+                    new MetodoPago { Nombre = "Efectivo", RequiereReferencia = false },
+                    new MetodoPago { Nombre = "Yape", RequiereReferencia = true },
+                    new MetodoPago { Nombre = "Plin", RequiereReferencia = true },
+                    new MetodoPago { Nombre = "Tarjeta", RequiereReferencia = true }
+                );
+                await context.SaveChangesAsync();
+                logger.LogInformation("Métodos de pago creados exitosamente.");
+            }
+            else
+            {
+                logger.LogInformation("Métodos de pago ya existen.");
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error al inicializar métodos de pago.");
         }
 
-        if (!context.Monedas.Any())
+        try
         {
-            context.Monedas.Add(new Moneda { Nombre = "NUEVOS SOLES", Simbolo = "S/." });
-            await context.SaveChangesAsync();
+            if (!context.Monedas.Any())
+            {
+                context.Monedas.Add(new Moneda { Nombre = "NUEVOS SOLES", Simbolo = "S/." });
+                await context.SaveChangesAsync();
+                logger.LogInformation("Moneda 'NUEVOS SOLES' creada exitosamente.");
+            }
+            else
+            {
+                logger.LogInformation("Moneda ya existe.");
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error al inicializar moneda.");
         }
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Ocurrió un error al inicializar la base de datos.");
+        logger.LogError(ex, "Error general al inicializar la base de datos.");
     }
 }
 

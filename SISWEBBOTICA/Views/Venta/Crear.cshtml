@@ -33,17 +33,15 @@
             }
             <div asp-validation-summary="All" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
 
-            <form asp-action="Crear" method="post" id="form-venta">
+            <form asp-action="Crear" method="post" id="form-venta" novalidate>
                 @Html.AntiForgeryToken()
 
                 <div class="row mb-3 border-bottom pb-3">
-                    <div class="col-md-6">
-                        <label asp-for="IdCliente" class="form-label fw-bold">Cliente (Opcional)</label>
-                        <select asp-for="IdCliente" asp-items="Model.Clientes" class="form-select">
-                            <option value="">-- PÚBLICO GENERAL --</option>
-                        </select>
+                    <div class="col-md-5">
+                        @* Incluir el componente de selección de cliente *@
+                        @await Html.PartialAsync("_ClienteSelectModal")
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <label for="producto-search" class="form-label fw-bold">Buscar Medicamento</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
@@ -117,9 +115,8 @@
 </div>
 
 @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+        <!-- Validación manejada manualmente en JS -->
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
         <script>
             $(document).ready(function () {
@@ -247,6 +244,83 @@
 
                 // CORRECCIÓN: Llamar a la función al cargar la página
                 inicializarCarrito();
+
+                // Desactivar jQuery Validate para que no bloquee el submit
+                if ($("#form-venta").data("validator")) {
+                    $("#form-venta").data("validator").settings.ignore = [];
+                }
+
+                // Submit handler - AJAX para no perder el carrito
+                $("#form-venta").on("submit", function (e) {
+                    e.preventDefault(); // Prevenir submit normal
+
+                    console.log("=== FORM SUBMIT TRIGGERED ===");
+                    console.log("Detalles en carrito:", detalles.length);
+                    console.log("IdMetodoPago:", $("#IdMetodoPago").val());
+                    console.log("Total:", $("input[name='Total']").val());
+
+                    // Validaciones cliente
+                    if (detalles.length === 0) {
+                        alert("Debe agregar al menos un medicamento a la venta.");
+                        return;
+                    }
+
+                    var metodoPago = $("#IdMetodoPago").val();
+                    if (!metodoPago) {
+                        alert("Debe seleccionar un método de pago.");
+                        $("#IdMetodoPago").focus();
+                        return;
+                    }
+
+                    // Actualizar cantidades desde los inputs antes de enviar
+                    $(".cantidad-input").each(function () {
+                        var index = $(this).closest("tr").data("index");
+                        detalles[index].cantidad = parseFloat($(this).val());
+                    });
+
+                    // Re-calcular subtotales desde los detalles actualizados
+                    detalles.forEach(function (item, index) {
+                        item.subtotal = item.cantidad * item.precio;
+                        // Asegurarse de que el input oculto de subtotal se actualice
+                        $("input[name='Detalles[" + index + "].Subtotal']").val(item.subtotal.toFixed(2));
+                    });
+
+                    var formData = $(this).serialize();
+                    var $btn = $("#form-venta button[type='submit']");
+                    $btn.prop("disabled", true).html('<i class="fas fa-spinner fa-spin"></i> Procesando...');
+
+                    console.log("Enviando datos por AJAX...");
+
+                    $.ajax({
+                        url: "@Url.Action("Crear", "Venta")",
+                        type: "POST",
+                        data: formData,
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("Respuesta del servidor:", data);
+                            if (data.success) {
+                                console.log("Venta exitosa! Redirigiendo a:", data.redirectUrl);
+                                window.location.href = data.redirectUrl;
+                            } else {
+                                alert("Error al registrar la venta:\n\n" + data.error);
+                            }
+                            $btn.prop("disabled", false).html('<i class="fas fa-check-circle"></i> Registrar Venta');
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error AJAX:", status, error);
+                            console.error("Response:", xhr.responseText);
+                            var errorMsg = "Error al registrar la venta.";
+                            try {
+                                var resp = JSON.parse(xhr.responseText);
+                                if (resp.error) errorMsg += "\n\n" + resp.error;
+                            } catch (e) {
+                                // No JSON response
+                            }
+                            alert(errorMsg);
+                            $btn.prop("disabled", false).html('<i class="fas fa-check-circle"></i> Registrar Venta');
+                        }
+                    });
+                });
             });
         </script>
 }

@@ -1,0 +1,339 @@
+﻿@* Selector simple de cliente para Venta *@
+
+<div class="mb-3">
+    <label for="clienteDisplay" class="form-label fw-bold">
+        <i class="fas fa-user me-2"></i> Cliente
+    </label>
+
+    <div class="input-group">
+        <input type="text" 
+               id="clienteDisplay" 
+               class="form-control" 
+               value="PÚBLICO GENERAL"
+               readonly
+               style="background-color: #f8f9fa;">
+        <button type="button" 
+                class="btn btn-outline-primary" 
+                id="btnExpandirCliente"
+                data-bs-toggle="modal" 
+                data-bs-target="#modalClienteSelect">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+
+    @* INPUT OCULTO DENTRO DEL FORM PARA QUE SE ENVÍE *@
+    <input type="hidden" id="idClienteSeleccionado" name="IdCliente" value="1" />
+
+    <small class="text-muted d-block mt-2">
+        <i class="fas fa-info-circle me-1"></i>
+        Selecciona un cliente o registra uno nuevo
+    </small>
+</div>
+
+@* MODAL PARA SELECCIONAR O REGISTRAR CLIENTE *@
+<div class="modal fade" id="modalClienteSelect" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-users me-2"></i> Seleccionar o Registrar Cliente
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <ul class="nav nav-tabs mb-3" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="tab-lista" 
+                                data-bs-toggle="tab" 
+                                data-bs-target="#lista-clientes" 
+                                type="button" 
+                                role="tab">
+                            <i class="fas fa-list me-2"></i> Clientes Registrados
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-registro" 
+                                data-bs-toggle="tab" 
+                                data-bs-target="#registrar-cliente" 
+                                type="button" 
+                                role="tab">
+                            <i class="fas fa-user-plus me-2"></i> Registrar Nuevo
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    @* TAB 1: LISTA DE CLIENTES *@
+                    <div class="tab-pane fade show active" id="lista-clientes" role="tabpanel">
+                        <div class="mb-3">
+                            <input type="text" 
+                                   id="inputBuscarCliente" 
+                                   class="form-control" 
+                                   placeholder="🔍 Buscar por nombre, RUC/DNI...">
+                        </div>
+
+                        <div id="listaClientesContainer" style="max-height: 350px; overflow-y: auto;">
+                            <div class="text-center text-muted py-5">
+                                <i class="fas fa-spinner fa-spin me-2"></i> Cargando clientes...
+                            </div>
+                        </div>
+
+                        @* Opción PÚBLICO GENERAL *@
+                        <div class="mt-3 pt-3 border-top">
+                            <button type="button" 
+                                    class="btn btn-outline-secondary w-100" 
+                                    onclick="seleccionarClientePublico()">
+                                <i class="fas fa-globe me-2"></i> 
+                                PÚBLICO GENERAL (Cliente Anónimo)
+                            </button>
+                        </div>
+                    </div>
+
+                    @* TAB 2: REGISTRAR NUEVO CLIENTE *@
+                    <div class="tab-pane fade" id="registrar-cliente" role="tabpanel">
+                        <form id="formRegistroCliente">
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">DNI/RUC *</label>
+                                <input type="text" id="nuevoRuc" class="form-control" placeholder="Ej: 12345678" required autofocus>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">Nombre *</label>
+                                <input type="text" id="nuevoNombre" class="form-control" placeholder="Nombre completo" required>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">Apellidos *</label>
+                                <input type="text" id="nuevoApellido" class="form-control" placeholder="Apellidos" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Teléfono *</label>
+                                <input type="tel" id="nuevoTelefono" class="form-control" placeholder="Ej: 987654321" required>
+                            </div>
+
+                            <button type="button" id="btnGuardarCliente" class="btn btn-success w-100 btn-lg">
+                                <i class="fas fa-check me-2"></i> Guardar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cliente-item {
+        padding: 12px;
+        border-bottom: 1px solid #dee2e6;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border-radius: 4px;
+        margin-bottom: 5px;
+    }
+
+    .cliente-item:hover {
+        background-color: #e7f3ff;
+    }
+
+    .cliente-item.selected {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .cliente-info {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .cliente-detalle {
+        font-size: 12px;
+        opacity: 0.8;
+        margin-top: 3px;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputBuscar = document.getElementById('inputBuscarCliente');
+    const container = document.getElementById('listaClientesContainer');
+    const btnGuardar = document.getElementById('btnGuardarCliente');
+
+    let todosLosClientes = [];
+
+    // Cargar clientes al abrir el modal
+    const modalElement = document.getElementById('modalClienteSelect');
+    if (modalElement) {
+        modalElement.addEventListener('show.bs.modal', async function() {
+            await cargarClientes();
+        });
+    }
+
+    // Función para cargar clientes
+    async function cargarClientes() {
+        if (container) {
+            container.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-spinner fa-spin me-2"></i> Cargando clientes...</div>';
+        }
+        try {
+            const response = await fetch('/Cliente/BuscarJson?termino=');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            const data = await response.json();
+            todosLosClientes = Array.isArray(data) ? data : [];
+            mostrarClientes(todosLosClientes);
+        } catch (error) {
+            console.error('Error al cargar clientes:', error);
+            if (container) {
+                container.innerHTML = `
+                    <div class="text-center text-danger py-4">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Error al cargar clientes. Intente de nuevo.
+                        <br><small class="text-muted">${error.message}</small>
+                    </div>`;
+            }
+        }
+    }
+
+    // Función para mostrar clientes
+    function mostrarClientes(clientes) {
+        if (!container) return;
+
+        if (!clientes || clientes.length === 0) {
+            container.innerHTML = '<p class="text-muted text-center py-4"><i class="fas fa-inbox me-2"></i> No hay clientes registrados</p>';
+            return;
+        }
+
+        // Escapar comillas simples para evitar errores en el HTML
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+        }
+
+        container.innerHTML = clientes.map(c => `
+            <div class="cliente-item" onclick="seleccionarCliente(${c.id}, '${escapeHtml(c.nombre)} ${escapeHtml(c.apellido || '')}', '${escapeHtml(c.rucDni)}')">
+                <div class="cliente-info">
+                    <strong>${escapeHtml(c.nombre)} ${escapeHtml(c.apellido || '')}</strong>
+                </div>
+                <div class="cliente-detalle">
+                    RUC/DNI: ${escapeHtml(c.rucDni)} | Tel: ${escapeHtml(c.telefono) || 'N/A'} | Email: ${escapeHtml(c.email) || 'N/A'}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Búsqueda de clientes
+    if (inputBuscar) {
+        inputBuscar.addEventListener('input', function() {
+            const termino = this.value.toLowerCase();
+            const filtrados = todosLosClientes.filter(c =>
+                (c.nombre && c.nombre.toLowerCase().includes(termino)) ||
+                (c.rucDni && c.rucDni.includes(termino)) ||
+                (c.telefono && c.telefono.includes(termino)) ||
+                (c.email && c.email.toLowerCase().includes(termino))
+            );
+            mostrarClientes(filtrados);
+        });
+    }
+
+    // Guardar nuevo cliente
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', async function() {
+            const rucInput = document.getElementById('nuevoRuc');
+            const nombreInput = document.getElementById('nuevoNombre');
+            const apellidoInput = document.getElementById('nuevoApellido');
+            const telefonoInput = document.getElementById('nuevoTelefono');
+
+            const ruc = rucInput ? rucInput.value.trim() : '';
+            const nombre = nombreInput ? nombreInput.value.trim() : '';
+            const apellido = apellidoInput ? apellidoInput.value.trim() : '';
+            const telefono = telefonoInput ? telefonoInput.value.trim() : '';
+
+            if (!ruc || !nombre || !apellido || !telefono) {
+                alert('Todos los campos marcados con * son obligatorios');
+                return;
+            }
+
+            btnGuardar.disabled = true;
+            btnGuardar.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Guardando...';
+
+            const datos = {
+                rucDni: ruc,
+                nombre: nombre,
+                apellido: apellido,
+                telefono: telefono,
+                email: null,
+                direccion: null,
+                esClienteVIP: false,
+                notas: null
+            };
+
+            try {
+                const response = await fetch('/Cliente/RegistrarRapido', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify(datos)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => null);
+                    throw new Error(errorData?.message || `Error HTTP ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                if (result.success && result.cliente) {
+                    seleccionarCliente(result.cliente.id, `${result.cliente.nombre} ${result.cliente.apellido || ''}`, result.cliente.rucDni);
+                    // Resetear formulario
+                    if (rucInput) rucInput.value = '';
+                    if (nombreInput) nombreInput.value = '';
+                    if (apellidoInput) apellidoInput.value = '';
+                    if (telefonoInput) telefonoInput.value = '';
+                    // Cerrar modal
+                    const modal = bootstrap.Modal.getInstance(modalElement);
+                    if (modal) modal.hide();
+                    // Refrescar lista
+                    await cargarClientes();
+                } else {
+                    throw new Error(result.message || 'Error desconocido al registrar');
+                }
+            } catch (error) {
+                console.error('Error al registrar cliente:', error);
+                alert('Error al registrar cliente: ' + error.message);
+            } finally {
+                btnGuardar.disabled = false;
+                btnGuardar.innerHTML = '<i class="fas fa-check me-2"></i> Guardar';
+            }
+        });
+    }
+});
+
+// Función global para seleccionar cliente
+function seleccionarCliente(idCliente, nombreCliente, rucDni) {
+    const idInput = document.getElementById('idClienteSeleccionado');
+    const displayInput = document.getElementById('clienteDisplay');
+
+    if (idInput) idInput.value = idCliente;
+    if (displayInput) displayInput.value = `${nombreCliente} (${rucDni})`;
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalClienteSelect'));
+    if (modal) modal.hide();
+}
+
+// Función para seleccionar PÚBLICO GENERAL
+function seleccionarClientePublico() {
+    const idInput = document.getElementById('idClienteSeleccionado');
+    const displayInput = document.getElementById('clienteDisplay');
+
+    if (idInput) idInput.value = 1;
+    if (displayInput) displayInput.value = 'PÚBLICO GENERAL';
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalClienteSelect'));
+    if (modal) modal.hide();
+}
+</script>
