@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SISWEBBOTICA.Data;
 using SISWEBBOTICA.Models;
 using SISWEBBOTICA.Services;
 using SISWEBBOTICA.ViewModels;
@@ -13,10 +15,12 @@ namespace SISWEBBOTICA.Controllers
     public class RecomendacionController : Controller
     {
         private readonly IMLService _mlService;
+        private readonly AppDBContext _context; // Añadido para resolver placeholders de base de datos
 
-        public RecomendacionController(IMLService mlService)
+        public RecomendacionController(IMLService mlService, AppDBContext context)
         {
             _mlService = mlService;
+            _context = context;
         }
 
         // GET: /Recomendacion/Compra - Optimización de compras para administrador
@@ -50,24 +54,38 @@ namespace SISWEBBOTICA.Controllers
 
             if (!string.IsNullOrEmpty(termino) || idProducto.HasValue)
             {
-                int idProductoBusqueda = idProducto ?? 0;
-                
-                // Si hay ID de producto, buscar alternativas directas
                 if (idProducto.HasValue)
                 {
-                    var producto = await _mlService.RecomendarAlternativasAsync(idProducto.Value, termino ?? "");
-                    viewModel.Alternativas = producto;
-                    
-                    // Obtener nombre del producto original
-                    var productoOriginal = new object(); // Placeholder - en producción obtener de BD
-                    viewModel.ProductoOriginalNombre = $"Producto ID: {idProducto}";
-                    viewModel.ProductoOriginalSinStock = true;
+                    var alternativas = await _mlService.RecomendarAlternativasAsync(idProducto.Value, termino ?? "");
+                    viewModel.Alternativas = alternativas;
+
+                    // CORRECCIÓN: Obtener el nombre real del producto original de la base de datos
+                    var productoOriginal = await _context.Productos.FindAsync(idProducto.Value);
+                    viewModel.ProductoOriginalNombre = productoOriginal != null
+                        ? productoOriginal.Nombre
+                        : $"Producto ID: {idProducto}";
+
+                    viewModel.ProductoOriginalSinStock = productoOriginal != null && productoOriginal.Stock <= 0;
                 }
                 else if (!string.IsNullOrEmpty(termino))
                 {
-                    // Búsqueda por término - encontrar producto y sugerir alternativas
-                    // Esto es un placeholder - en producción buscar en la BD
-                    viewModel.Alternativas = new System.Collections.Generic.List<Models.ML.ProductoAlternativoResult>();
+                    // Búsqueda por término directo
+                    var productoCoincidente = await _context.Productos
+                        .FirstOrDefaultAsync(p => EF.Functions.Like(p.Nombre, $"%{termino}%") && p.Estado == "Activo");
+
+                    if (productoCoincidente != null)
+                    {
+                        var alternativas = await _mlService.RecomendarAlternativasAsync(productoCoincidente.IdProducto, termino);
+                        viewModel.Alternativas = alternativas;
+                        viewModel.ProductoOriginalNombre = productoCoincidente.Nombre;
+                        viewModel.IdProductoSeleccionado = productoCoincidente.IdProducto;
+                        viewModel.ProductoOriginalSinStock = productoCoincidente.Stock <= 0;
+                    }
+                    else
+                    {
+                        viewModel.Alternativas = new System.Collections.Generic.List<Models.ML.ProductoAlternativoResult>();
+                        viewModel.ProductoOriginalNombre = $"No se encontró coincidencia para '{termino}'";
+                    }
                 }
             }
 
@@ -87,9 +105,6 @@ namespace SISWEBBOTICA.Controllers
         public async Task<IActionResult> ExportarCompras()
         {
             var comprasSugeridas = await _mlService.OptimizarComprasAsync();
-            
-            // Aquí se podría generar un PDF o Excel con la lista de compras
-            // Por ahora redirigimos a la vista de compra
             return RedirectToAction(nameof(Compra));
         }
     }
