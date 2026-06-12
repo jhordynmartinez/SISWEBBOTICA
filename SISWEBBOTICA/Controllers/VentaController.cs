@@ -1,4 +1,4 @@
-﻿using ClosedXML.Excel; // <-- Importante: Asegúrate de tener este 'using'
+﻿using ClosedXML.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +28,6 @@ namespace SISWEBBOTICA.Controllers
         }
 
         // GET: /Venta
-        // CORREGIDO: Acepta parámetros de fecha para el filtrado
         public async Task<IActionResult> Index(DateTime? fechaInicio, DateTime? fechaFin)
         {
             ViewData["FechaInicio"] = fechaInicio?.ToString("yyyy-MM-dd");
@@ -66,7 +65,7 @@ namespace SISWEBBOTICA.Controllers
         public async Task<IActionResult> Crear(VentaVM model)
         {
             bool isAjax = Request.Headers["X-Requested-With"].ToString() == "XMLHttpRequest";
-            
+
             System.Diagnostics.Debug.WriteLine($"[VENTA] POST recibido. AJAX: {isAjax}, Model null: {model == null}");
             if (model != null)
             {
@@ -87,9 +86,8 @@ namespace SISWEBBOTICA.Controllers
                 var errorMessages = string.Join("; ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                 System.Diagnostics.Debug.WriteLine($"[VENTA] ModelState NO válido. Errores: {errorMessages}");
                 if (isAjax)
-                    // Asegurarse de que se devuelva un JSON con el campo 'error'
                     return Json(new { success = false, error = errorMessages, errors = ModelState.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()) });
-                
+
                 await RecargarDatosParaVista(model);
                 return View(model);
             }
@@ -160,7 +158,7 @@ namespace SISWEBBOTICA.Controllers
                         var clienteDefault = await _context.Clientes.FirstOrDefaultAsync(c => c.Nombre == "PÚBLICO GENERAL");
                         if (clienteDefault == null)
                         {
-                            var errMsg = "No se encontró el cliente 'PÚBLICO GENERAL'. Contacte al administrador.";
+                            var errMsg = "No se encontró el cliente 'PÚBLICO GENERAL' en la base de datos. Por favor, regístrelo.";
                             ModelState.AddModelError("", errMsg);
                             if (isAjax)
                                 return Json(new { success = false, error = errMsg });
@@ -240,7 +238,7 @@ namespace SISWEBBOTICA.Controllers
                     var errMsg = $"Error al guardar en base de datos: {dbEx.InnerException?.Message ?? dbEx.Message}";
                     System.Diagnostics.Debug.WriteLine($"[VENTA] Error DB: {dbEx.ToString()}");
                     if (isAjax)
-                        return Json(new { success = false, error = errMsg }); // Asegurarse de que devuelva un JSON con el campo 'error'
+                        return Json(new { success = false, error = errMsg });
                     ModelState.AddModelError("", errMsg);
                     await RecargarDatosParaVista(model);
                     return View(model);
@@ -251,7 +249,7 @@ namespace SISWEBBOTICA.Controllers
                     var errMsg = $"Ocurrió un error inesperado: {ex.Message}";
                     System.Diagnostics.Debug.WriteLine($"[VENTA] Error general: {ex.ToString()}");
                     if (isAjax)
-                        return Json(new { success = false, error = errMsg }); // Asegurarse de que devuelva un JSON con el campo 'error'
+                        return Json(new { success = false, error = errMsg });
                     ModelState.AddModelError("", errMsg);
                     await RecargarDatosParaVista(model);
                     return View(model);
@@ -291,7 +289,7 @@ namespace SISWEBBOTICA.Controllers
             return Json(productos);
         }
 
-        // --- NUEVO MÉTODO PARA EXPORTAR A EXCEL ---
+        // Exportación a Excel
         public async Task<IActionResult> ExportarVentas(DateTime? fechaInicio, DateTime? fechaFin)
         {
             var ventasQuery = _context.Ventas.Include(v => v.Cliente).Include(v => v.Usuario).AsQueryable();
@@ -311,7 +309,6 @@ namespace SISWEBBOTICA.Controllers
                 worksheet.Cell(currentRow, 4).Value = "Total";
                 worksheet.Cell(currentRow, 5).Value = "Vendedor";
 
-                // Estilo para la cabecera
                 worksheet.Row(1).Style.Font.Bold = true;
 
                 foreach (var v in ventas)
@@ -328,7 +325,6 @@ namespace SISWEBBOTICA.Controllers
                 worksheet.Cell(currentRow + 1, 4).FormulaA1 = $"=SUM(D2:D{currentRow})";
                 worksheet.Cell(currentRow + 1, 3).Style.Font.Bold = true;
                 worksheet.Cell(currentRow + 1, 4).Style.Font.Bold = true;
-
 
                 worksheet.Columns().AdjustToContents();
 
@@ -354,20 +350,19 @@ namespace SISWEBBOTICA.Controllers
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error al cargar clientes: {ex.Message}");
-                // If the Estado column doesn't exist yet, try without filter
                 try
                 {
                     var clientes = await _context.Clientes.OrderBy(c => c.Nombre).ToListAsync();
                     model.Clientes = new SelectList(clientes, "IdCliente", "Nombre", model.IdCliente);
                 }
-                catch { /* Ignore if clientes table has issues */ }
+                catch { }
             }
-            
+
             try
             {
                 model.MetodosPago = new SelectList(await _context.MetodosPago.ToListAsync(), "IdMetodoPago", "Nombre", model.IdMetodoPago);
             }
-            catch { /* Ignore if metodos pago table has issues */ }
+            catch { }
         }
 
         private async Task<string> GenerarSiguienteCorrelativo()

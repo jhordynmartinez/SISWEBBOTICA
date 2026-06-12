@@ -5,17 +5,17 @@
 }
 
 <style>
-.ui-autocomplete-loading {
-    background: white url('/img/ui-anim_basic_16x16.gif') right center no-repeat;
-}
+    .ui-autocomplete-loading {
+        background: white url('/img/ui-anim_basic_16x16.gif') right center no-repeat;
+    }
 
-.table-sm th, .table-sm td {
-    vertical-align: middle;
-}
+    .table-sm th, .table-sm td {
+        vertical-align: middle;
+    }
 
-.total-section span {
-    font-family: 'Courier New', Courier, monospace;
-}
+    .total-section span {
+        font-family: 'Courier New', Courier, monospace;
+    }
 </style>
 
 <div class="container mt-4">
@@ -26,21 +26,35 @@
         <div class="card-body">
             @if (TempData["SuccessMessage"] != null)
             {
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        @TempData["SuccessMessage"]
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             }
             <div asp-validation-summary="All" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
 
+            <!-- FORMULARIO PRINCIPAL -->
             <form asp-action="Crear" method="post" id="form-venta" novalidate>
                 @Html.AntiForgeryToken()
 
                 <div class="row mb-3 border-bottom pb-3">
+                    <!-- SECCIÓN DEL CLIENTE (CORREGIDA SIN FORMULARIO ANIDADO) -->
                     <div class="col-md-5">
-                        @* Incluir el componente de selección de cliente *@
-                        @await Html.PartialAsync("_ClienteSelectModal")
+                        <label class="form-label fw-bold">Cliente</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <!-- Input oculto para enviar el ID del cliente al backend -->
+                            <input type="hidden" asp-for="IdCliente" id="IdCliente" />
+                            <!-- Campo visible para ver el nombre del cliente seleccionado -->
+                            <input type="text" id="ClienteNombre" class="form-control" readonly placeholder="PÚBLICO GENERAL" />
+                            <!-- Botón para abrir el modal (que ahora vive al final del archivo) -->
+                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalClientes">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                        <span asp-validation-for="IdCliente" class="text-danger"></span>
                     </div>
+
                     <div class="col-md-7">
                         <label for="producto-search" class="form-label fw-bold">Buscar Medicamento</label>
                         <div class="input-group">
@@ -114,213 +128,203 @@
     </div>
 </div>
 
+<!-- EL MODAL SE INCLUYE AQUÍ (FUERA DEL FORMULARIO PRINCIPAL) -->
+@await Html.PartialAsync("_ClienteSelectModal")
+
 @section Scripts {
-        <!-- Validación manejada manualmente en JS -->
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                let detalles = [];
-                const IGV_RATE = 0.18;
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let detalles = [];
+            const IGV_RATE = 0.18;
 
-                // --- INICIO DE LA SECCIÓN AGREGADA ---
-                function inicializarCarrito() {
-                    // Serializa los detalles del modelo C# a un objeto JSON de JavaScript
-                    var detallesDesdeServidor = @Html.Raw(Json.Serialize(Model.Detalles ?? new List<DetalleVentaVM>()));
+            function inicializarCarrito() {
+                var detallesDesdeServidor = @Html.Raw(Json.Serialize(Model.Detalles ?? new List<DetalleVentaVM>()));
 
-                    if (detallesDesdeServidor && detallesDesdeServidor.length > 0) {
-                        detalles = detallesDesdeServidor.map(item => ({
-                            idProducto: item.idProducto,
-                            nombre: item.nombreProducto, // Este campo es clave para reconstruir la vista
-                            cantidad: item.cantidad,
-                            precio: item.precio,
-                            stock: 0
-                        }));
-                        renderizarTablaYTotales();
-                    }
-                }
-                // --- FIN DE LA SECCIÓN AGREGADA ---
-
-                $("#producto-search").autocomplete({
-                    source: function (request, response) {
-                        $.ajax({
-                            url: "@Url.Action("BuscarProductos", "Venta")",
-                            dataType: "json",
-                            data: { term: request.term },
-                            success: function (data) { response(data); }
-                        });
-                    },
-                    minLength: 2,
-                    select: function (event, ui) {
-                        agregarAlCarrito(ui.item);
-                        $(this).val('');
-                        return false;
-                    }
-                });
-
-                function agregarAlCarrito(producto) {
-                    const existente = detalles.find(d => d.idProducto === producto.id);
-                    if (existente) {
-                        existente.cantidad += 1;
-                    } else {
-                        detalles.push({
-                            idProducto: producto.id,
-                            nombre: producto.value,
-                            cantidad: 1,
-                            precio: parseFloat(producto.precio),
-                            stock: parseFloat(producto.stock)
-                        });
-                    }
+                if (detallesDesdeServidor && detallesDesdeServidor.length > 0) {
+                    detalles = detallesDesdeServidor.map(item => ({
+                        idProducto: item.idProducto,
+                        nombre: item.nombreProducto,
+                        cantidad: item.cantidad,
+                        precio: item.precio,
+                        stock: 0
+                    }));
                     renderizarTablaYTotales();
                 }
+            }
 
-                function renderizarTablaYTotales() {
-                    const tbody = $("#tabla-detalles tbody");
-                    tbody.empty();
-
-                    if (detalles.length === 0) {
-                         tbody.append('<tr><td colspan="5" class="text-center text-muted">No hay medicamentos en la venta.</td></tr>');
-                    }
-
-                    detalles.forEach((item, index) => {
-                        const subtotalItem = item.cantidad * item.precio;
-                        const nombreProducto = item.nombre || `Producto ID: ${item.idProducto}`;
-                        const fila = `
-                            <tr data-index="${index}">
-                                <td>
-                                    <input type="hidden" name="Detalles[${index}].IdProducto" value="${item.idProducto}" />
-                                    <!-- CORRECCIÓN: Se añade input oculto para el nombre -->
-                                    <input type="hidden" name="Detalles[${index}].NombreProducto" value="${nombreProducto}" />
-                                    <input type="hidden" name="Detalles[${index}].Precio" value="${item.precio.toFixed(2)}" />
-                                    <input type="hidden" name="Detalles[${index}].Subtotal" value="${subtotalItem.toFixed(2)}" />
-                                    ${nombreProducto}
-                                </td>
-                                <td><input type="number" name="Detalles[${index}].Cantidad" value="${item.cantidad}" class="form-control form-control-sm cantidad-input" min="0.01" step="any" /></td>
-                                <td>S/ ${item.precio.toFixed(2)}</td>
-                                <td>S/ ${subtotalItem.toFixed(2)}</td>
-                                <td><button type="button" class="btn btn-danger btn-sm eliminar-fila">&times;</button></td>
-                            </tr>`;
-                        tbody.append(fila);
-                    });
-
-                    actualizarTotales();
-                }
-
-                function actualizarTotales() {
-                    let totalGeneral = 0;
-                    detalles.forEach(item => {
-                        totalGeneral += item.cantidad * item.precio;
-                    });
-
-                    const subtotalVenta = totalGeneral / (1 + IGV_RATE);
-                    const igvCalculado = totalGeneral - subtotalVenta;
-
-                    $("#subtotal-span").text(`S/ ${subtotalVenta.toFixed(2)}`);
-                    $("#igv-span").text(`S/ ${igvCalculado.toFixed(2)}`);
-                    $("#total-span").text(`S/ ${totalGeneral.toFixed(2)}`);
-
-                    $('input[name="Subtotal"]').val(subtotalVenta.toFixed(2).replace(',', '.'));
-                    $('input[name="IGV"]').val(igvCalculado.toFixed(2).replace(',', '.'));
-                    $('input[name="Total"]').val(totalGeneral.toFixed(2).replace(',', '.'));
-                }
-
-                $("#tabla-detalles").on("change", ".cantidad-input", function () {
-                    const index = $(this).closest("tr").data("index");
-                    const nuevaCantidad = parseFloat($(this).val());
-
-                    if (!isNaN(nuevaCantidad) && nuevaCantidad > 0) {
-                        detalles[index].cantidad = nuevaCantidad;
-                    } else {
-                        detalles[index].cantidad = 1;
-                    }
-                    renderizarTablaYTotales();
-                });
-
-                $("#tabla-detalles").on("click", ".eliminar-fila", function () {
-                    const index = $(this).closest("tr").data("index");
-                    detalles.splice(index, 1);
-                    renderizarTablaYTotales();
-                });
-
-                // CORRECCIÓN: Llamar a la función al cargar la página
-                inicializarCarrito();
-
-                // Desactivar jQuery Validate para que no bloquee el submit
-                if ($("#form-venta").data("validator")) {
-                    $("#form-venta").data("validator").settings.ignore = [];
-                }
-
-                // Submit handler - AJAX para no perder el carrito
-                $("#form-venta").on("submit", function (e) {
-                    e.preventDefault(); // Prevenir submit normal
-
-                    console.log("=== FORM SUBMIT TRIGGERED ===");
-                    console.log("Detalles en carrito:", detalles.length);
-                    console.log("IdMetodoPago:", $("#IdMetodoPago").val());
-                    console.log("Total:", $("input[name='Total']").val());
-
-                    // Validaciones cliente
-                    if (detalles.length === 0) {
-                        alert("Debe agregar al menos un medicamento a la venta.");
-                        return;
-                    }
-
-                    var metodoPago = $("#IdMetodoPago").val();
-                    if (!metodoPago) {
-                        alert("Debe seleccionar un método de pago.");
-                        $("#IdMetodoPago").focus();
-                        return;
-                    }
-
-                    // Actualizar cantidades desde los inputs antes de enviar
-                    $(".cantidad-input").each(function () {
-                        var index = $(this).closest("tr").data("index");
-                        detalles[index].cantidad = parseFloat($(this).val());
-                    });
-
-                    // Re-calcular subtotales desde los detalles actualizados
-                    detalles.forEach(function (item, index) {
-                        item.subtotal = item.cantidad * item.precio;
-                        // Asegurarse de que el input oculto de subtotal se actualice
-                        $("input[name='Detalles[" + index + "].Subtotal']").val(item.subtotal.toFixed(2));
-                    });
-
-                    var formData = $(this).serialize();
-                    var $btn = $("#form-venta button[type='submit']");
-                    $btn.prop("disabled", true).html('<i class="fas fa-spinner fa-spin"></i> Procesando...');
-
-                    console.log("Enviando datos por AJAX...");
-
+            $("#producto-search").autocomplete({
+                source: function (request, response) {
                     $.ajax({
-                        url: "@Url.Action("Crear", "Venta")",
-                        type: "POST",
-                        data: formData,
+                        url: "@Url.Action("BuscarProductos", "Venta")",
                         dataType: "json",
-                        success: function (data) {
-                            console.log("Respuesta del servidor:", data);
-                            if (data.success) {
-                                console.log("Venta exitosa! Redirigiendo a:", data.redirectUrl);
-                                window.location.href = data.redirectUrl;
-                            } else {
-                                alert("Error al registrar la venta:\n\n" + data.error);
-                            }
-                            $btn.prop("disabled", false).html('<i class="fas fa-check-circle"></i> Registrar Venta');
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Error AJAX:", status, error);
-                            console.error("Response:", xhr.responseText);
-                            var errorMsg = "Error al registrar la venta.";
-                            try {
-                                var resp = JSON.parse(xhr.responseText);
-                                if (resp.error) errorMsg += "\n\n" + resp.error;
-                            } catch (e) {
-                                // No JSON response
-                            }
-                            alert(errorMsg);
-                            $btn.prop("disabled", false).html('<i class="fas fa-check-circle"></i> Registrar Venta');
-                        }
+                        data: { term: request.term },
+                        success: function (data) { response(data); }
                     });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    agregarAlCarrito(ui.item);
+                    $(this).val('');
+                    return false;
+                }
+            });
+
+            function agregarAlCarrito(producto) {
+                const existente = detalles.find(d => d.idProducto === producto.id);
+                if (existente) {
+                    existente.cantidad += 1;
+                } else {
+                    detalles.push({
+                        idProducto: producto.id,
+                        nombre: producto.value,
+                        cantidad: 1,
+                        precio: parseFloat(producto.precio),
+                        stock: parseFloat(producto.stock)
+                    });
+                }
+                renderizarTablaYTotales();
+            }
+
+            function renderizarTablaYTotales() {
+                const tbody = $("#tabla-detalles tbody");
+                tbody.empty();
+
+                if (detalles.length === 0) {
+                     tbody.append('<tr><td colspan="5" class="text-center text-muted">No hay medicamentos en la venta.</td></tr>');
+                }
+
+                detalles.forEach((item, index) => {
+                    const subtotalItem = item.cantidad * item.precio;
+                    const nombreProducto = item.nombre || `Producto ID: ${item.idProducto}`;
+                    const fila = `
+                        <tr data-index="${index}">
+                            <td>
+                                <input type="hidden" name="Detalles[${index}].IdProducto" value="${item.idProducto}" />
+                                <input type="hidden" name="Detalles[${index}].NombreProducto" value="${nombreProducto}" />
+                                <input type="hidden" name="Detalles[${index}].Precio" value="${item.precio.toFixed(2)}" />
+                                <input type="hidden" name="Detalles[${index}].Subtotal" value="${subtotalItem.toFixed(2)}" />
+                                ${nombreProducto}
+                            </td>
+                            <td><input type="number" name="Detalles[${index}].Cantidad" value="${item.cantidad}" class="form-control form-control-sm cantidad-input" min="0.01" step="any" /></td>
+                            <td>S/ ${item.precio.toFixed(2)}</td>
+                            <td>S/ ${subtotalItem.toFixed(2)}</td>
+                            <td><button type="button" class="btn btn-danger btn-sm eliminar-fila">&times;</button></td>
+                        </tr>`;
+                    tbody.append(fila);
+                });
+
+                actualizarTotales();
+            }
+
+            function actualizarTotales() {
+                let totalGeneral = 0;
+                detalles.forEach(item => {
+                    totalGeneral += item.cantidad * item.precio;
+                });
+
+                const subtotalVenta = totalGeneral / (1 + IGV_RATE);
+                const igvCalculado = totalGeneral - subtotalVenta;
+
+                $("#subtotal-span").text(`S/ ${subtotalVenta.toFixed(2)}`);
+                $("#igv-span").text(`S/ ${igvCalculado.toFixed(2)}`);
+                $("#total-span").text(`S/ ${totalGeneral.toFixed(2)}`);
+
+                $('input[name="Subtotal"]').val(subtotalVenta.toFixed(2).replace(',', '.'));
+                $('input[name="IGV"]').val(igvCalculado.toFixed(2).replace(',', '.'));
+                $('input[name="Total"]').val(totalGeneral.toFixed(2).replace(',', '.'));
+            }
+
+            $("#tabla-detalles").on("change", ".cantidad-input", function () {
+                const index = $(this).closest("tr").data("index");
+                const nuevaCantidad = parseFloat($(this).val());
+
+                if (!isNaN(nuevaCantidad) && nuevaCantidad > 0) {
+                    detalles[index].cantidad = nuevaCantidad;
+                } else {
+                    detalles[index].cantidad = 1;
+                }
+                renderizarTablaYTotales();
+            });
+
+            $("#tabla-detalles").on("click", ".eliminar-fila", function () {
+                const index = $(this).closest("tr").data("index");
+                detalles.splice(index, 1);
+                renderizarTablaYTotales();
+            });
+
+            inicializarCarrito();
+
+            if ($("#form-venta").data("validator")) {
+                $("#form-venta").data("validator").settings.ignore = [];
+            }
+
+            // Envío mediante AJAX
+            $("#form-venta").on("submit", function (e) {
+                e.preventDefault();
+
+                console.log("=== FORM SUBMIT TRIGGERED ===");
+                console.log("Detalles en carrito:", detalles.length);
+                console.log("IdMetodoPago:", $("#IdMetodoPago").val());
+                console.log("Total:", $("input[name='Total']").val());
+
+                if (detalles.length === 0) {
+                    alert("Debe agregar al menos un medicamento a la venta.");
+                    return;
+                }
+
+                var metodoPago = $("#IdMetodoPago").val();
+                if (!metodoPago) {
+                    alert("Debe seleccionar un método de pago.");
+                    $("#IdMetodoPago").focus();
+                    return;
+                }
+
+                $(".cantidad-input").each(function () {
+                    var index = $(this).closest("tr").data("index");
+                    detalles[index].cantidad = parseFloat($(this).val());
+                });
+
+                detalles.forEach(function (item, index) {
+                    item.subtotal = item.cantidad * item.precio;
+                    $("input[name='Detalles[" + index + "].Subtotal']").val(item.subtotal.toFixed(2));
+                });
+
+                var formData = $(this).serialize();
+                var $btn = $("#form-venta button[type='submit']");
+                $btn.prop("disabled", true).html('<i class="fas fa-spinner fa-spin"></i> Procesando...');
+
+                console.log("Enviando datos por AJAX...");
+
+                $.ajax({
+                    url: "@Url.Action("Crear", "Venta")",
+                    type: "POST",
+                    data: formData,
+                    dataType: "json",
+                    success: function (data) {
+                        console.log("Respuesta del servidor:", data);
+                        if (data.success) {
+                            console.log("Venta exitosa! Redirigiendo a:", data.redirectUrl);
+                            window.location.href = data.redirectUrl;
+                        } else {
+                            alert("Error al registrar la venta:\n\n" + data.error);
+                        }
+                        $btn.prop("disabled", false).html('<i class="fas fa-check-circle"></i> Registrar Venta');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error AJAX:", status, error);
+                        console.error("Response:", xhr.responseText);
+                        var errorMsg = "Error al registrar la venta.";
+                        try {
+                            var resp = JSON.parse(xhr.responseText);
+                            if (resp.error) errorMsg += "\n\n" + resp.error;
+                        } catch (e) { }
+                        alert(errorMsg);
+                        $btn.prop("disabled", false).html('<i class="fas fa-check-circle"></i> Registrar Venta');
+                    }
                 });
             });
-        </script>
+        });
+    </script>
 }
