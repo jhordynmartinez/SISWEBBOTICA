@@ -33,26 +33,13 @@
             }
             <div asp-validation-summary="All" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
 
-            <!-- FORMULARIO PRINCIPAL -->
             <form asp-action="Crear" method="post" id="form-venta" novalidate>
                 @Html.AntiForgeryToken()
 
                 <div class="row mb-3 border-bottom pb-3">
-                    <!-- SECCIÓN DEL CLIENTE (CORREGIDA SIN FORMULARIO ANIDADO) -->
+                    <!-- COLUMNA DE CLIENTE: Solo llamamos al parcial aquí -->
                     <div class="col-md-5">
-                        <label class="form-label fw-bold">Cliente</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            <!-- Input oculto para enviar el ID del cliente al backend -->
-                            <input type="hidden" asp-for="IdCliente" id="IdCliente" />
-                            <!-- Campo visible para ver el nombre del cliente seleccionado -->
-                            <input type="text" id="ClienteNombre" class="form-control" readonly placeholder="PÚBLICO GENERAL" />
-                            <!-- Botón para abrir el modal (que ahora vive al final del archivo) -->
-                            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalClientes">
-                                <i class="fas fa-search"></i> Buscar
-                            </button>
-                        </div>
-                        <span asp-validation-for="IdCliente" class="text-danger"></span>
+                        @await Html.PartialAsync("_ClienteSelectModal")
                     </div>
 
                     <div class="col-md-7">
@@ -127,9 +114,6 @@
         </div>
     </div>
 </div>
-
-<!-- EL MODAL SE INCLUYE AQUÍ (FUERA DEL FORMULARIO PRINCIPAL) -->
-@await Html.PartialAsync("_ClienteSelectModal")
 
 @section Scripts {
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -260,14 +244,8 @@
                 $("#form-venta").data("validator").settings.ignore = [];
             }
 
-            // Envío mediante AJAX
             $("#form-venta").on("submit", function (e) {
                 e.preventDefault();
-
-                console.log("=== FORM SUBMIT TRIGGERED ===");
-                console.log("Detalles en carrito:", detalles.length);
-                console.log("IdMetodoPago:", $("#IdMetodoPago").val());
-                console.log("Total:", $("input[name='Total']").val());
 
                 if (detalles.length === 0) {
                     alert("Debe agregar al menos un medicamento a la venta.");
@@ -295,17 +273,13 @@
                 var $btn = $("#form-venta button[type='submit']");
                 $btn.prop("disabled", true).html('<i class="fas fa-spinner fa-spin"></i> Procesando...');
 
-                console.log("Enviando datos por AJAX...");
-
                 $.ajax({
                     url: "@Url.Action("Crear", "Venta")",
                     type: "POST",
                     data: formData,
                     dataType: "json",
                     success: function (data) {
-                        console.log("Respuesta del servidor:", data);
                         if (data.success) {
-                            console.log("Venta exitosa! Redirigiendo a:", data.redirectUrl);
                             window.location.href = data.redirectUrl;
                         } else {
                             alert("Error al registrar la venta:\n\n" + data.error);
@@ -313,8 +287,6 @@
                         $btn.prop("disabled", false).html('<i class="fas fa-check-circle"></i> Registrar Venta');
                     },
                     error: function (xhr, status, error) {
-                        console.error("Error AJAX:", status, error);
-                        console.error("Response:", xhr.responseText);
                         var errorMsg = "Error al registrar la venta.";
                         try {
                             var resp = JSON.parse(xhr.responseText);

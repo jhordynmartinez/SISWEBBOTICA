@@ -2,10 +2,11 @@
 
 <div class="mb-3">
     <label for="clienteDisplay" class="form-label fw-bold">
-        <i class="fas fa-user me-2"></i> Cliente
+        Cliente
     </label>
 
     <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
         <input type="text"
                id="clienteDisplay"
                class="form-control"
@@ -17,7 +18,7 @@
                 id="btnExpandirCliente"
                 data-bs-toggle="modal"
                 data-bs-target="#modalClienteSelect">
-            <i class="fas fa-chevron-down"></i>
+            <i class="fas fa-search"></i> Buscar
         </button>
     </div>
 
@@ -90,7 +91,7 @@
                         </div>
                     </div>
 
-                    @* TAB 2: REGISTRAR NUEVO CLIENTE (CORREGIDO: Se cambia <form> por <div> para evitar anidación) *@
+                    @* TAB 2: REGISTRAR NUEVO CLIENTE *@
                     <div class="tab-pane fade" id="registrar-cliente" role="tabpanel">
                         <div id="formRegistroCliente">
                             <div class="mb-2">
@@ -163,7 +164,6 @@
 
         let todosLosClientes = [];
 
-        // Cargar clientes al abrir el modal
         const modalElement = document.getElementById('modalClienteSelect');
         if (modalElement) {
             modalElement.addEventListener('show.bs.modal', async function() {
@@ -171,7 +171,6 @@
             });
         }
 
-        // Función para cargar clientes
         async function cargarClientes() {
             if (container) {
                 container.innerHTML = '<div class="text-center text-muted py-5"><i class="fas fa-spinner fa-spin me-2"></i> Cargando clientes...</div>';
@@ -190,14 +189,13 @@
                     container.innerHTML = `
                         <div class="text-center text-danger py-4">
                             <i class="fas fa-exclamation-triangle me-2"></i>
-                            Error al cargar clientes. Intente de nuevo.
+                            Error al cargar clientes.
                             <br><small class="text-muted">${error.message}</small>
                         </div>`;
                 }
             }
         }
 
-        // Función para mostrar clientes
         function mostrarClientes(clientes) {
             if (!container) return;
 
@@ -217,27 +215,24 @@
                         <strong>${escapeHtml(c.nombre)} ${escapeHtml(c.apellido || '')}</strong>
                     </div>
                     <div class="cliente-detalle">
-                        RUC/DNI: ${escapeHtml(c.rucDni)} | Tel: ${escapeHtml(c.telefono) || 'N/A'} | Email: ${escapeHtml(c.email) || 'N/A'}
+                        RUC/DNI: ${escapeHtml(c.rucDni)} | Tel: ${escapeHtml(c.telefono) || 'N/A'}
                     </div>
                 </div>
             `).join('');
         }
 
-        // Búsqueda de clientes
         if (inputBuscar) {
             inputBuscar.addEventListener('input', function() {
                 const termino = this.value.toLowerCase();
                 const filtrados = todosLosClientes.filter(c =>
                     (c.nombre && c.nombre.toLowerCase().includes(termino)) ||
                     (c.rucDni && c.rucDni.includes(termino)) ||
-                    (c.telefono && c.telefono.includes(termino)) ||
-                    (c.email && c.email.toLowerCase().includes(termino))
+                    (c.telefono && c.telefono.includes(termino))
                 );
                 mostrarClientes(filtrados);
             });
         }
 
-        // Guardar nuevo cliente
         if (btnGuardar) {
             btnGuardar.addEventListener('click', async function() {
                 const rucInput = document.getElementById('nuevoRuc');
@@ -290,19 +285,15 @@
                         const clienteId = result.cliente.idCliente || result.cliente.id;
                         seleccionarCliente(clienteId, `${result.cliente.nombre} ${result.cliente.apellido || ''}`, result.cliente.rucDni);
 
-                        // Resetear inputs del formulario interno
                         if (rucInput) rucInput.value = '';
                         if (nombreInput) nombreInput.value = '';
                         if (apellidoInput) apellidoInput.value = '';
                         if (telefonoInput) telefonoInput.value = '';
 
-                        // Cerrar el modal de manera segura
                         cerrarModal();
-
-                        // Refrescar lista de clientes en segundo plano
                         await cargarClientes();
                     } else {
-                        throw new Error(result.message || 'Error desconocido al registrar');
+                        throw new Error(result.message || 'Error al registrar');
                     }
                 } catch (error) {
                     console.error('Error al registrar cliente:', error);
@@ -315,7 +306,6 @@
         }
     });
 
-    // Función global para seleccionar cliente
     function seleccionarCliente(idCliente, nombreCliente, rucDni) {
         const idInput = document.getElementById('idClienteSeleccionado');
         const displayInput = document.getElementById('clienteDisplay');
@@ -326,7 +316,6 @@
         cerrarModal();
     }
 
-    // Función para seleccionar PÚBLICO GENERAL
     function seleccionarClientePublico() {
         const idInput = document.getElementById('idClienteSeleccionado');
         const displayInput = document.getElementById('clienteDisplay');
@@ -337,7 +326,6 @@
         cerrarModal();
     }
 
-    // Función segura para cerrar el modal soportando múltiples versiones de Bootstrap (JS Nativo y jQuery)
     function cerrarModal() {
         const modalEl = document.getElementById('modalClienteSelect');
         if (modalEl) {
